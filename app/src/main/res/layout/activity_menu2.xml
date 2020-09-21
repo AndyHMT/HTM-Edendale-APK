@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Menu2Activity">
+
+    <Button
+        android:id="@+id/btnSyncStock"
+        android:layout_width="175dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/dark_blue_button"
+        android:drawableTop="@drawable/ic_sync"
+        android:drawablePadding="2dp"
+        android:padding="15dp"
+        android:text="Sync Stock"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSalesReport" />
+
+    <Button
+        android:id="@+id/btnSalesReport"
+        android:layout_width="175dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/orange_button"
+        android:drawableTop="@drawable/ic_report"
+        android:drawablePadding="2dp"
+        android:padding="15dp"
+        android:text="Sales Report"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnComplaints2"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRejectedOrder" />
+
+    <Button
+        android:id="@+id/btnComplaints2"
+        android:layout_width="175dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/green_button"
+        android:drawableTop="@drawable/ic_complaint"
+        android:drawablePadding="2dp"
+        android:padding="15dp"
+        android:text="Complaints"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStockTake" />
+
+    <Button
+        android:id="@+id/btnPush2"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#4E125A"
+        android:text="Push"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSyncStock"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnRejectedOrder"
+        android:layout_width="175dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/purple_button"
+        android:drawableTop="@drawable/ic_rejected_order"
+        android:drawablePadding="2dp"
+        android:padding="15dp"
+        android:text="Rejected Order"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnStockTake"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateOrder" />
+
+    <Button
+        android:id="@+id/btnStockTake"
+        android:layout_width="175dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/blue_grey_button"
+        android:drawableTop="@drawable/ic_stock_logo"
+        android:drawablePadding="2dp"
+        android:padding="15dp"
+        android:text="Stock Take"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchOrder" />
+
+    <Button
+        android:id="@+id/btnSearchOrder"
+        android:layout_width="175dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/grey_button"
+        android:drawableTop="@drawable/ic_price"
+        android:drawablePadding="2dp"
+        android:padding="15dp"
+        android:text="Search Order"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="280dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="536dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waveView3"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/edendale_logo" />
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="60dp"
+        android:layout_height="71dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.899"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/hmt_logo" />
+
+    <View
+        android:id="@+id/waveView3"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:background="@drawable/wavy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSync3"
+        android:layout_width="175dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="28dp"
+        android:backgroundTint="#2C3479"
+        android:text="Synchronize"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnPush"
+        app:layout_constraintHorizontal_bias="0.888"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSyncStock"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <Button
+        android:id="@+id/btnCreateOrder"
+        android:layout_width="175dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/pale_blue_button"
+        android:drawableTop="@drawable/ic_create_order"
+        android:drawablePadding="2dp"
+        android:padding="15dp"
+        android:text="Create Order"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearchOrder"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+</androidx.constraintlayout.widget.ConstraintLayout>
