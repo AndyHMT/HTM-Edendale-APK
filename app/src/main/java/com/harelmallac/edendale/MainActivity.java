@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.harelmallac.edendale.database.DataBaseHelper;
 import com.harelmallac.edendale.model.UserModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -21,7 +24,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
+        final DataBaseHelper dB = new DataBaseHelper(MainActivity.this);
+        final List<UserModel>[] userList = new List[]{new ArrayList<UserModel>()};
+
+
 
 
         Button btnLogin = findViewById(R.id.btnLogin);
@@ -29,13 +35,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserModel userModel;
-                userModel = new UserModel(5,"qawsdfg","asdfg","erfgn","hgfd","hygfds","hgbvc",true,"jnbvcx");
 
-                DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity.this);
-                boolean success = dataBaseHelper.addOne(userModel);
-
-                Toast.makeText(MainActivity.this, "Success = " + success, Toast.LENGTH_LONG).show();
+                userList[0] = dB.getAllElements();
 
                 Intent loginIntent = new Intent( MainActivity.this,
                         MenuActivity.class );
