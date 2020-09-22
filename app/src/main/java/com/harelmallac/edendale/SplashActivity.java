@@ -7,19 +7,23 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
+import com.harelmallac.edendale.database.ApiRequest;
 import com.harelmallac.edendale.database.DataBaseHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT= 3000;
-
+    private static int SPLASH_TIME_OUT= 30000;
     private DataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Toast.makeText(SplashActivity.this, "Application starting... ", Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ApiRequest apiRequest = new ApiRequest();
+        apiRequest.getDataFromMiddleware(this);
 
         dataBaseHelper = new DataBaseHelper(this);
 
@@ -33,8 +37,9 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(loginIntent);
                 finish();
 
-
             }
         } , SPLASH_TIME_OUT );
     }
+
+
 }

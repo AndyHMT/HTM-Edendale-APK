@@ -2,17 +2,22 @@ package com.harelmallac.edendale.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import com.harelmallac.edendale.SplashActivity;
 import com.harelmallac.edendale.model.*;
 
+import java.util.ArrayList;
 
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -24,7 +29,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //Function for the first time a database is accessed.
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         //FOR USER PART
         String dropTableStatement="DROP TABLE IF EXISTS " + USER_TABLE;
         db.execSQL(dropTableStatement);
@@ -91,6 +95,38 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @RequiresApi(api = Build.VERSION_CODES.P)
     public DataBaseHelper(@Nullable Context context, @Nullable String name, int version, @NonNull SQLiteDatabase.OpenParams openParams) {
         super(context, name, version, openParams);
+    }
+
+    public ArrayList<UserModel> getAllElements() {
+
+        ArrayList<UserModel> list = new ArrayList<UserModel>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + USER_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            try {
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        UserModel obj = new UserModel();
+                        list.add(obj);
+                    } while (cursor.moveToNext());
+                }
+
+            } finally {
+                try { cursor.close(); } catch (Exception ignore) {}
+            }
+
+        } finally {
+            try { db.close(); } catch (Exception ignore) {}
+        }
+
+        return list;
     }
 
 

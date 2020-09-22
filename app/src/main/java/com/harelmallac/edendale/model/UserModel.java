@@ -2,7 +2,7 @@ package com.harelmallac.edendale.model;
 
 public class UserModel {
 
-    private int userId;
+    private String userId;
     private String username;
     private String password;
     private String repNum;
@@ -12,7 +12,7 @@ public class UserModel {
     private String bank;
     private boolean active;
 
-    public UserModel(int userId, String password, String repNum, String salesSiteId, String role, String username, String bank, boolean active, String mainsite  ) {
+    public UserModel(String userId, String password, String repNum, String salesSiteId, String role, String username, String bank, boolean active, String mainsite  ) {
         this.userId = userId;
         this.password = password;
         this.repNum = repNum;
@@ -29,11 +29,11 @@ public class UserModel {
 
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
