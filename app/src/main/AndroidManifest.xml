@@ -3,6 +3,7 @@
     package="com.harelmallac.edendale">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,8 @@
         <activity android:name=".Menu2Activity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"/>
+        <activity android:name=".StockRequestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

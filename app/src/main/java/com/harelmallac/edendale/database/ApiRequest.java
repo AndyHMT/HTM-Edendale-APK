@@ -56,7 +56,7 @@ public class ApiRequest {
                         userList.add(user);
 
 
-                        Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
                         Log.e("Id",id+"");
 
                     }

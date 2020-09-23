@@ -14,7 +14,7 @@ import com.harelmallac.edendale.database.DataBaseHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT= 30000;
+    private static int SPLASH_TIME_OUT= 7000;
     private DataBaseHelper dataBaseHelper;
 
     @Override
