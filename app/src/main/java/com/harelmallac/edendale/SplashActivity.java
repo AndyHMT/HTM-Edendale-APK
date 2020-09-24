@@ -23,7 +23,9 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ApiRequest apiRequest = new ApiRequest();
-        apiRequest.getDataFromMiddleware(this);
+        apiRequest.getUser(this);
+        apiRequest.getProducts(this);
+        apiRequest.getAllCustomers(this,"SR00010");
 
         dataBaseHelper = new DataBaseHelper(this);
 

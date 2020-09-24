@@ -5,7 +5,7 @@ public class ProductModel {
     private String sageIdentifier;
     private String productName;
     private String productType;
-    private float quantity;
+    private double quantity;
     private String vatRate;
     private String unit;
     private String subCat1;
@@ -17,7 +17,7 @@ public class ProductModel {
 
     public ProductModel(){}
 
-    public ProductModel(String sageIdentifier, String productName, String productType, float quantity, String vatRate, String unit, String subCat1, String subCat2, String subCat3, String subCat4, String subCat5, float percentageProd) {
+    public ProductModel(String sageIdentifier, String productName, String productType, double quantity, String vatRate, String unit, String subCat1, String subCat2, String subCat3, String subCat4, String subCat5) {
         this.sageIdentifier = sageIdentifier;
         this.productName = productName;
         this.productType = productType;
@@ -29,7 +29,6 @@ public class ProductModel {
         this.subCat3 = subCat3;
         this.subCat4 = subCat4;
         this.subCat5 = subCat5;
-        this.percentageProd = percentageProd;
     }
 
     public String getSageIdentifier() {
@@ -56,11 +55,11 @@ public class ProductModel {
         this.productType = productType;
     }
 
-    public float getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(float quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

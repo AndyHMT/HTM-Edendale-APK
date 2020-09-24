@@ -6,10 +6,8 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +22,8 @@ import java.util.List;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     public static final String USER_TABLE = "tbl_user";
+    public static final String PRODUCT_TABLE = "tbl_product";
+    public static final String CUSTOMER_TABLE = "tbl_customer";
     public SQLiteDatabase db;
 
 
@@ -31,9 +31,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //FOR USER PART
-        String dropTableStatement="DROP TABLE IF EXISTS " + USER_TABLE;
-        db.execSQL(dropTableStatement);
-        Log.i("Drop Table User","Table User Dropped");
+        String sqlCreateTableInvoice = "CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
+        db.execSQL(sqlCreateTableInvoice);
+        Log.i("Created Table Invoice","Table User Dropped");
+        String sqlCreateTableProduct = "CREATE TABLE IF NOT EXISTS tbl_product(sageIdentifier VARCHAR(1000) PRIMARY KEY, productName TEXT, productType TEXT, quantity REAL, vatRate VARCHAR, unit VARCHAR, subCat1 VARCHAR, subCat2 VARCHAR, subCat3 VARCHAR, subCat4 VARCHAR, subCat5 VARCHAR)";
+        db.execSQL(sqlCreateTableProduct);
         String createTableStatement="CREATE TABLE "+ USER_TABLE+"(userId INTEGER PRIMARY KEY, password VARCHAR, salesRepId VARCHAR(500), salesSiteId VARCHAR, role VARCHAR, username VARCHAR, bank VARCHAR, active NUMERIC, mainsite VARCHAR )";
         db.execSQL(createTableStatement);
         Log.i("Create Table User","Table User Created");
@@ -46,7 +48,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addOne(UserModel userModel)
+    public boolean addUser(UserModel userModel)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -72,8 +74,83 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
         }
 
+    }
+
+    public boolean addProduct(ProductModel productModel)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("sageIdentifier",productModel.getSageIdentifier());
+        cv.put("productName",productModel.getProductName());
+        cv.put("productType",productModel.getProductType());
+        cv.put("quantity",productModel.getQuantity());
+        cv.put("vatRate",productModel.getVatRate());
+        cv.put("unit",productModel.getUnit());
+        cv.put("subCat1",productModel.getSubCat1());
+        cv.put("subCat1",productModel.getSubCat1());
+        cv.put("subCat2",productModel.getSubCat2());
+        cv.put("subCat3",productModel.getSubCat3());
+        cv.put("subCat4",productModel.getSubCat4());
+        cv.put("subCat5",productModel.getSubCat5());
+
+        long insert = db.insert(CUSTOMER_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public boolean addCustomer(CustomerModel customerModel)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("sageIdentifier",customerModel.getSageIdentifier());
+        cv.put("customerName",customerModel.getCustomerName());
+        cv.put("brn",customerModel.getBrn());
+        cv.put("vatCode",customerModel.getVatCode());
+        cv.put("vatNo",customerModel.getVatNo());
+        cv.put("customerType",customerModel.getCustomerType());
+        cv.put("amountOwedr",customerModel.getAmountOwed());
+        cv.put("salesRepId",customerModel.getSalesRepId());
+        cv.put("creditLimit",customerModel.getCreditLimit());
+
+        long insert = db.insert(PRODUCT_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public DataBaseHelper(@Nullable Context context) {
@@ -132,24 +209,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean checkCredentils(String username,String password)
     {
-//        db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery("SELECT * FROM tbl_user WHERE username=? and password =?", new String[]{username, password});
-//        int count = cursor.getCount();
-//        cursor.close();
-//        close();
-//
-//        if(count<0)
-//        {
-//            Log.e("asdv","aaaa");
-//            return false ;
-//        }
-//
-//        else
-//        {
-//            Log.e("asdv","aaaa");
-//            return true;
-//        }
-
         db=this.getReadableDatabase();
         String query = "SELECT COUNT(*) FROM "+USER_TABLE+" WHERE username ='"+username+"' AND password='"+password+"'";
         Cursor cursor = db.rawQuery(query,null);
@@ -169,10 +228,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Log.e("sdfb","true");
             return true;
         }
-
-
-
-
     }
 
 
