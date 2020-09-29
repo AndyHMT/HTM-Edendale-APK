@@ -24,6 +24,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String USER_TABLE = "tbl_user";
     public static final String PRODUCT_TABLE = "tbl_product";
     public static final String CUSTOMER_TABLE = "tbl_customer";
+    public static final String ADDRESS_TABLE = "tbl_address";
+    public static final String PRICE_TABLE = "tbl_price";
+    public static final String VAT_TABLE = "tbl_vat";
     public SQLiteDatabase db;
 
 
@@ -39,6 +42,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String createTableStatement="CREATE TABLE "+ USER_TABLE+"(userId INTEGER PRIMARY KEY, password VARCHAR, salesRepId VARCHAR(500), salesSiteId VARCHAR, role VARCHAR, username VARCHAR, bank VARCHAR, active NUMERIC, mainsite VARCHAR )";
         db.execSQL(createTableStatement);
         Log.i("Create Table User","Table User Created");
+        String sqlCreateTableCustomer = "CREATE TABLE IF NOT EXISTS tbl_customer(sageIdentifier VARCHAR(1000) PRIMARY KEY, customerName TEXT, brn VARCHAR, vatNo VARCHAR, salesRepId VARCHAR, customerType VARCHAR, vatCode VARCHAR, creditLimit VARCHAR, amountOwned VARCHAR)";
+        db.execSQL(sqlCreateTableCustomer);
+
     }
 
 
@@ -94,7 +100,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("subCat4",productModel.getSubCat4());
         cv.put("subCat5",productModel.getSubCat5());
 
-        long insert = db.insert(CUSTOMER_TABLE, null, cv);
+        long insert = db.insert(PRODUCT_TABLE, null, cv);
 
         if(insert == -1)
         {
@@ -117,11 +123,90 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("vatCode",customerModel.getVatCode());
         cv.put("vatNo",customerModel.getVatNo());
         cv.put("customerType",customerModel.getCustomerType());
-        cv.put("amountOwedr",customerModel.getAmountOwed());
+        cv.put("amountOwned",customerModel.getAmountOwed());
         cv.put("salesRepId",customerModel.getSalesRepId());
         cv.put("creditLimit",customerModel.getCreditLimit());
 
-        long insert = db.insert(PRODUCT_TABLE, null, cv);
+        long insert = db.insert(CUSTOMER_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+
+    public boolean addAddress(AddressModel addressModel)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("sageIdentifier",addressModel.getSageIdentifier());
+        cv.put("addressNumId",addressModel.getAddressId());
+        cv.put("name",addressModel.getName());
+        cv.put("addressLine1",addressModel.getAddressLine1());
+        cv.put("addressLine2",addressModel.getAddressLine2());
+        cv.put("city",addressModel.getCity());
+        cv.put("customerId",addressModel.getCustomerId());
+
+
+
+        long insert = db.insert(ADDRESS_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+
+
+    public boolean addPrice(PriceModel priceModel)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("customerId",priceModel.getCustomerId());
+        cv.put("productId",priceModel.getProductId());
+        cv.put("price",priceModel.getPrice());
+        cv.put("priority",priceModel.getPriority());
+
+
+        long insert = db.insert(PRICE_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+
+    public boolean addVat(VatModel vatModel)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("customerVatCode",vatModel.getCustomerVatCode());
+        cv.put("productVatRate",vatModel.getProductVatRate());
+        cv.put("vatRate",vatModel.getVatRate());
+
+
+        long insert = db.insert(VAT_TABLE, null, cv);
 
         if(insert == -1)
         {
