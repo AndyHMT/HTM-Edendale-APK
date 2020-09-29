@@ -26,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         apiRequest.getUser(this);
         apiRequest.getProducts(this);
         apiRequest.getAllCustomers(this,"SR00010");
+        apiRequest.getAllAdresses(this,"SR00010");
 
         dataBaseHelper = new DataBaseHelper(this);
 

@@ -8,18 +8,18 @@ public class AddressModel {
     private String addressLine1;
     private String addressLine2;
     private String city;
-    private CustomerModel customer;
+    private String customerId;
 
     public AddressModel(){}
 
-    public AddressModel(String sageIdentifier, String addressId, String name, String addressLine1, String addressLine2, String city, CustomerModel customer) {
+    public AddressModel(String sageIdentifier, String addressId, String name, String addressLine1, String addressLine2, String city, String customerId) {
         this.sageIdentifier = sageIdentifier;
         this.addressId = addressId;
         this.name = name;
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.city = city;
-        this.customer = customer;
+        this.customerId = customerId;
     }
 
     public String getSageIdentifier() {
@@ -70,11 +70,11 @@ public class AddressModel {
         this.city = city;
     }
 
-    public CustomerModel getCustomer() {
-        return customer;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(CustomerModel customer) {
-        this.customer = customer;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 }

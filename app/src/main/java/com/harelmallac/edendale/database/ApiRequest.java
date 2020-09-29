@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
+import com.harelmallac.edendale.model.AddressModel;
 import com.harelmallac.edendale.model.CustomerModel;
 import com.harelmallac.edendale.model.ProductModel;
 import com.harelmallac.edendale.model.UserModel;
@@ -33,7 +34,7 @@ import java.util.Map;
 
 public class ApiRequest {
 
-    final String URL = "http://192.168.85.141:8088/";
+    final String URL = "http://192.168.85.99:8088/";
     public SQLiteDatabase db;
 
     public void getUser(final Context context) {
@@ -176,22 +177,22 @@ public class ApiRequest {
         queue.add(objectRequest);
     }
 
-    public void getAllCustomers(Context context, String repnum)
+    public void getAllCustomers(final Context context, String repnum)
     {
         RequestQueue queue = Volley.newRequestQueue(context);
         //repnum = "SR00010";
         String url = URL + "customers/complete?salesRepId="+repnum+"&company=EDL";
         Log.e("URL",url);
-        DataBaseHelper dbH = new DataBaseHelper(context);
-        final SQLiteDatabase db1 = dbH.getWritableDatabase();
 
         JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             List<CustomerModel> customerList = new ArrayList<CustomerModel>();
+            DataBaseHelper dbH = new DataBaseHelper(context);
+            SQLiteDatabase db1 = dbH.getWritableDatabase();
 
             @Override
             public void onResponse(JSONArray response) {
 
-                String sqlCreateTableCustomer = "CREATE TABLE IF NOT EXISTS tbl_customer(sageIdentifier VARCHAR(1000) PRIMARY KEY, customerName TEXT, brn VARCHAR, vatNo VARCHAR, salesRepId VARCHAR, customerType VARCHAR, vatCode VARCHAR, creditLimit VARCHAR, amountOwed DOUBLE)";
+                String sqlCreateTableCustomer = "CREATE TABLE IF NOT EXISTS tbl_customer(sageIdentifier VARCHAR(1000) PRIMARY KEY, customerName TEXT, brn VARCHAR, vatNo VARCHAR, salesRepId VARCHAR, customerType VARCHAR, vatCode VARCHAR, creditLimit VARCHAR, amountOwned VARCHAR)";
                 db1.execSQL(sqlCreateTableCustomer);
                 Log.e("Created Table Customer","Table Customer Created");
                 try {
@@ -204,21 +205,94 @@ public class ApiRequest {
                         String vatCode = obj.getString("vatCode");
                         String vatNo = obj.getString("vatNo");
                         String customerType = obj.getString("customerType");
-                       // Double amountOwed = Double.parseDouble(obj.getString("amountOwed"));
+                        String amountOwned = "";
                         String salesRepId = obj.getString("salesRepId");
                         String creditLimit = obj.getString("creditLimit");
                         Log.e("Customer Name",customerName);
 
                         String sqlCreateTableProduct = "CREATE TABLE IF NOT EXISTS tbl_product(sageIdentifier VARCHAR(1000) PRIMARY KEY, productName TEXT, productType TEXT, quantity REAL, vatRate VARCHAR, unit VARCHAR, subCat1 VARCHAR, subCat2 VARCHAR, subCat3 VARCHAR, subCat4 VARCHAR, subCat5 VARCHAR)";
-                        db.execSQL(sqlCreateTableProduct);
+                        db1.execSQL(sqlCreateTableProduct);
                         Log.e("Created Table Product","Table Product Created");
                         String sqlDetelteFromProduct = "DELETE FROM tbl_product WHERE sageIdentifier = '"+sageIdentifier+"'";
-                        db.execSQL(sqlDetelteFromProduct);
+                        db1.execSQL(sqlDetelteFromProduct);
                         Log.e("DELETE FROM Table Product","DELETE FROM Product Created");
-//
-//                        ProductModel product = new ProductModel(sageIdentifier, productName, productType, quantity, vatRate, unit, subCat1, subCat2, subCat3, subCat4, subCat5);
-//                        dbH.addProduct(product);
-//                        productList.add(product);
+
+
+                        CustomerModel customer = new CustomerModel(sageIdentifier, customerName, brn, vatNo, salesRepId, customerType, vatCode, creditLimit, amountOwned);
+                        dbH.addCustomer(customer);
+                        customerList.add(customer);
+                        Log.e("Customers Table","Customer "+customer.getCustomerName()+" added");
+
+
+
+                        //Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
+                    }
+
+
+                } catch (JSONException e) {
+                    Log.e("error", e.toString());
+                    // If an error occurs, this prints the error to the log
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error response", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                String creds = String.format("%s:%s", "edend@leapp", "edend@l3_123");
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        queue.add(objectRequest);
+    }
+
+    public void getAllAdresses(final Context context, String repnum)
+    {
+        String url = URL+"addresses/salesRep?salesRepId="+repnum;
+        Log.e("URL",url);
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>(){
+            List<AddressModel> addressList = new ArrayList<AddressModel>();
+            DataBaseHelper dbH = new DataBaseHelper(context);
+            SQLiteDatabase db2 = dbH.getWritableDatabase();
+
+            @Override
+            public void onResponse(JSONArray response) {
+
+                String sqlCreateTableAdress = "CREATE TABLE IF NOT EXISTS tbl_address(sageIdentifier VARCHAR(1000) PRIMARY KEY, addressNumId VARCHAR, name TEXT, addressLine1 VARCHAR, addressLine2 VARCHAR, city VARCHAR, customerId VARCHAR)";
+                db2.execSQL(sqlCreateTableAdress);
+                Log.e("Created Table Adress","Table Adress Created");
+                try {
+
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject obj = response.getJSONObject(i);
+                        String sageIdentifier = obj.getString("sageIdentifier");
+                        String addressNumId = "";
+                        String name = obj.getString("name");
+                        String addressLine1 = obj.getString("addressLine1");
+                        String addressLine2 = obj.getString("addressLine2");
+                        String city = obj.getString("city");
+                        JSONObject customer  = obj.getJSONObject("customer");
+                        String customerId = customer.getString("sageIdentifier");
+
+                        Log.e("Customer Id",customerId);
+
+                        String sqlCreateTableProduct = "DELETE FROM tbl_address WHERE sageIdentifier ='"+sageIdentifier+"'";
+                        db2.execSQL(sqlCreateTableProduct);
+                        Log.e("DELETE FROM table Address","Alter address table");
+
+                        AddressModel address = new AddressModel(sageIdentifier, addressNumId, name, addressLine1, addressLine2,city, customerId);
+                        dbH.addAddress(address);
+                        addressList.add(address);
+                        Log.e("Address Table","Address "+address.getName()+" added");
 
 
 
@@ -251,7 +325,89 @@ public class ApiRequest {
     }
 
 
+    public void getAllPrices(final Context context, String repnum)
+    {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        //repnum = "SR00010";
+        String url = URL + "customers/complete?salesRepId="+repnum+"&company=EDL";
+        Log.e("URL",url);
+
+        JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            List<CustomerModel> customerList = new ArrayList<CustomerModel>();
+            DataBaseHelper dbH = new DataBaseHelper(context);
+            SQLiteDatabase db1 = dbH.getWritableDatabase();
+
+            @Override
+            public void onResponse(JSONArray response) {
+
+                String sqlCreateTableCustomer = "CREATE TABLE IF NOT EXISTS tbl_customer(sageIdentifier VARCHAR(1000) PRIMARY KEY, customerName TEXT, brn VARCHAR, vatNo VARCHAR, salesRepId VARCHAR, customerType VARCHAR, vatCode VARCHAR, creditLimit VARCHAR, amountOwned VARCHAR)";
+                db1.execSQL(sqlCreateTableCustomer);
+                Log.e("Created Table Customer","Table Customer Created");
+                try {
+
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject obj = response.getJSONObject(i);
+                        String sageIdentifier = obj.getString("sageIdentifier");
+                        String customerName = obj.getString("customerName");
+                        String brn = obj.getString("brn");
+                        String vatCode = obj.getString("vatCode");
+                        String vatNo = obj.getString("vatNo");
+                        String customerType = obj.getString("customerType");
+                        String amountOwned = "";
+                        String salesRepId = obj.getString("salesRepId");
+                        String creditLimit = obj.getString("creditLimit");
+                        Log.e("Customer Name",customerName);
+
+                        String sqlCreateTableProduct = "CREATE TABLE IF NOT EXISTS tbl_product(sageIdentifier VARCHAR(1000) PRIMARY KEY, productName TEXT, productType TEXT, quantity REAL, vatRate VARCHAR, unit VARCHAR, subCat1 VARCHAR, subCat2 VARCHAR, subCat3 VARCHAR, subCat4 VARCHAR, subCat5 VARCHAR)";
+                        db1.execSQL(sqlCreateTableProduct);
+                        Log.e("Created Table Product","Table Product Created");
+                        String sqlDetelteFromProduct = "DELETE FROM tbl_product WHERE sageIdentifier = '"+sageIdentifier+"'";
+                        db1.execSQL(sqlDetelteFromProduct);
+                        Log.e("DELETE FROM Table Product","DELETE FROM Product Created");
+
+
+                        CustomerModel customer = new CustomerModel(sageIdentifier, customerName, brn, vatNo, salesRepId, customerType, vatCode, creditLimit, amountOwned);
+                        dbH.addCustomer(customer);
+                        customerList.add(customer);
+                        Log.e("Customers Table","Customer "+customer.getCustomerName()+" added");
+
+
+
+                        //Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
+                    }
+
+
+                } catch (JSONException e) {
+                    Log.e("error", e.toString());
+                    // If an error occurs, this prints the error to the log
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error response", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                String creds = String.format("%s:%s", "edend@leapp", "edend@l3_123");
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        queue.add(objectRequest);
+    }
+
+
+
 }
+
+
+
+
 
 
 
