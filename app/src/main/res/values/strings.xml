@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Edendale</string>
+    <string-array name="spinnerEntries">
+        <item>Dairy</item>
+        <item>Frozen</item>
+        <item>Liquid</item>
+        <item>Dry</item>
+    </string-array>
+
+    <string-array name="spinnerComplaint">
+        <item>Product Quality</item>
+        <item>Taste</item>
+        <item>Deposit</item>
+        <item>Packaging</item>
+        <item>Solubility</item>
+        <item>Expiry</item>
+        <item>Other</item>
+    </string-array>
 </resources>
