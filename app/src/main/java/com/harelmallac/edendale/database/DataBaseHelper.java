@@ -25,6 +25,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String PRODUCT_TABLE = "tbl_product";
     public static final String CUSTOMER_TABLE = "tbl_customer";
     public static final String ADDRESS_TABLE = "tbl_address";
+    public static final String PRICE_TABLE = "tbl_price";
+    public static final String VAT_TABLE = "tbl_vat";
     public SQLiteDatabase db;
 
 
@@ -155,6 +157,56 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
         long insert = db.insert(ADDRESS_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+
+
+    public boolean addPrice(PriceModel priceModel)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("customerId",priceModel.getCustomerId());
+        cv.put("productId",priceModel.getProductId());
+        cv.put("price",priceModel.getPrice());
+        cv.put("priority",priceModel.getPriority());
+
+
+        long insert = db.insert(PRICE_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+
+    public boolean addVat(VatModel vatModel)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("customerVatCode",vatModel.getCustomerVatCode());
+        cv.put("productVatRate",vatModel.getProductVatRate());
+        cv.put("vatRate",vatModel.getVatRate());
+
+
+        long insert = db.insert(VAT_TABLE, null, cv);
 
         if(insert == -1)
         {
