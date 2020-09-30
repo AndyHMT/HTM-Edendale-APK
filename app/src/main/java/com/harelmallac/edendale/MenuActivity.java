@@ -2,6 +2,7 @@ package com.harelmallac.edendale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +28,23 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        Button btnComplaints = findViewById(R.id.btnComplaints);
+        btnComplaints.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, ComplaintFormActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btnCreateInvoice =findViewById(R.id.btnCreateInvoice);
+        btnCreateInvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(MenuActivity.this, CreateInvoiceActivity.class);
+                startActivity(intent1);
+            }
+        });
     }
 
     public void Synchronize()

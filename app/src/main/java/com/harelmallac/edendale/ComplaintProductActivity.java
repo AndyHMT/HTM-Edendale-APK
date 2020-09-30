@@ -12,9 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.harelmallac.edendale.database.DataBaseHelper;
+
+import java.util.ArrayList;
 
 public class ComplaintProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -24,13 +27,12 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
         setContentView(R.layout.activity_complaint_product);
         //Spinner spinner = findViewById(R.id.spinner);
         Spinner productName = findViewById(R.id.productName);
+//        productName.setOnItemSelectedListener(this);
         //=========================================================================
 
-        String colors[] = {"Red","Blue","White","Yellow","Black", "Green","Purple","Orange","Grey"};
-        ArrayAdapter<String> spinnerArrayAdapter;
-        spinnerArrayAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, colors);
-        productName.setAdapter(spinnerArrayAdapter);
+        //String productslist[] = {};
+        ArrayList<String> productslist = new ArrayList<String>();
+
 
         DataBaseHelper db = new DataBaseHelper(this);
         Cursor cursor = db.getProduct();
@@ -38,17 +40,25 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
             Toast.makeText(getApplicationContext(),"Cursor Empty",Toast.LENGTH_SHORT).show();
         }
         else{
+            //int i = 0;
             while(cursor.moveToNext()){
-                Toast.makeText(getApplicationContext(),cursor.getString(0),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),cursor.getString(0),Toast.LENGTH_SHORT).show();
                 //Toast.makeText(getApplicationContext(),cursor.getString(1),Toast.LENGTH_SHORT).show();
+                //i += 1;
+                productslist.add(cursor.getString(1));
+                //productslist.add(i + "|  " + cursor.getString(1));
             }
+            ArrayAdapter<String> spinnerArrayAdapter;
+            spinnerArrayAdapter = new ArrayAdapter<>(this,
+                    android.R.layout.simple_spinner_dropdown_item, productslist);
+            productName.setAdapter(spinnerArrayAdapter);
         }
 
 
         //=========================================================================
-        Button butNext = findViewById(R.id.buttonProduct);
+        Button butNext1 = findViewById(R.id.buttonProduct);
 
-        butNext.setOnClickListener(new View.OnClickListener() {
+        butNext1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String cusName = null;
@@ -76,7 +86,7 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
                 String purDate = purchaseDate.getText().toString();
                 String placeOfPur = placeOfPurchase.getText().toString();
 
-                if(proName.isEmpty()==false && proDescription.isEmpty()==false && purDate.isEmpty()==false && placeOfPur.isEmpty()==false) {
+                if(proDescription.isEmpty()==false && purDate.isEmpty()==false && placeOfPur.isEmpty()==false) {
                     Intent intent = new Intent(ComplaintProductActivity.this, ComplaintDescriptionActivity.class);
                     intent.putExtra("cusName", cusName);
                     intent.putExtra("cusAddress", cusAddress);
@@ -101,11 +111,22 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
             }
 
         });
+
+
+        TextView customerView = findViewById(R.id.customerView);
+        customerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(ComplaintProductActivity.this, ComplaintFormActivity.class);
+                startActivity(intent1);
+            }
+        });
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+//        Spinner productName = findViewById(R.id.productName);
+//        Toast.makeText(getApplicationContext(),productName.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
     }
 
     @Override

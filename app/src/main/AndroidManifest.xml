@@ -13,15 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ComplaintFormActivity"></activity>
-        <activity android:name=".ComplaintDescriptionActivity" />
+        <activity android:name=".ComplaintDescriptionActivity"></activity>
+        <activity android:name=".ComplaintProductActivity" />
+        <activity android:name=".ComplaintFormActivity" />
         <activity android:name=".SplashActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".Menu2Activity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StockRequestActivity" />
-        <activity android:name=".ComplaintProductActivity">
+        <activity android:name=".CreateInvoiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
