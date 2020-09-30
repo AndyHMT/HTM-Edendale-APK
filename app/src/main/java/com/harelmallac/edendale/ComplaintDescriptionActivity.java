@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ComplaintDescriptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -18,11 +19,11 @@ public class ComplaintDescriptionActivity extends AppCompatActivity implements A
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint_description);
-        final Spinner ComSpinner = findViewById(R.id.spinnerComplaint);
+        Spinner ComSpinner = findViewById(R.id.spinnerComplaint);
         Toast.makeText(getApplicationContext(),ComSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
         ComSpinner.setOnItemSelectedListener(this);
 
-        Button butNext = findViewById(R.id.buttonProduct);
+        Button butNext = findViewById(R.id.button);
 
         butNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +52,7 @@ public class ComplaintDescriptionActivity extends AppCompatActivity implements A
                     placeOfPur = getIntent().getStringExtra("placeOfPur");
                 }
 
+                Spinner ComSpinner = findViewById(R.id.spinnerComplaint);
                 EditText other =findViewById(R.id.otherSpecification);
                 EditText comDescription =findViewById(R.id.complaintDescription);
                 EditText comResponse = findViewById(R.id.complaintResponse);
@@ -78,21 +80,38 @@ public class ComplaintDescriptionActivity extends AppCompatActivity implements A
                 }
             }
         });
+
+        TextView customerView2 = findViewById(R.id.customerView2);
+        customerView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(ComplaintDescriptionActivity.this, ComplaintFormActivity.class);
+                startActivity(intent2);
+            }
+        });
+
+        TextView productView = findViewById(R.id.productView);
+        productView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(ComplaintDescriptionActivity.this, ComplaintProductActivity.class);
+                startActivity(intent3);
+            }
+        });
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String z = parent.getSelectedItem().toString();
         //Toast.makeText(this,z,Toast.LENGTH_SHORT).show();
+        EditText specification = findViewById(R.id.otherSpecification);
         if(z.equals("Other")){
             //Toast.makeText(this,parent.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
-            EditText specification = findViewById(R.id.otherSpecification);
             specification.setEnabled(true);
             specification.setHintTextColor(getResources().getColor(R.color.red));
         }
         else
         {
-            EditText specification = findViewById(R.id.otherSpecification);
             specification.setText("");
             specification.setEnabled(false);
             specification.setHintTextColor(getResources().getColor(R.color.darkGray));
