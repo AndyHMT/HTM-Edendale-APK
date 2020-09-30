@@ -3,14 +3,18 @@ package com.harelmallac.edendale;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.harelmallac.edendale.database.DataBaseHelper;
 
 public class ComplaintProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -18,10 +22,30 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint_product);
-        Spinner spinner = findViewById(R.id.spinner);
+        //Spinner spinner = findViewById(R.id.spinner);
+        Spinner productName = findViewById(R.id.productName);
+        //=========================================================================
+
+        String colors[] = {"Red","Blue","White","Yellow","Black", "Green","Purple","Orange","Grey"};
+        ArrayAdapter<String> spinnerArrayAdapter;
+        spinnerArrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, colors);
+        productName.setAdapter(spinnerArrayAdapter);
+
+        DataBaseHelper db = new DataBaseHelper(this);
+        Cursor cursor = db.getProduct();
+        if(cursor.getCount()==0){
+            Toast.makeText(getApplicationContext(),"Cursor Empty",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            while(cursor.moveToNext()){
+                Toast.makeText(getApplicationContext(),cursor.getString(0),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),cursor.getString(1),Toast.LENGTH_SHORT).show();
+            }
+        }
 
 
-
+        //=========================================================================
         Button butNext = findViewById(R.id.buttonProduct);
 
         butNext.setOnClickListener(new View.OnClickListener() {
@@ -33,7 +57,7 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
                 String cusEmail = null;
 
                 Spinner ProductSpinner = findViewById(R.id.spinner);
-                EditText productName = findViewById(R.id.productName);
+                Spinner productName = findViewById(R.id.productName);
                 EditText productDescription = findViewById(R.id.productDescription);
                 EditText purchaseDate = findViewById(R.id.purchaseDate);
                 EditText placeOfPurchase = findViewById(R.id.placeOfPurchase);
@@ -47,7 +71,7 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
                 }
 
                 String proSpinner = ProductSpinner.getSelectedItem().toString();
-                String proName = productName.getText().toString();
+                String proName = productName.getSelectedItem().toString();
                 String proDescription = productDescription.getText().toString();
                 String purDate = purchaseDate.getText().toString();
                 String placeOfPur = placeOfPurchase.getText().toString();
@@ -69,11 +93,11 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
                     Toast.makeText(getApplicationContext(),"Please fill in all of the fields",Toast.LENGTH_SHORT).show();
                 }
 
-                Toast.makeText(getApplicationContext(),ProductSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(getApplicationContext(),ProductSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(),cusName,Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(),cusAddress,Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(),cusPhone,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),cusEmail,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),cusEmail,Toast.LENGTH_SHORT).show();*/
             }
 
         });
@@ -88,4 +112,8 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    //==============================================================
+
+    //==============================================================
 }

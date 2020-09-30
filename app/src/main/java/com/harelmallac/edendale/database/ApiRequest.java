@@ -146,6 +146,7 @@ public class ApiRequest {
 
                         ProductModel product = new ProductModel(sageIdentifier, productName, productType, quantity, vatRate, unit, subCat1, subCat2, subCat3, subCat4, subCat5);
                         dbH.addProduct(product);
+                        Log.e("Product added",product.getProductName());
                         productList.add(product);
 
 

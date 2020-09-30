@@ -292,6 +292,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getProduct()
+    {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM  " + PRODUCT_TABLE;
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+
+    }
+
     public boolean checkCredentils(String username,String password)
     {
         db=this.getReadableDatabase();
