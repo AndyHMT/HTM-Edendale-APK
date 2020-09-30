@@ -475,7 +475,7 @@ public class ApiRequest {
         Log.e("URL",url);
 
         JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
-            List<ProductModel> vatList = new ArrayList<ProductModel>();
+            List<ProductModel> productList = new ArrayList<ProductModel>();
             DataBaseHelper dbH = new DataBaseHelper(context);
             SQLiteDatabase db5 = dbH.getWritableDatabase();
 
@@ -495,7 +495,7 @@ public class ApiRequest {
                         String quantity = obj.getString("quantity");
                         Log.e("PRODUCT ID ",productId);
 
-                        
+                        dbH.addSelectedProductInvoice(productId,salesSiteId,quantity);
 
 //                        String sqlInsertinvoiceSelectedProd = "INSERT INTO tbl_invoiceSelectedProd VALUES (NULL,'" + quantity + "','" + productId + "','" + salesSiteId + "','"+salesSiteId+"',date(now))";
 //                        db5.execSQL(sqlInsertinvoiceSelectedProd);

@@ -15,7 +15,9 @@ import androidx.annotation.RequiresApi;
 
 import com.harelmallac.edendale.model.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -27,6 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String ADDRESS_TABLE = "tbl_address";
     public static final String PRICE_TABLE = "tbl_price";
     public static final String VAT_TABLE = "tbl_vat";
+    public static final String SELECTPRODUCTINVOICE = "tbl_invoiceSelectedProd";
     public SQLiteDatabase db;
 
 
@@ -207,6 +210,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
         long insert = db.insert(VAT_TABLE, null, cv);
+
+        if(insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+
+    public boolean addSelectedProductInvoice(String productId, String salesSiteId, String quantity)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+        cv.put("selectedProductId", (byte[]) null);
+        cv.put("quantityReceived",quantity);
+        cv.put("productId",productId);
+        cv.put("location",salesSiteId);
+        cv.put("date",formatter.format(date));
+        Log.e("Insert",formatter.format(date));
+
+
+        long insert = db.insert(SELECTPRODUCTINVOICE, null, cv);
 
         if(insert == -1)
         {
