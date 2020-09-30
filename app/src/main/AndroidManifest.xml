@@ -21,7 +21,8 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StockRequestActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity" />
+        <activity android:name=".CreateInvoiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
