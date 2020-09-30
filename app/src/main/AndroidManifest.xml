@@ -15,13 +15,13 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".ComplaintFormActivity"></activity>
         <activity android:name=".ComplaintDescriptionActivity" />
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".ComplaintProductActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".Menu2Activity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".StockRequestActivity" />
-        <activity android:name=".ComplaintProductActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

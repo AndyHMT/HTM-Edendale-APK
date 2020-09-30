@@ -467,19 +467,81 @@ public class ApiRequest {
 
 
 
+    public void syncTransfer(final Context context, final String saleSiteId)
+    {
+        RequestQueue queue = Volley.newRequestQueue(context);
+        //repnum = "SR00010";
+        String url = URL + "stock/site?salesSiteId="+saleSiteId;
+        Log.e("URL",url);
+
+        JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            List<ProductModel> vatList = new ArrayList<ProductModel>();
+            DataBaseHelper dbH = new DataBaseHelper(context);
+            SQLiteDatabase db5 = dbH.getWritableDatabase();
+
+            @Override
+            public void onResponse(JSONArray response) {
+
+                String sqlCreateTableVat= "CREATE TABLE IF NOT EXISTS tbl_invoiceSelectedProd(selectedProductId VARCHAR(1000) PRIMARY KEY, quantityReceived REAL, productId VARCHAR, userId VARCHAR, location VARCHAR, date Date)";
+                db5.execSQL(sqlCreateTableVat);
+                Log.e("Created Table Vat","Table Vat Created");
+                try {
+
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject obj = response.getJSONObject(i);
+                        JSONObject id  = obj.getJSONObject("id");
+                        String productId = id.getString("productId");
+                        String salesSiteId = id.getString("salesSiteId");
+                        String quantity = obj.getString("quantity");
+                        Log.e("PRODUCT ID ",productId);
+
+                        
+
+//                        String sqlInsertinvoiceSelectedProd = "INSERT INTO tbl_invoiceSelectedProd VALUES (NULL,'" + quantity + "','" + productId + "','" + salesSiteId + "','"+salesSiteId+"',date(now))";
+//                        db5.execSQL(sqlInsertinvoiceSelectedProd);
+//                        Log.e("Invoice Selected Products",productId);
+
+//                        VatModel vatModel = new VatModel(customerVatCode, productVatRate, vatRate);
+//                        dbH.addVat(vatModel);
+//                        vatList.add(vatModel);
+//                        Log.e("Vat Table","Vat "+vatModel.getCustomerVatCode()+" added");
+
+
+                        //Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
+                    }
+
+
+                } catch (JSONException e) {
+                    Log.e("error", e.toString());
+                    // If an error occurs, this prints the error to the log
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error response", error.toString());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                String creds = String.format("%s:%s", "edend@leapp", "edend@l3_123");
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        queue.add(objectRequest);
+    }
+
+
+
+
+
+
 }
 
 
 
-
-
-
-
-
-
-//        String sqlCreateTableInvoice = "CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
-//        db.execSQL(sqlCreateTableInvoice);
-//
-//        String sqlCreateTableProduct = "CREATE TABLE IF NOT EXISTS tbl_product(sageIdentifier VARCHAR(1000) PRIMARY KEY, productName TEXT, productType TEXT, quantity REAL, vatRate VARCHAR, unit VARCHAR, subCat1 VARCHAR, subCat2 VARCHAR, subCat3 VARCHAR, subCat4 VARCHAR, subCat5 VARCHAR)";
-//        db.execSQL(sqlCreateTableProduct);
 
