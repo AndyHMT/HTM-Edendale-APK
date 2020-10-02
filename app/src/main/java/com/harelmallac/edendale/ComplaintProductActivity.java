@@ -37,7 +37,7 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
         DataBaseHelper db = new DataBaseHelper(this);
         Cursor cursor = db.getProduct();
         if(cursor.getCount()==0){
-            Toast.makeText(getApplicationContext(),"Cursor Empty",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Not able to retrieve product data",Toast.LENGTH_SHORT).show();
         }
         else{
             //int i = 0;
