@@ -180,8 +180,7 @@ public class ApiRequest {
         queue.add(objectRequest);
     }
 
-    public void getAllCustomers(final Context context, String repnum)
-    {
+    public void getAllCustomers(final Context context, String repnum) {
         RequestQueue queue = Volley.newRequestQueue(context);
         //repnum = "SR00010";
         String url = URL + "customers/complete?salesRepId="+repnum+"&company=EDL";
@@ -226,8 +225,6 @@ public class ApiRequest {
                         customerList.add(customer);
                         //Log.e("Customers Table","Customer "+customer.getCustomerName()+" added");
 
-
-
                         //Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
                     }
 
@@ -256,8 +253,7 @@ public class ApiRequest {
         queue.add(objectRequest);
     }
 
-    public void getAllAdresses(final Context context, String repnum)
-    {
+    public void getAllAdresses(final Context context, String repnum) {
         String url = URL+"addresses/salesRep?salesRepId="+repnum;
         Log.e("URL",url);
         RequestQueue queue = Volley.newRequestQueue(context);
@@ -327,9 +323,7 @@ public class ApiRequest {
         queue.add(objectRequest);
     }
 
-
-    public void getAllPrices(final Context context, String repnum, String siteId)
-    {
+    public void getAllPrices(final Context context, String repnum, String siteId) {
         RequestQueue queue = Volley.newRequestQueue(context);
         //repnum = "SR00010";
         String url = URL + "prices/salesRepSite?salesRepId="+repnum+"&salesSiteId="+siteId;
@@ -396,9 +390,7 @@ public class ApiRequest {
         queue.add(objectRequest);
     }
 
-
-    public void getVat(final Context context)
-    {
+    public void getVat(final Context context) {
         RequestQueue queue = Volley.newRequestQueue(context);
         //repnum = "SR00010";
         String url = URL + "vat/today";
@@ -463,12 +455,7 @@ public class ApiRequest {
         queue.add(objectRequest);
     }
 
-
-
-
-
-    public void syncTransfer(final Context context, final String saleSiteId)
-    {
+    public void syncTransfer(final Context context, final String saleSiteId) {
         RequestQueue queue = Volley.newRequestQueue(context);
         //repnum = "SR00010";
         String url = URL + "stock/site?salesSiteId="+saleSiteId;
