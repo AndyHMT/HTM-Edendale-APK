@@ -334,6 +334,37 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getCustomer()
+    {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM  " + CUSTOMER_TABLE;
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+
+    }
+
+    public Cursor getCustomerCreateInvoiceInfo(String customerName)
+    {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM  " + CUSTOMER_TABLE +" Where customerName = '" + customerName +"'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+
+    }
+
+    public Cursor getAddress(String customerName)
+    {
+        db = this.getWritableDatabase();
+//        String customerID = "(SELECT sageIdentifier FROM" + CUSTOMER_TABLE + "WHERE customerName =" + customerName +")";
+        //Cursor cusID = db.rawQuery(customerID,null);
+        String selectTableStatement="SELECT * FROM  " + ADDRESS_TABLE + " WHERE customerId =(SELECT sageIdentifier FROM " + CUSTOMER_TABLE + " WHERE customerName = '" + customerName +"')";
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+
+    }
+
     public boolean checkCredentils(String username,String password)
     {
         db=this.getReadableDatabase();
