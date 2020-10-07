@@ -58,7 +58,7 @@ public class ApiRequest {
                         String role = obj.getString("role");
                         String username = obj.getString("username");
                         String bank = obj.getString("bank");
-                        Boolean active = obj.getBoolean("active");
+                        boolean active = obj.getBoolean("active");
                         String mainsite = obj.getString("mainsite");
 
                         UserModel user = new UserModel(id, password, salesRepId, salesSiteId, role, username, bank, active, mainsite);
@@ -125,7 +125,7 @@ public class ApiRequest {
                         String sageIdentifier = obj.getString("sageIdentifier");
                         String productName = obj.getString("productName");
                         String productType = obj.getString("productType");
-                        Double quantity = 0.0;
+                        double quantity = 0.0;
                         String vatRate = obj.getString("vatRate");
                         String unit = "";
                         String subCat1 = "";
@@ -484,17 +484,6 @@ public class ApiRequest {
 
                         dbH.addSelectedProductInvoice(productId,salesSiteId,quantity);
 
-//                        String sqlInsertinvoiceSelectedProd = "INSERT INTO tbl_invoiceSelectedProd VALUES (NULL,'" + quantity + "','" + productId + "','" + salesSiteId + "','"+salesSiteId+"',date(now))";
-//                        db5.execSQL(sqlInsertinvoiceSelectedProd);
-//                        Log.e("Invoice Selected Products",productId);
-
-//                        VatModel vatModel = new VatModel(customerVatCode, productVatRate, vatRate);
-//                        dbH.addVat(vatModel);
-//                        vatList.add(vatModel);
-//                        Log.e("Vat Table","Vat "+vatModel.getCustomerVatCode()+" added");
-
-
-                        //Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
                     }
 
 

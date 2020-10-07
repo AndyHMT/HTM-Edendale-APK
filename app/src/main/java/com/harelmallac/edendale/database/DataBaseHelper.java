@@ -173,7 +173,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-
     public boolean addPrice(PriceModel priceModel)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -237,6 +236,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("date",formatter.format(date));
         Log.e("Insert",formatter.format(date));
 
+        String query = "";
+
 
         long insert = db.insert(SELECTPRODUCTINVOICE, null, cv);
 
@@ -251,6 +252,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
