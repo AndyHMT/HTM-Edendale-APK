@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CreateInvoiceInfoPageActivity"></activity>
+        <activity android:name=".CreateInvoiceActivity"></activity>
+        <activity android:name=".CreateInvoiceLinesActivity" />
+        <activity android:name=".CreateInvoiceInfoPageActivity" />
         <activity android:name=".ComplaintFormActivity" />
         <activity android:name=".ComplaintDescriptionActivity" />
         <activity android:name=".ComplaintProductActivity" />
@@ -23,7 +25,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".StockRequestActivity" />
         <activity android:name=".SplashActivity" />
-        <activity android:name=".CreateInvoiceActivity">
+        <activity android:name=".CreateInvoiceListOfItemsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
