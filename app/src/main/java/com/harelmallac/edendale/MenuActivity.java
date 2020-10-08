@@ -55,6 +55,8 @@ public class MenuActivity extends AppCompatActivity {
         apiRequest.getAllAdresses(this,"SR00010");
         apiRequest.getAllPrices(this,"SR00010","MV07");
         apiRequest.getVat(this);
+        apiRequest.syncTransfer(this,"MV07");
+
     }
 
 }
