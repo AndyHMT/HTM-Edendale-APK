@@ -2,9 +2,12 @@ package com.harelmallac.edendale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -83,10 +86,10 @@ public class CreateInvoiceInfoPageActivity extends AppCompatActivity {
 
         //=========================================================================
         String SalesSite = "Edendale Distribution Ltd";
-        TextView SalesSiteDis = findViewById(R.id.SalesSiteDis);
+        final TextView SalesSiteDis = findViewById(R.id.SalesSiteDis);
         SalesSiteDis.setText(SalesSite);
         //=========================================================================
-        TextView DateDis = findViewById(R.id.DateDis);
+        final TextView DateDis = findViewById(R.id.DateDis);
         Date c = Calendar.getInstance().getTime();
         //System.out.println("Current time => " + c);
 
@@ -98,10 +101,33 @@ public class CreateInvoiceInfoPageActivity extends AppCompatActivity {
         TextView TypeDis = findViewById(R.id.TypeDis);
         TypeDis.setText(Type);
         //=========================================================================
-        String SalesType = "Cash";
+        final String SalesType = "Cash";
         TextView SalesTypeDis = findViewById(R.id.SalesTypeDis);
         SalesTypeDis.setText(SalesType);
         //=========================================================================
+
+        Button butcusInfo = findViewById(R.id.ButCusInfo);
+        butcusInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView customerNameDisplay = findViewById(R.id.customerNameDisplay);
+                TextView AmountOwnedDisplay = findViewById(R.id.AmountOwnedDis);
+                TextView TypeDis = findViewById(R.id.TypeDis);
+                TextView SalesTypeDis = findViewById(R.id.SalesTypeDis);
+                Spinner ShippingAddress = findViewById(R.id.customerAddress);
+                Intent intent = new Intent(CreateInvoiceInfoPageActivity.this, CreateInvoiceLinesActivity.class);
+                intent.putExtra("cusName", customerNameDisplay.getText().toString());
+                intent.putExtra("AmountOwned", AmountOwnedDisplay.getText().toString());
+                intent.putExtra("SalesSite", SalesSiteDis.getText().toString());
+                intent.putExtra("Type", TypeDis.getText().toString());
+                intent.putExtra("Date", DateDis.getText().toString());
+                intent.putExtra("SalesType", SalesTypeDis.getText().toString());
+                intent.putExtra("shippingAddress", ShippingAddress.getSelectedItem().toString());
+                startActivity(intent);
+            }
+        });
+
+
 
     }
 

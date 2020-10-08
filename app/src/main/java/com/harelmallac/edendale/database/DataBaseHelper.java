@@ -372,6 +372,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getInvoice()
+    {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_invoiceSelectedProd as selectedProd INNER JOIN tbl_product as product ON selectedProd.productId = product.sageIdentifier order by product.productName";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+
+    }
+
     public Cursor getCustomerCreateInvoiceInfo(String customerName)
     {
         db = this.getWritableDatabase();
@@ -387,7 +397,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
 //        String customerID = "(SELECT sageIdentifier FROM" + CUSTOMER_TABLE + "WHERE customerName =" + customerName +")";
         //Cursor cusID = db.rawQuery(customerID,null);
-        String selectTableStatement="SELECT * FROM  " + ADDRESS_TABLE + " WHERE customerId =(SELECT sageIdentifier FROM " + CUSTOMER_TABLE + " WHERE customerName = '" + customerName +"')";
+        String selectTableStatement="SELECT * FROM tbl_invoiceSelectedProd as selectedProd INNER JOIN tbl_product as product ON selectedProd.productId = product.sageIdentifier order by product.productName";
         Cursor res = db.rawQuery(selectTableStatement, null);
         return res;
 
