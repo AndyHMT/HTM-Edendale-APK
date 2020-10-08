@@ -3,18 +3,23 @@ package com.harelmallac.edendale;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.harelmallac.edendale.database.DataBaseHelper;
 import com.harelmallac.edendale.model.ItemClass;
 import com.harelmallac.edendale.model.ItemListAdapter;
 
 import java.util.ArrayList;
+
+import static java.sql.Types.NULL;
 
 public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
 
@@ -34,8 +39,33 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: Started");
         LVitems = findViewById(R.id.LVitems);
 
+        //======================================================================================================
+
+
+//        DataBaseHelper db = new DataBaseHelper(this);
+//        Cursor cursor = db.getInvoice();
+//        if(cursor.getCount()==0){
+//            Toast.makeText(getApplicationContext(),"Not able to retrieve customer data",Toast.LENGTH_SHORT).show();
+//        }
+//        else{
+//            //int i = 0;
+//            while(cursor.moveToNext()){
+//
+//                ItemList.add(new ItemClass(cursor.getString(1),NULL , NULL,NULL));
+//                //customerslist2.add(cursor.getString(1));
+//            }
+//
+//            for (int i = (count-5); i < count; i++) {
+//                list.add(ItemList.get(i));
+//            }
+//
+//            ItemListAdapter adapter = new ItemListAdapter(this, R.layout.create_invoice_items_list_view_layout, list);
+//            LVitems.setAdapter(adapter);
+//        }
+        //===================================================================================
+
         for (int i = 1; i < 20; i++) {
-            ItemList.add(new ItemClass("product " + i, "", ""));
+            ItemList.add(new ItemClass("product " + i,"50" , "",""));
         }
 
         for (int i = (count-5); i < count; i++) {
@@ -43,7 +73,9 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
         }
 
         ItemListAdapter adapter = new ItemListAdapter(this, R.layout.create_invoice_items_list_view_layout, list);
-        LVitems.setAdapter(adapter);
+            LVitems.setAdapter(adapter);
+
+
 
 
         //======================================================================================
