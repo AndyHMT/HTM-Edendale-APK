@@ -3,6 +3,7 @@ package com.harelmallac.edendale;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,7 +52,7 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
 //            //int i = 0;
 //            while(cursor.moveToNext()){
 //
-//                ItemList.add(new ItemClass(cursor.getString(1),NULL , NULL,NULL));
+//                ItemList.add(new ItemClass(cursor.getString(1),"50" , "","NULL"));
 //                //customerslist2.add(cursor.getString(1));
 //            }
 //
@@ -270,8 +271,7 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
                 EditText Discount;
                 EditText Quantity;
                 Boolean check = false;
-//                Toast.makeText(getApplicationContext(),String.valueOf(LVitems.getChildCount()),Toast.LENGTH_SHORT).show();
-//                Toast.makeText(getApplicationContext(),String.valueOf(LVitems.getLastVisiblePosition()),Toast.LENGTH_SHORT).show();
+
 
 //                View z;
                 int chCount = -1;
@@ -282,8 +282,8 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
                     chCount += 1;
                     v = LVitems.getChildAt(chCount);
                     Discount = v.findViewById(R.id.DiscountValue);
-//                    Toast.makeText(getApplicationContext(), Discount.getText().toString(), Toast.LENGTH_SHORT).show();
                     Quantity = v.findViewById(R.id.QuantityValue);
+
                     if (Discount.getText().toString().equals("")) {
 
                     } else if (Discount.getText().toString().equals("0")) {
@@ -307,51 +307,56 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
 
                     }
                     if(check==true) {
-//                        Toast.makeText(getApplicationContext(), ItemList.get(i).getDiscount(), Toast.LENGTH_SHORT).show();
-//                        Log.e("output",ItemList.get(i).getDiscount());
                         Toast.makeText(getApplicationContext(), "Item Added", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        //======================================================================================
+        //======================================================================================
+
+        Button butFinish = findViewById(R.id.butFinish);
+
+        butFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> selectedItemName = new ArrayList<>();
+                ArrayList<String> selectedItemTOtal = new ArrayList<>();
+                ArrayList<String> selectedItemDiscount = new ArrayList<>();
+                ArrayList<String> selectedItemQuantity = new ArrayList<>();
+
+                for (int j = 0; j < ItemList.size()-1; j++) {
+//                    String Name = ItemList.get(j).getName();
+//                    String Total = ItemList.get(j).getTotal();
+                    String Dis = ItemList.get(j).getDiscount();
+                    String Quan = ItemList.get(j).getQuantity();
+                    if (Dis.equals("")) {
+
+                    } else {
+                        if (Quan.equals("")) {
+
+                        }
+                        else {
+                            selectedItemName.add(ItemList.get(j).getName());
+                            selectedItemTOtal.add(ItemList.get(j).getTotal());
+                            selectedItemDiscount.add(ItemList.get(j).getDiscount());
+                            selectedItemQuantity.add(ItemList.get(j).getQuantity());
+                        }
                     }
                 }
 
 
-
-//                ArrayList<String> selectedItemName = new ArrayList<>();
-//                selectedItemName.add("sad potato");
-//                if (check == true) {
-//
-//
-//                    for (int j = 0; j < 5; j++) {
-//                        String Dis = ItemList.get(j).getDiscount();
-//                        String Quan = ItemList.get(j).getQuantity();
-//                        if (Dis.equals("")) {
-//
-//                        } else {
-//                            if (Quan.equals("")) {
-//
-//                            } else {
-//                                selectedItemName.add(ItemList.get(j).getName());
-//                            }
-//                        }
-//                    }
-//                }
-
-//                        Intent intent = new Intent(CreateInvoiceListOfItemsActivity.this, CreateInvoiceLinesActivity.class);
-//                        intent.putExtra("list", selectedItemName);
-//                        startActivity(intent);
-
-//                  ItemList.get(i).setDiscount(Discount.getText().toString());
-//                    Toast.makeText(getApplicationContext(),selectedItemName.get(0), Toast.LENGTH_SHORT).show();
-
-//
-//
+                Intent intent = new Intent(CreateInvoiceListOfItemsActivity.this, CreateInvoiceLinesActivity.class);
+                intent.putExtra("listName", selectedItemName);
+                intent.putExtra("listTotal", selectedItemTOtal);
+                intent.putExtra("listDiscount", selectedItemDiscount);
+                intent.putExtra("listQuantity", selectedItemQuantity);
+                startActivity(intent);
             }
         });
-    //======================================================================================
 
+   //======================================================================================
 
     }
-
-
-
 
 }
