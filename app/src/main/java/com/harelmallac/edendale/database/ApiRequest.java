@@ -1,6 +1,4 @@
 package com.harelmallac.edendale.database;
-
-
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,7 +34,7 @@ import java.util.Map;
 
 public class ApiRequest {
 
-    final String URL = "http://192.168.56.1:8088/";
+    final String URL = "http://192.168.85.194:8088/";
     public SQLiteDatabase db;
 
     public void getUser(final Context context) {
@@ -485,6 +483,7 @@ public class ApiRequest {
                         Log.e("PRODUCT ID ",productId);
 
                         dbH.addSelectedProductInvoice(productId,salesSiteId,quantity);
+                        Log.e("Table SelectedProductId","Created");
 
                     }
 
