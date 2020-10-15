@@ -282,7 +282,7 @@ public class ApiRequest {
                         JSONObject customer  = obj.getJSONObject("customer");
                         String customerId = customer.getString("sageIdentifier");
 
-                        //Log.e("Customer Id",customerId);
+                        Log.e("Address Line",addressLine1);
 
                         String sqlCreateTableProduct = "DELETE FROM tbl_address WHERE sageIdentifier ='"+sageIdentifier+"'";
                         db2.execSQL(sqlCreateTableProduct);
