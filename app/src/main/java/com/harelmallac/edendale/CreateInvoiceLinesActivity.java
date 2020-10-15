@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.harelmallac.edendale.model.ProductLinesAdapter;
@@ -29,30 +30,19 @@ import java.util.ArrayList;
 public class CreateInvoiceLinesActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity23";
     private static ArrayList<ProductLinesClass> ProList = new ArrayList<>();
+    private static ArrayList<ProductLinesClass> myArray = new ArrayList<>();
     private ArrayList<ProductLinesClass> ProList1 = new ArrayList<>();
     public static ProductLinesAdapter adapter1;
     private static Context context;
     private static ListView LVLines;
     ProductLinesAdapter adapter;
 
-
-
-
     public void delete(int position){
+        //remove item from itemlist based on index
+        ProList.remove(position);
 
-        if (ProList.isEmpty())
-        {
-            Log.e("print", "Empty");
-
-        }
-        else
-        {
-            ProList.remove(position);
-            adapter.notifyDataSetChanged();
-        }
-
-//        ProductLinesAdapter adapter = new ProductLinesAdapter(this, R.layout.list_view_lines_layout, ProList);
-//        LVLines.setAdapter(adapter);
+        //Update listview based on item position
+        LVLines.invalidateViews();
     }
 
     @Override
@@ -73,13 +63,13 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
 
         if( getIntent().getExtras() != null) {
-//            customerName = getIntent().getStringExtra("cusName");
-//            AmountOwned = getIntent().getStringExtra("AmountOwned");
-//            SalesSite = getIntent().getStringExtra("SalesSite");
-//            Type = getIntent().getStringExtra("Type");
-//            Date = getIntent().getStringExtra("Date");
-//            SalesType = getIntent().getStringExtra("SalesType");
-//            ShippingAddress = getIntent().getStringExtra("shippingAddress");
+            customerName = getIntent().getStringExtra("cusName");
+            AmountOwned = getIntent().getStringExtra("AmountOwned");
+            SalesSite = getIntent().getStringExtra("SalesSite");
+            Type = getIntent().getStringExtra("Type");
+            Date = getIntent().getStringExtra("Date");
+            SalesType = getIntent().getStringExtra("SalesType");
+            ShippingAddress = getIntent().getStringExtra("shippingAddress");
             listName = getIntent().getStringArrayListExtra("listName");
             listTotal = getIntent().getStringArrayListExtra("listTotal");
             listDis = getIntent().getStringArrayListExtra("listDiscount");
@@ -94,7 +84,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
         if(listName != null) {
             for (int i = 0; i < listName.size(); i++) {
-                ProList.add(new ProductLinesClass(listName.get(i), listQuan.get(i), "50", "55"));
+                ProList.add(new ProductLinesClass(listName.get(i), listQuan.get(i), "1150", "1255"));
 
             }
 
@@ -128,28 +118,6 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
     }
 
-
-
-//    @Override
-//    public void onClick(View v) {
-//
-//    }
-//
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-//
-//        view = (View) parent.getItemAtPosition(position);
-//
-//        Button cancel = view.findViewById(R.id.ProductCancel);
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ProList.remove(position);
-//                ProductLinesAdapter adapter = new ProductLinesAdapter(context, R.layout.list_view_lines_layout, ProList);
-//                LVLines.setAdapter(adapter);
-//            }
-//        });
-//    }
 }
 
 

@@ -55,7 +55,6 @@ public class CreateInvoiceActivity extends AppCompatActivity implements View.OnC
             while(cursor.moveToNext()){
 
                 customerslist.add(cursor.getString(1));
-                //customerslist2.add(cursor.getString(1));
             }
 
             ListViewArrayAdapter = new ArrayAdapter<>(this,

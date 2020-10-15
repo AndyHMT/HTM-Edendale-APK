@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -58,6 +59,7 @@ public class ProductLinesAdapter extends ArrayAdapter<ProductLinesClass> {
             public void onClick(View v) {
 //                CreateInvoiceLinesActivity.delete(position);
                 CreateInvoiceLinesActivity x = new CreateInvoiceLinesActivity();
+
                 x.delete(position);
             }
         });

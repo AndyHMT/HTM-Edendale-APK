@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class ApiRequest {
 
-    final String URL = "http://192.168.85.99:8088/";
+    final String URL = "http://192.168.85.36:8088/";
     public SQLiteDatabase db;
 
     public void getUser(final Context context) {
