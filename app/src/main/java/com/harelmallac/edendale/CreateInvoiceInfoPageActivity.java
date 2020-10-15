@@ -37,7 +37,6 @@ public class CreateInvoiceInfoPageActivity extends AppCompatActivity {
 
         ArrayList<String> addresslist = new ArrayList<String>();
 
-
         DataBaseHelper db = new DataBaseHelper(this);
         Cursor cursor = db.getAddress(customerName);
         if(cursor.getCount()==0){
@@ -82,7 +81,6 @@ public class CreateInvoiceInfoPageActivity extends AppCompatActivity {
 
             }
         }
-
 
         //=========================================================================
         String SalesSite = "Edendale Distribution Ltd";

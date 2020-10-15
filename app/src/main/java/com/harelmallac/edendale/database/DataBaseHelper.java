@@ -97,7 +97,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("vatRate",productModel.getVatRate());
         cv.put("unit",productModel.getUnit());
         cv.put("subCat1",productModel.getSubCat1());
-        cv.put("subCat1",productModel.getSubCat1());
         cv.put("subCat2",productModel.getSubCat2());
         cv.put("subCat3",productModel.getSubCat3());
         cv.put("subCat4",productModel.getSubCat4());
@@ -302,7 +301,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context,"edendale.db",null,1);
     }
 
-    public DataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, @Nullable DatabaseErrorHandler errorHandler) {
+    public DataBaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, @Nullable DatabaseErrorHandler errorHandler)
+    {
         super(context, name, factory, version, errorHandler);
     }
 
@@ -394,8 +394,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAddress(String customerName)
     {
-        db = this.getWritableDatabase();
-//        String customerID = "(SELECT sageIdentifier FROM" + CUSTOMER_TABLE + "WHERE customerName =" + customerName +")";
+        //String customerID = "(SELECT sageIdentifier FROM" + CUSTOMER_TABLE + "WHERE customerName =" + customerName +")";
         //Cursor cusID = db.rawQuery(customerID,null);
         String selectTableStatement="SELECT * FROM tbl_invoiceSelectedProd as selectedProd INNER JOIN tbl_product as product ON selectedProd.productId = product.sageIdentifier order by product.productName";
         Cursor res = db.rawQuery(selectTableStatement, null);
@@ -416,7 +415,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (count <1)
         {
-            Log.e("sdfb","false");
+            Log.e("FISBQ","false");
             return false;
         }
         else

@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class ApiRequest {
 
-    final String URL = "http://192.168.85.194:8088/";
+    final String URL = "http://192.168.85.36:8088/";
     public SQLiteDatabase db;
 
     public void getUser(final Context context) {
@@ -210,7 +210,7 @@ public class ApiRequest {
                         String amountOwned = "";
                         String salesRepId = obj.getString("salesRepId");
                         String creditLimit = obj.getString("creditLimit");
-                        //Log.e("Customer Name",customerName);
+                        Log.e("Customer Name",customerName);
 
                         String sqlCreateTableProduct = "CREATE TABLE IF NOT EXISTS tbl_product(sageIdentifier VARCHAR(1000) PRIMARY KEY, productName TEXT, productType TEXT, quantity REAL, vatRate VARCHAR, unit VARCHAR, subCat1 VARCHAR, subCat2 VARCHAR, subCat3 VARCHAR, subCat4 VARCHAR, subCat5 VARCHAR)";
                         db1.execSQL(sqlCreateTableProduct);
@@ -473,7 +473,6 @@ public class ApiRequest {
                 db5.execSQL(sqlCreateTableVat);
                 Log.e("Created Table Vat","Table Vat Created");
                 try {
-
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject obj = response.getJSONObject(i);
                         JSONObject id  = obj.getJSONObject("id");
@@ -481,6 +480,7 @@ public class ApiRequest {
                         String salesSiteId = id.getString("salesSiteId");
                         String quantity = obj.getString("quantity");
                         Log.e("PRODUCT ID ",productId);
+                        Log.e("id",salesSiteId);
 
                         dbH.addSelectedProductInvoice(productId,salesSiteId,quantity);
                         Log.e("Table SelectedProductId","Created");
