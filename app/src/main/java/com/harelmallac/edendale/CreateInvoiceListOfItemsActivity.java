@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.harelmallac.edendale.database.DataBaseHelper;
 import com.harelmallac.edendale.model.ItemClass;
 import com.harelmallac.edendale.model.ItemListAdapter;
+import com.harelmallac.edendale.model.UserModel;
 
 import java.util.ArrayList;
 
@@ -24,10 +25,9 @@ import static java.sql.Types.NULL;
 
 public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
 
-    //private Object ItemListAdapter;
     private static final String TAG = "MainActivity";
-    //private Object ItemListAdapter;
     int count = 5;
+    DataBaseHelper db = new DataBaseHelper(this);
     Context context = this;
     ListView LVitems;
     ArrayList<ItemClass> ItemList = new ArrayList<>();
@@ -37,37 +37,10 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_invoice_list_of_items);
-        Log.d(TAG, "onCreate: Started");
         LVitems = findViewById(R.id.LVitems);
 
-        //======================================================================================================
-
-
-//        DataBaseHelper db = new DataBaseHelper(this);
-//        Cursor cursor = db.getInvoice();
-//        if(cursor.getCount()==0){
-//            Toast.makeText(getApplicationContext(),"Not able to retrieve customer data",Toast.LENGTH_SHORT).show();
-//        }
-//        else{
-//            //int i = 0;
-//            while(cursor.moveToNext()){
-//
-//                ItemList.add(new ItemClass(cursor.getString(1),"50" , "","NULL"));
-//                //customerslist2.add(cursor.getString(1));
-//            }
-//
-//            for (int i = (count-5); i < count; i++) {
-//                list.add(ItemList.get(i));
-//            }
-//
-//            ItemListAdapter adapter = new ItemListAdapter(this, R.layout.create_invoice_items_list_view_layout, list);
-//            LVitems.setAdapter(adapter);
-//        }
-        //===================================================================================
-
-        for (int i = 1; i < 20; i++) {
-            ItemList.add(new ItemClass("product " + i,"50" , "",""));
-        }
+        //#Varun - Load all products on lists view
+        populateItemLists();
 
         for (int i = (count-5); i < count; i++) {
             list.add(ItemList.get(i));
@@ -359,4 +332,20 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
 
     }
 
+    //#Varun - populate products to lists view
+    public void populateItemLists() {
+        Cursor res = db.getInvoice();
+        if(res.getCount() < 0){
+            Toast.makeText(getApplicationContext(),"Not able to retrieve product data",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            while (res.moveToNext()){
+                String productName = res.getString(7);
+                String productQuantity = res.getString(1);
+                ItemList.add(new ItemClass(productName, productQuantity, "",""));
+                Log.e("Double",productName);
+            }
+
+        }
+    }
 }

@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class ApiRequest {
 
-    final String URL = "http://192.168.85.36:8088/";
+    final String URL = "http://192.168.85.148:8088/";
     public SQLiteDatabase db;
 
     public void getUser(final Context context) {
@@ -147,7 +147,7 @@ public class ApiRequest {
                         ProductModel product = new ProductModel(sageIdentifier, productName, productType, quantity, vatRate, unit, subCat1, subCat2, subCat3, subCat4, subCat5);
                         dbH.addProduct(product);
                         Log.e("Product added",product.getProductName());
-                        productList.add(product);
+                        //productList.add(product);
 
 
 

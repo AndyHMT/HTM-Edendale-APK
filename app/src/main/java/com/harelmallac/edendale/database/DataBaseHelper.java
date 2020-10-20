@@ -362,6 +362,41 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //#Varun - retrieve product id from tbl_product
+    public String getProductId(String productName)
+    {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM  " + PRODUCT_TABLE + " WHERE productName = '" + productName +"'";
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        res.moveToFirst();
+        String pid = res.getString(res.getColumnIndex(res.getColumnName(0)));
+        return pid;
+    }
+
+    //#Varun - retrieve product price
+    public double getProductPrice(String productId)
+    {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT price FROM  " + PRICE_TABLE + " WHERE productId = '" + productId +"'";
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        res.moveToFirst();
+
+        double price = res.getDouble(res.getColumnIndex(res.getColumnName(0)));
+        return price;
+    }
+
+    //#Varun - retrieve product qty
+    public int getProductQty(String productId)
+    {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT quantityReceived FROM  " + SELECTPRODUCTINVOICE + " WHERE productId = '" + productId +"'";
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        res.moveToFirst();
+
+        int qty = res.getInt(res.getColumnIndex(res.getColumnName(0)));
+        return qty;
+    }
+
     public Cursor getCustomer()
     {
         db = this.getWritableDatabase();
@@ -427,6 +462,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+
+
+
+
+    //ALL UPDATE METHOD
+    //#Varun - Update selected qty upon create invoice
+    public boolean updateSelectedProductQty(String productId, String quantity)
+    {
+        ContentValues cv = new ContentValues();
+        cv.put("quantityReceived", quantity);
+        long update = db.update(SELECTPRODUCTINVOICE, cv, "productId = ?", new String[]{productId});
+
+        if(update == - 1) {
+            Log.e("Qty not updated -- check updateSelecteddProductQty method ", false+"");
+            return false;
+        }else {
+            return true;
+        }
+    }
 
 
 

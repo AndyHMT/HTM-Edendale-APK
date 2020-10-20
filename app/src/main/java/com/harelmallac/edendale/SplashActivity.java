@@ -24,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ApiRequest apiRequest = new ApiRequest();
         apiRequest.getUser(this);
-        apiRequest.syncTransfer(this,"MV07");
+        //apiRequest.syncTransfer(this,"MV07");
+//
 //        apiRequest.getProducts(this);
 //        apiRequest.getAllCustomers(this,"SR00010");
 //        apiRequest.getAllAdresses(this,"SR00010");
