@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.harelmallac.edendale.database.DataBaseHelper;
 import com.harelmallac.edendale.model.ProductLinesAdapter;
 import com.harelmallac.edendale.model.ProductLinesClass;
-import com.harelmallac.edendale.service.Printing;
+//import com.harelmallac.edendale.service.Printing;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
     private static Context context;
     private static ListView LVLines;
     DataBaseHelper db = new DataBaseHelper(this);
-    Printing print = new Printing(this, CreateInvoiceLinesActivity.this);
+   // Printing print = new Printing(this, CreateInvoiceLinesActivity.this);
     ProductLinesAdapter adapter;
 
     public void delete(int position){
@@ -121,7 +121,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                     }
                 }
                 //print.checkBluetooth();
-                print.feintBluetoothDeviceDiscovery();
+                //print.feintBluetoothDeviceDiscovery();
                 //print.printData();
             }
         });
