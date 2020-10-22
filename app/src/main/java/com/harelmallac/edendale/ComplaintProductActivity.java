@@ -2,14 +2,17 @@ package com.harelmallac.edendale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,16 +21,18 @@ import android.widget.Toast;
 import com.harelmallac.edendale.database.DataBaseHelper;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ComplaintProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    EditText purchaseDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complaint_product);
-        //Spinner spinner = findViewById(R.id.spinner);
         Spinner productName = findViewById(R.id.productName);
-//        productName.setOnItemSelectedListener(this);
+        final Calendar myCalendar = Calendar.getInstance();
+
         //=========================================================================
 
         //String productslist[] = {};
@@ -42,11 +47,7 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
         else{
             //int i = 0;
             while(cursor.moveToNext()){
-                //Toast.makeText(getApplicationContext(),cursor.getString(0),Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(),cursor.getString(1),Toast.LENGTH_SHORT).show();
-                //i += 1;
                 productslist.add(cursor.getString(1));
-                //productslist.add(i + "|  " + cursor.getString(1));
             }
             ArrayAdapter<String> spinnerArrayAdapter;
             spinnerArrayAdapter = new ArrayAdapter<>(this,
@@ -57,6 +58,21 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
 
         //=========================================================================
         Button butNext1 = findViewById(R.id.buttonProduct);
+        purchaseDate = findViewById(R.id.purchaseDate);
+
+        purchaseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleDateButton();
+            }
+        });
+
+        purchaseDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                handleDateButton();
+            }
+        });
 
         butNext1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +85,9 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
                 Spinner ProductSpinner = findViewById(R.id.spinner);
                 Spinner productName = findViewById(R.id.productName);
                 EditText productDescription = findViewById(R.id.productDescription);
-                EditText purchaseDate = findViewById(R.id.purchaseDate);
+
+
+
                 EditText placeOfPurchase = findViewById(R.id.placeOfPurchase);
 
                 if( getIntent().getExtras() != null)
@@ -103,11 +121,6 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
                     Toast.makeText(getApplicationContext(),"Please fill in all of the fields",Toast.LENGTH_SHORT).show();
                 }
 
-                /*Toast.makeText(getApplicationContext(),ProductSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),cusName,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),cusAddress,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),cusPhone,Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(),cusEmail,Toast.LENGTH_SHORT).show();*/
             }
 
         });
@@ -123,10 +136,30 @@ public class ComplaintProductActivity extends AppCompatActivity implements Adapt
         });
     }
 
+    private void handleDateButton()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int YEAR = calendar.get(Calendar.YEAR);
+        int MONTH = calendar.get(Calendar.MONTH);
+        int DATE = calendar.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                String dateChosen= year + "/"+ (month+1) +"/"+dayOfMonth+"";
+                purchaseDate.setText(dateChosen);
+
+            }
+        }, YEAR,MONTH,DATE);
+
+        datePickerDialog.show();
+    }
+
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        Spinner productName = findViewById(R.id.productName);
-//        Toast.makeText(getApplicationContext(),productName.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
