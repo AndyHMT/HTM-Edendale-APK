@@ -23,7 +23,7 @@
         <activity android:name=".RemittanceActivity" />
         <activity android:name=".CurrentStockReportActivity" />
         <activity android:name=".ChequeReportActivity" />
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".MenuActivity" />
         <activity android:name=".CreateInvoiceLinesActivity" />
         <activity android:name=".CreateInvoiceInfoPageActivity" />
         <activity android:name=".ComplaintFormActivity" />
@@ -35,7 +35,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".CreateInvoiceListOfItemsActivity" />
         <activity android:name=".StockRequestProductListActivity" />
-        <activity android:name=".MenuActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
