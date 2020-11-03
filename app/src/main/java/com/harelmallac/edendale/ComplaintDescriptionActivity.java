@@ -23,7 +23,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class ComplaintDescriptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    DataBaseHelper db;
+    DataBaseHelper db = new DataBaseHelper(this);
     String cusName = null;
     String cusAddress = null;
     String cusPhone = null;
