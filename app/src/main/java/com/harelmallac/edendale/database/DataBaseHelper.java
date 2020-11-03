@@ -393,7 +393,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String id = product.getSageIdentifier();
         String name = getProductName(id);
 
-        String insertStatement = "INSERT INTO tbl_complaint[(customerName,address,phoneNum,email,dairy,dry,frozen,liquid,productName,productId,productDescription,dateOfPurchase,placeOfPurchase,prodQuality,taste,deposit,packaging,solubility,expiry,others,problemDescription,correctiveAction)] VALUES ('"+ complaints.getCustomerName()+"', '"+complaints.getCustomerAddress()+"', '"+complaints.getPhoneNo()+"', '"+complaints.getEmail()+"', '"+complaints.isDairy()+"', '"+complaints.isDry()+"', '"+complaints.isFrozen()+"', '"+complaints.isLiquid()+"', '"+name+"', '"+id+"', '"+complaints.getProductDescription()+"', '"+complaints.getPurchaseDate()+"', '"+complaints.getPurchasePlace()+"', '"+complaints.isProductQuality()+"', '"+complaints.isTaste()+"', '"+complaints.isDeposit()+"', '"+complaints.isPackaging()+"', '"+complaints.isSolubility()+"', '"+complaints.isExpiry()+"', '"+complaints.getOthers()+"', '"+complaints.getComplantDescription()+"', '"+complaints.getFirstCorrectiveAction()+"')";
+        String insertStatement = "INSERT INTO tbl_complaint[(customerName,address,phoneNum,email,dairy,dry,frozen,liquid,productName," +
+                "productId,productDescription,dateOfPurchase,placeOfPurchase,prodQuality,taste,deposit,packaging,solubility,expiry," +
+                "others,problemDescription,correctiveAction)] VALUES ('"+ complaints.getCustomerName()+
+                "', '"+complaints.getCustomerAddress()+"', '"+complaints.getPhoneNo()+"', '"+complaints.getEmail()+
+                "', '"+complaints.isDairy()+"', '"+complaints.isDry()+"', '"+complaints.isFrozen()+"', '"+complaints.isLiquid()+
+                "', '"+name+"', '"+id+"', '"+complaints.getProductDescription()+"', '"+complaints.getPurchaseDate()+
+                "', '"+complaints.getPurchasePlace()+"', '"+complaints.isProductQuality()+"', '"+complaints.isTaste()+
+                "', '"+complaints.isDeposit()+"', '"+complaints.isPackaging()+"', '"+complaints.isSolubility()+
+                "', '"+complaints.isExpiry()+"', '"+complaints.getOthers()+"', '"+complaints.getComplantDescription()+
+                "', '"+complaints.getFirstCorrectiveAction()+"')";
+
+
         db.execSQL(insertStatement);
         Log.e("List of added",complaints.getCustomerName()+"', '"+complaints.getCustomerAddress()+"', '"+complaints.getPhoneNo()+"', '"+complaints.getEmail()+"', '"+complaints.isDairy()+"', '"+complaints.isDry()+"', '"+complaints.isFrozen()+"', '"+complaints.isLiquid()+"', '"+name+"', '"+id+"', '"+complaints.getProductDescription()+"', '"+complaints.getPurchaseDate()+"', '"+complaints.getPurchasePlace()+"', '"+complaints.isProductQuality()+"', '"+complaints.isTaste()+"', '"+complaints.isDeposit()+"', '"+complaints.isPackaging()+"', '"+complaints.isSolubility()+"', '"+complaints.isExpiry()+"', '"+complaints.getOthers()+"', '"+complaints.getComplantDescription()+"', '"+complaints.getFirstCorrectiveAction());
        return "Complaints added succesfully";
