@@ -30,6 +30,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String ADDRESS_TABLE = "tbl_address";
     public static final String PRICE_TABLE = "tbl_price";
     public static final String VAT_TABLE = "tbl_vat";
+    public static final String COMPLAINT_TABLE = "tbl_complaint";
     public static final String SELECTPRODUCTINVOICE = "tbl_invoiceSelectedProd";
     public SQLiteDatabase db;
 
@@ -353,6 +354,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getComplaints()
+    {
+        db = this.getWritableDatabase();
+        String selectStatement ="SELECT * FROM "+COMPLAINT_TABLE;
+
+        Cursor res = db.rawQuery(selectStatement,null);
+        return res;
+    }
+
+
     public Cursor getProduct()
     {
         db = this.getWritableDatabase();
@@ -393,9 +404,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String id = product.getSageIdentifier();
         String name = getProductName(id);
 
-        String insertStatement = "INSERT INTO tbl_complaint[(customerName,address,phoneNum,email,dairy,dry,frozen,liquid,productName," +
+        String insertStatement = "INSERT INTO tbl_complaint(customerName,address,phoneNum,email,dairy,dry,frozen,liquid,productName," +
                 "productId,productDescription,dateOfPurchase,placeOfPurchase,prodQuality,taste,deposit,packaging,solubility,expiry," +
-                "others,problemDescription,correctiveAction)] VALUES ('"+ complaints.getCustomerName()+
+                "others,problemDescription,correctiveAction) VALUES ('"+ complaints.getCustomerName()+
                 "', '"+complaints.getCustomerAddress()+"', '"+complaints.getPhoneNo()+"', '"+complaints.getEmail()+
                 "', '"+complaints.isDairy()+"', '"+complaints.isDry()+"', '"+complaints.isFrozen()+"', '"+complaints.isLiquid()+
                 "', '"+name+"', '"+id+"', '"+complaints.getProductDescription()+"', '"+complaints.getPurchaseDate()+
@@ -421,6 +432,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         double price = res.getDouble(res.getColumnIndex(res.getColumnName(0)));
         return price;
     }
+
+
+
 
     //#Varun - retrieve product qty
     public int getProductQty(String productId)
