@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class ApiRequest {
 
-    final String URL = "http://192.168.85.148:8088/";
+    final String URL = "http://192.168.85.177:8088/";
     public SQLiteDatabase db;
 
     public void getUser(final Context context) {
@@ -102,6 +102,7 @@ public class ApiRequest {
         String url = URL + "products/site?siteId=EDLL";
 
         JsonArrayRequest objectRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
             List<ProductModel> productList = new ArrayList<ProductModel>();
             DataBaseHelper dbH = new DataBaseHelper(context);
             SQLiteDatabase db = dbH.getWritableDatabase();
@@ -151,7 +152,6 @@ public class ApiRequest {
 
 
 
-                        //Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
                     }
 
 
@@ -485,6 +485,8 @@ public class ApiRequest {
                         dbH.addSelectedProductInvoice(productId,salesSiteId,quantity);
                         Log.e("Table SelectedProductId","Created");
 
+
+
                     }
 
 
@@ -511,13 +513,6 @@ public class ApiRequest {
         };
         queue.add(objectRequest);
     }
-
-
-
-
-
-
-
 
 }
 

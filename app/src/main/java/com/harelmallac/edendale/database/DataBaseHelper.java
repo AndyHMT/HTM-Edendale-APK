@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -362,6 +363,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public String getProductName(String productId)
+    {
+        db = this.getWritableDatabase();
+        String selectStatement ="SELECT * FROM  " + PRODUCT_TABLE + " WHERE sageIdentifier = '" + productId +"'";
+        Cursor res = db.rawQuery(selectStatement, null);
+        res.moveToFirst();
+        String pName= res.getString(res.getColumnIndex(res.getColumnName(1)));
+        return pName;
+    }
+
     //#Varun - retrieve product id from tbl_product
     public String getProductId(String productName)
     {
@@ -371,6 +382,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         res.moveToFirst();
         String pid = res.getString(res.getColumnIndex(res.getColumnName(0)));
         return pid;
+    }
+
+    public String addComplaint(SalesmanComplaintsModel complaints)
+    {
+        db = this.getWritableDatabase();
+        String createStatement = "CREATE TABLE IF NOT EXISTS tbl_complaint(complaintId VARCHAR(1000) PRIMARY KEY, customerName VARCHAR, address VARCHAR, phoneNum VARCHAR, email VARCHAR, dairy NUMERIC, dry NUMERIC, frozen NUMERIC, liquid NUMERIC, productName VARCHAR, productId VARCHAR, productDescription VARCHAR, dateOfPurchase DATE, placeOfPurchase VARCHAR, prodQuality NUMERIC, taste NUMERIC, deposit NUMERIC, packaging NUMERIC, solubility NUMERIC, expiry NUMERIC, others VARCHAR, problemDescription VARCHAR, correctiveAction VARCHAR)";
+        db.execSQL(createStatement);
+        IdentityModel product = complaints.getProduct();
+        String id = product.getSageIdentifier();
+        String name = getProductName(id);
+
+        String insertStatement = "INSERT INTO tbl_complaint[(customerName,address,phoneNum,email,dairy,dry,frozen,liquid,productName,productId,productDescription,dateOfPurchase,placeOfPurchase,prodQuality,taste,deposit,packaging,solubility,expiry,others,problemDescription,correctiveAction)] VALUES '"+ complaints.getCustomerName()+"', '"+complaints.getCustomerAddress()+"', '"+complaints.getPhoneNo()+"', '"+complaints.getEmail()+"', '"+complaints.isDairy()+"', '"+complaints.isDry()+"', '"+complaints.isFrozen()+"', '"+complaints.isLiquid()+"', '"+name+"', '"+id+"', '"+complaints.getProductDescription()+"', '"+complaints.getPurchaseDate()+"', '"+complaints.getPurchasePlace()+"', '"+complaints.isProductQuality()+"', '"+complaints.isTaste()+"', '"+complaints.isDeposit()+"', '"+complaints.isPackaging()+"', '"+complaints.isSolubility()+"', '"+complaints.isExpiry()+"', '"+complaints.getOthers()+"', '"+complaints.getComplantDescription()+"', '"+complaints.getFirstCorrectiveAction();
+        db.execSQL(insertStatement);
+        Log.e("List of added",complaints.getCustomerName()+"', '"+complaints.getCustomerAddress()+"', '"+complaints.getPhoneNo()+"', '"+complaints.getEmail()+"', '"+complaints.isDairy()+"', '"+complaints.isDry()+"', '"+complaints.isFrozen()+"', '"+complaints.isLiquid()+"', '"+name+"', '"+id+"', '"+complaints.getProductDescription()+"', '"+complaints.getPurchaseDate()+"', '"+complaints.getPurchasePlace()+"', '"+complaints.isProductQuality()+"', '"+complaints.isTaste()+"', '"+complaints.isDeposit()+"', '"+complaints.isPackaging()+"', '"+complaints.isSolubility()+"', '"+complaints.isExpiry()+"', '"+complaints.getOthers()+"', '"+complaints.getComplantDescription()+"', '"+complaints.getFirstCorrectiveAction());
+       return "Complaints added succesfully";
     }
 
     //#Varun - retrieve product price
@@ -399,6 +425,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public Cursor getCustomer()
     {
+
         db = this.getWritableDatabase();
         String selectTableStatement="SELECT * FROM  " + CUSTOMER_TABLE;
 
@@ -423,6 +450,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String selectTableStatement="SELECT * FROM  " + CUSTOMER_TABLE +" Where customerName = '" + customerName +"'";
 
         Cursor res = db.rawQuery(selectTableStatement, null);
+        Log.e("Response",res.toString());
         return res;
 
     }

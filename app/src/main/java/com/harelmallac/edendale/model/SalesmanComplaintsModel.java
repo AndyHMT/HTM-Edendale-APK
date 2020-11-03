@@ -21,15 +21,15 @@ public class SalesmanComplaintsModel {
     private IdentityModel product;
     private String productDescription;
     private boolean productQuality;
-    private Date purchaseDate;
+    private String purchaseDate;
     private String purchasePlace;
     private boolean solubility;
     private boolean taste;
-    private Date timestamp;
+    private String timestamp;
 
     public SalesmanComplaintsModel(){}
 
-    public SalesmanComplaintsModel(String complantDescription, String customerAddress, String customerName, boolean dairy, boolean deposit, boolean dry, String email, boolean expiry, String firstCorrectiveAction, boolean frozen, boolean liquid, String others, boolean packaging, String phoneNo, IdentityModel product, String productDescription, boolean productQuality, Date purchaseDate, String purchasePlace, boolean solubility, boolean taste, Date timestamp) {
+    public SalesmanComplaintsModel(String complantDescription, String customerAddress, String customerName, boolean dairy, boolean deposit, boolean dry, String email, boolean expiry, String firstCorrectiveAction, boolean frozen, boolean liquid, String others, boolean packaging, String phoneNo, IdentityModel product, String productDescription, boolean productQuality, String purchaseDate, String purchasePlace, boolean solubility, boolean taste, String timestamp) {
         this.complantDescription = complantDescription;
         this.customerAddress = customerAddress;
         this.customerName = customerName;
@@ -190,11 +190,11 @@ public class SalesmanComplaintsModel {
         this.productQuality = productQuality;
     }
 
-    public Date getPurchaseDate() {
+    public String getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(String purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
@@ -222,11 +222,11 @@ public class SalesmanComplaintsModel {
         this.taste = taste;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }

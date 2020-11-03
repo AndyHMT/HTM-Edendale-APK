@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,8 +14,37 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ComplaintDescriptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+import com.harelmallac.edendale.database.DataBaseHelper;
+import com.harelmallac.edendale.model.ComplaintsModel;
+import com.harelmallac.edendale.model.IdentityModel;
+import com.harelmallac.edendale.model.SalesmanComplaintsModel;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
+public class ComplaintDescriptionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+    DataBaseHelper db;
+    String cusName = null;
+    String cusAddress = null;
+    String cusPhone = null;
+    String cusEmail = null;
+
+    String proSpinner = null;
+    String proName = null;
+    String proDescription = null;
+    String purDate = null;
+    String placeOfPur = null;
+    Boolean dairy = false;
+    Boolean dry = false;
+    Boolean liquid = false;
+    Boolean frozen = false;
+    Boolean productQuality = false;
+    Boolean taste = false;
+    Boolean deposit = false;
+    Boolean packaging = false;
+    Boolean solubitlity = false;
+    Boolean expiry = false;
+    Boolean prodOther = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,21 +53,13 @@ public class ComplaintDescriptionActivity extends AppCompatActivity implements A
         Toast.makeText(getApplicationContext(),ComSpinner.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
         ComSpinner.setOnItemSelectedListener(this);
 
+
         Button butNext = findViewById(R.id.button);
 
         butNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String cusName = null;
-                String cusAddress = null;
-                String cusPhone = null;
-                String cusEmail = null;
 
-                String proSpinner = null;
-                String proName = null;
-                String proDescription = null;
-                String purDate = null;
-                String placeOfPur = null;
 
                 if( getIntent().getExtras() != null)
                 {
@@ -78,6 +100,126 @@ public class ComplaintDescriptionActivity extends AppCompatActivity implements A
                 else{
                     Toast.makeText(getApplicationContext(),"Please fill in all of the fields",Toast.LENGTH_SHORT).show();
                 }
+                    if (comSpinner.equals("Dairy"))
+                    {
+                        dairy= true;
+                        frozen = false;
+                        liquid = false;
+                        dry = false;
+                    }
+
+                if (comSpinner.equals("Frozen"))
+                {
+                    dairy= false;
+                    frozen = true;
+                    liquid = false;
+                    dry = false;
+                }
+
+                if (comSpinner.equals("Liquid"))
+                {
+                    dairy= false;
+                    frozen = false;
+                    liquid = true;
+                    dry = false;
+                }
+
+                if (comSpinner.equals("Dry"))
+                {
+                    dairy= false;
+                    frozen = false;
+                    liquid = false;
+                    dry = true;
+                }
+
+                if(proSpinner.equals("Product Quality"))
+                {
+                    productQuality = true;
+                    taste = false;
+                    deposit = false;
+                    packaging = false;
+                    solubitlity = false;
+                    expiry = false;
+                    prodOther = false;
+                }
+
+                if(proSpinner.equals("Taste"))
+                {
+                    productQuality = false;
+                    taste = true;
+                    deposit = false;
+                    packaging = false;
+                    solubitlity = false;
+                    expiry = false;
+                    prodOther = false;
+                }
+
+                if(proSpinner.equals("Deposit"))
+                {
+                    productQuality = false;
+                    taste = false;
+                    deposit = true;
+                    packaging = false;
+                    solubitlity = false;
+                    expiry = false;
+                    prodOther = false;
+                }
+
+                if(proSpinner.equals("Packaging"))
+                {
+                    productQuality = false;
+                    taste = false;
+                    deposit = false;
+                    packaging = true;
+                    solubitlity = false;
+                    expiry = false;
+                    prodOther = false;
+                }
+
+                if(proSpinner.equals("Solubility"))
+                {
+                    productQuality = false;
+                    taste = false;
+                    deposit = false;
+                    packaging = false;
+                    solubitlity = true;
+                    expiry = false;
+                    prodOther = false;
+                }
+
+                if(proSpinner.equals("Expiry"))
+                {
+                    productQuality = false;
+                    taste = false;
+                    deposit = false;
+                    packaging = false;
+                    solubitlity = false;
+                    expiry = true;
+                    prodOther = false;
+                }
+
+                if(proSpinner.equals("Other"))
+                {
+                    productQuality = false;
+                    taste = false;
+                    deposit = false;
+                    packaging = false;
+                    solubitlity = false;
+                    expiry = false;
+                    prodOther = true;
+                }
+                Log.e("Product Name",proName);
+
+                String productId = db.getProductId(proName);
+                IdentityModel product = new IdentityModel(productId);
+
+
+
+                SalesmanComplaintsModel complaints = new SalesmanComplaintsModel(comDescrip,cusAddress,cusName,dairy,deposit,dry,cusEmail,expiry,comResp,frozen,liquid,comOther,packaging,cusPhone,product,proDescription,productQuality,purDate,placeOfPur,solubitlity,taste,purDate);
+                db.addComplaint(complaints);
+
+                Log.e("Error Message",cusName);
+
             }
         });
 
@@ -105,8 +247,8 @@ public class ComplaintDescriptionActivity extends AppCompatActivity implements A
         String z = parent.getSelectedItem().toString();
         //Toast.makeText(this,z,Toast.LENGTH_SHORT).show();
         EditText specification = findViewById(R.id.otherSpecification);
-        if(z.equals("Other")){
-            //Toast.makeText(this,parent.getSelectedItem().toString(),Toast.LENGTH_SHORT).show();
+        if(z.equals("Other"))
+        {
             specification.setEnabled(true);
             specification.setHintTextColor(getResources().getColor(R.color.red));
         }

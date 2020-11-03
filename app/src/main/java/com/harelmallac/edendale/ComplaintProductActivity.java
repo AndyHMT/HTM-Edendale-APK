@@ -26,6 +26,7 @@ import java.util.Calendar;
 public class ComplaintProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     EditText purchaseDate;
+    String productId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
