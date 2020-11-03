@@ -1,47 +1,67 @@
 package com.harelmallac.edendale.model;
 
 public class ProductLinesClass {
-    String Name;
-    String Qty;
-    String Price;
-    String Total;
+    String id;
+    String name;
+    String qty;
+    String price;
+    String total;
+    String discount;
 
-    public ProductLinesClass(String name, String qty, String price, String total) {
-        Name = name;
-        Qty = qty;
-        Price = price;
-        Total = total;
+    public ProductLinesClass(String id, String name, String qty, String price, String total, String discount) {
+        this.id = id;
+        this.name = name;
+        this.qty = qty;
+        this.price = price;
+        this.total = total;
+        this.discount = discount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getQty() {
-        return Qty;
+        return qty;
     }
 
     public void setQty(String qty) {
-        Qty = qty;
+        this.qty = qty;
     }
 
     public String getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(String price) {
-        Price = price;
+        this.price = price;
     }
 
     public String getTotal() {
-        return Total;
+        return total;
     }
 
     public void setTotal(String total) {
-        Total = total;
+        this.total = total;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 }

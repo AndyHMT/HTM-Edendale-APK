@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".CreateInvoiceListOfItemsActivity">
 
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="20dp"
+        android:text="Total"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
     <View
         android:id="@+id/waveView2"
         android:layout_width="0dp"
@@ -72,95 +82,23 @@
         android:id="@+id/butConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="44dp"
         android:background="@drawable/round_button"
         android:text="Add"
         android:textColor="@color/design_default_color_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/butMoveNextOne"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/round_button"
-        android:drawableStart="@drawable/ic_baseline_arrow_right"
-        android:paddingStart="13dp"
-        android:text=""
-        android:textColor="@color/design_default_color_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/butMoveNextTen" />
-
-    <Button
-        android:id="@+id/butMoveNextTen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/round_button"
-        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right"
-        android:paddingLeft="20dp"
-        android:paddingRight="13dp"
-        android:text="10"
-        android:textColor="@color/design_default_color_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <ListView
         android:id="@+id/LVitems"
-        android:layout_width="409dp"
-        android:layout_height="300dp"
+        android:layout_width="404dp"
+        android:layout_height="416dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="50dp"
         android:focusableInTouchMode="false"
         android:isScrollContainer="false"
-        app:layout_constraintBottom_toTopOf="@+id/butMoveNextOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <Button
-        android:id="@+id/butMoveBackTen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/round_button"
-        android:paddingLeft="13dp"
-        android:paddingRight="20dp"
-        android:text="10"
-        android:drawableStart="@drawable/ic_baseline_keyboard_arrow_left"
-        android:textColor="@color/design_default_color_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/butMoveBackOne"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/round_button"
-        android:paddingLeft="13dp"
-        android:text=""
-        android:drawableStart="@drawable/ic_baseline_arrow_left"
-        android:textColor="@color/design_default_color_background"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/butMoveBackTen" />
-
-    <Button
-        android:id="@+id/butFinish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="70dp"
-        android:text="Finish"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/round_button"
-        android:textColor="@color/design_default_color_background"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

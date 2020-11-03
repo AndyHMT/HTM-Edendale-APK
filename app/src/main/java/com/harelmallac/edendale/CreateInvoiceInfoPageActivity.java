@@ -115,7 +115,7 @@ public class CreateInvoiceInfoPageActivity extends AppCompatActivity {
                     TextView TypeDis = findViewById(R.id.TypeDis);
                     TextView SalesTypeDis = findViewById(R.id.SalesTypeDis);
                     Spinner ShippingAddress = findViewById(R.id.customerAddress);
-                    Intent intent = new Intent(CreateInvoiceInfoPageActivity.this, CreateInvoiceLinesActivity.class);
+                    Intent intent = new Intent(CreateInvoiceInfoPageActivity.this, CreateInvoiceListOfItemsActivity.class);
                     intent.putExtra("cusName", customerNameDisplay.getText().toString());
                     intent.putExtra("AmountOwned", AmountOwnedDisplay.getText().toString());
                     intent.putExtra("SalesSite", SalesSiteDis.getText().toString());

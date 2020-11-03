@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StockRequestActivity">
+    tools:context=".RemittancePreviewActivity">
 
     <View
         android:id="@+id/waveView2"
@@ -26,36 +26,66 @@
         app:srcCompat="@drawable/hmt_logo" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/complaintTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stock Request"
+        android:text="Remittance Preview"
         android:textColor="#2D2F31"
         android:textSize="35sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/waveView2" />
+        app:layout_constraintTop_toBottomOf="@+id/waveView2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ListView
-        android:id="@+id/LVstkRequest"
+        android:id="@+id/LVRprevList"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="375dp"
+        android:layout_marginTop="20dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/complaintTitle" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:text="Proceed"
-        android:background="@drawable/round_button"
+        android:text="Print"
         android:textColor="@color/design_default_color_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/round_button"/>
+
+    <TextView
+        android:id="@+id/textView69"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Total : "
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LVRprevList" />
+
+    <TextView
+        android:id="@+id/textView70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:text="14000.00"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/textView69"
+        app:layout_constraintTop_toBottomOf="@+id/LVRprevList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

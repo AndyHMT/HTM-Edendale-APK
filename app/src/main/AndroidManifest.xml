@@ -15,19 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CreateInvoiceActivity"></activity>
-        <activity android:name=".CreateInvoiceListOfItemsActivity" />
+        <activity android:name=".StockRequestActivity"></activity>
+        <activity android:name=".SearchInvoiceActivity" />
+        <activity android:name=".DailySalesReportActivity" />
+        <activity android:name=".DayEndSummaryActivity" />
+        <activity android:name=".RemittanceActivity" />
+        <activity android:name=".CurrentStockReportActivity" />
+        <activity android:name=".ChequeReportActivity" />
+        <activity android:name=".SplashActivity" />
+        <activity android:name=".CreateInvoiceLinesActivity" />
         <activity android:name=".CreateInvoiceInfoPageActivity" />
         <activity android:name=".ComplaintFormActivity" />
         <activity android:name=".ComplaintDescriptionActivity" />
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".ComplaintProductActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".Menu2Activity" />
-        <activity android:name=".MenuActivity" />
+        <activity android:name=".CreateInvoiceActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".StockRequestActivity" />
-        <activity android:name=".CreateInvoiceLinesActivity" />
-        <activity android:name=".ComplaintProductActivity">
+        <activity android:name=".CreateInvoiceListOfItemsActivity" />
+        <activity android:name=".StockRequestProductListActivity" />
+        <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

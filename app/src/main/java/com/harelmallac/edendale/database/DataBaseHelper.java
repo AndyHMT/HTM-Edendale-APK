@@ -464,7 +464,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
 
-
+    ///
 
     //ALL UPDATE METHOD
     //#Varun - Update selected qty upon create invoice

@@ -61,6 +61,7 @@ public class ProductLinesAdapter extends ArrayAdapter<ProductLinesClass> {
                 CreateInvoiceLinesActivity x = new CreateInvoiceLinesActivity();
 
                 x.delete(position);
+
             }
         });
 
