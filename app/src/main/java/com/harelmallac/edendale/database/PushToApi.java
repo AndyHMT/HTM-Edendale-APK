@@ -4,7 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class PushToApi {
 
-    final String URL = "http://10.134.100.9:8088/";
+    final String URL = "http://192.168.85.177:8088/";
     public SQLiteDatabase db;
 
     public void postInvoicesHeader()
@@ -14,6 +14,8 @@ public class PushToApi {
 
     public void postSalesmanComplaints()
     {
+        String url = "complaints/send";
+
 
     }
 
