@@ -1,12 +1,12 @@
 package com.harelmallac.edendale;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.harelmallac.edendale.model.DailySalesListAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.harelmallac.edendale.adapter.DailySalesListAdapter;
 import com.harelmallac.edendale.model.DailySalesListClass;
 
 import java.text.SimpleDateFormat;

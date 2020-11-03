@@ -1,15 +1,13 @@
 package com.harelmallac.edendale;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.harelmallac.edendale.model.ChequeReportClass;
-import com.harelmallac.edendale.model.ChequeReportListAdapter;
-import com.harelmallac.edendale.model.DailySalesListAdapter;
-import com.harelmallac.edendale.model.DailySalesListClass;
+import com.harelmallac.edendale.adapter.ChequeReportListAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

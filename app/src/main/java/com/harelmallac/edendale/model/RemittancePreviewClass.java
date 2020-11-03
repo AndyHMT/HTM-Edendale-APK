@@ -1,7 +1,5 @@
 package com.harelmallac.edendale.model;
 
-import com.android.volley.toolbox.StringRequest;
-
 public class RemittancePreviewClass {
 
     private String RprevNum;

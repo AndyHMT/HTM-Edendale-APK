@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,18 +47,17 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        Button btnReceipt = findViewById(R.id.btnReceipt);
 
-        btnReceipt.setOnClickListener(new View.OnClickListener() {
+        Button btnSearchInvoice = findViewById(R.id.btnSearchInvoice);
+        btnSearchInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, ReceiptCustomerListActivity.class);
+                Intent intent = new Intent(MenuActivity.this, SearchInvoiceActivity.class);
                 startActivity(intent);
             }
         });
 
         Button btnReport = findViewById(R.id.btnSearchInvoice2);
-
         btnReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,6 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     public void Synchronize()

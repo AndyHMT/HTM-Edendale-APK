@@ -1,11 +1,11 @@
 package com.harelmallac.edendale;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.harelmallac.edendale.model.RemittanceAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.harelmallac.edendale.adapter.RemittanceAdapter;
 import com.harelmallac.edendale.model.RemittanceClass;
 
 import java.util.ArrayList;
