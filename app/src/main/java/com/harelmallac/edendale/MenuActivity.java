@@ -29,6 +29,15 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        Button stockRequest = findViewById(R.id.btnStockRequest);
+        stockRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, StockRequestActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button btnComplaints = findViewById(R.id.btnComplaints);
         btnComplaints.setOnClickListener(new View.OnClickListener() {
             @Override
