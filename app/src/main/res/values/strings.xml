@@ -17,4 +17,35 @@
         <item>Expiry</item>
         <item>Other</item>
     </string-array>
+
+
+    <string-array name="spinnerReceiptPayType">
+        <item>Cash</item>
+        <item>Cheque</item>
+    </string-array>
+
+
+    <string-array name="spinnerReceiptBank">
+        <item>ABC Banking</item>
+        <item>AfrAsia Bank</item>
+        <item>Bank One</item>
+        <item>Bank of Baroda</item>
+        <item>Banque des Mascareignes</item>
+        <item>BanyanTree Bank</item>
+        <item>Barclays Bank</item>
+        <item>BII</item>
+        <item>Century Banking Corporation</item>
+        <item>Deutsche Bank</item>
+        <item>DBM</item>
+        <item>HSBC</item>
+        <item>HBL</item>
+        <item>Investec Bank</item>
+        <item>MauBank</item>
+        <item>MCB</item>
+        <item>MPCB</item>
+        <item>SBI</item>
+        <item>SBM</item>
+        <item>Standard Bank</item>
+        <item>Standard Chartered Bank</item>
+    </string-array>
 </resources>

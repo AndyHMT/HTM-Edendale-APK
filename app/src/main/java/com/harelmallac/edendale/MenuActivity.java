@@ -45,6 +45,27 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
+
+        Button btnReceipt = findViewById(R.id.btnReceipt);
+
+        btnReceipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, ReceiptCustomerListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btnReport = findViewById(R.id.btnSearchInvoice2);
+
+        btnReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, ReportActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void Synchronize()
