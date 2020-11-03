@@ -2,8 +2,12 @@ package com.harelmallac.edendale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.harelmallac.edendale.adapter.SearchInvoiceAdapter;
 import com.harelmallac.edendale.adapter.SearchInvoiceApater;
@@ -30,4 +34,13 @@ public class SearchInvoiceActivity extends AppCompatActivity {
         SearchInvoiceAdapter adapter = new SearchInvoiceAdapter(this, list);
         LVsInv.setAdapter(adapter);
     }
+
+
+    public void previewClick(Context context, String txt){
+        Intent intent = new Intent(context, SearchInvoicePreviewPageActivity.class);
+        intent.putExtra("name",txt);
+        context.startActivity(intent);
+
+    }
+
 }

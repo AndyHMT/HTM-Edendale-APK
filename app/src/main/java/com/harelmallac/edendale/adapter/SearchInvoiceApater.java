@@ -1,17 +1,26 @@
 package com.harelmallac.edendale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.harelmallac.edendale.CreateInvoiceLinesActivity;
+import com.harelmallac.edendale.MenuActivity;
 import com.harelmallac.edendale.R;
+import com.harelmallac.edendale.SearchInvoiceActivity;
 import com.harelmallac.edendale.model.SearchInvoiceClass;
 import com.harelmallac.edendale.model.TotalInfoClass;
 
@@ -43,11 +52,12 @@ public class SearchInvoiceApater extends ArrayAdapter<SearchInvoiceClass> {
         ImageView sInvView = view.findViewById(R.id.srchInvView);
         ImageView sInvCancel = view.findViewById(R.id.srchInvCancel);
 
+
+
         sInvNameView.setText(srchInvList.get(position).getsInvName());
         sInvPrint.setImageResource(srchInvList.get(position).getsInvprint());
         sInvView.setImageResource(srchInvList.get(position).getsInvView());
         sInvCancel.setImageResource(srchInvList.get(position).getsInvCancel());
-
 
 
         return view;

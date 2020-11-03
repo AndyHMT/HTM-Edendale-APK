@@ -1,6 +1,7 @@
 package com.harelmallac.edendale.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -13,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.harelmallac.edendale.MenuActivity;
 import com.harelmallac.edendale.R;
+import com.harelmallac.edendale.SearchInvoiceActivity;
 import com.harelmallac.edendale.model.ItemClass;
 import com.harelmallac.edendale.model.SearchInvoiceClass;
 
@@ -73,6 +76,17 @@ public class SearchInvoiceAdapter extends BaseAdapter {
             holder.cancel = convertView.findViewById(R.id.srchInvCancel);
             holder.cancel.setTag(position);
             holder.cancel.setImageResource(sList.get(position).getsInvCancel());
+
+
+
+            holder.preview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SearchInvoiceActivity x = new SearchInvoiceActivity();
+                    x.previewClick(context, sList.get(position).getsInvName());
+                }
+            });
+
 
 
             convertView.setTag(holder);
