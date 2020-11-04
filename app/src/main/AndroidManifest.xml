@@ -33,12 +33,12 @@
         <activity android:name=".Menu2Activity" />
         <activity android:name=".CreateInvoiceActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".ReceiptPrintActivity" />
         <activity android:name=".CreateInvoiceListOfItemsActivity" />
         <activity android:name=".StockRequestProductListActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

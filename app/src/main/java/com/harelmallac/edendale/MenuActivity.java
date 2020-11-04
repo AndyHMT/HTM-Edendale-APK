@@ -80,6 +80,15 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        Button btnReceipt = findViewById(R.id.btnReceipt);
+        btnReceipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MenuActivity.this, ReceiptPrintActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button btnPush = findViewById(R.id.btnPush);
         btnPush.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)

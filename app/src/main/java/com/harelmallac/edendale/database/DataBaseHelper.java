@@ -260,7 +260,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
 
+        public void createTblInvoice()
+        {
+            String createTblInvoice ="CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
+            db.execSQL(createTblInvoice);
+            Log.e("Table invoice","tbl_Invoice Created");
+        }
 
+        public void createTblSaleReceipt()
+        {
+            String createTblSaleReceipt ="CREATE TABLE IF NOT EXISTS tbl_saleReceipt(receiptId VARCHAR(1000) PRIMARY KEY, customerId VARCHAR, date DATE, invoiceNumber VARCHAR, receiptNumber VARCHAR, saleType VARCHAR, amount REAL, salesRepId VARCHAR, salesSiteId VARCHAR, chequeNum VARCHAR, bank VARCHAR,status VARCHAR)";
+            db.execSQL(createTblSaleReceipt);
+            Log.e("Table Sale Receipt","tbl_saleReceipt Created");
+        }
 
 
 
