@@ -262,15 +262,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         public void createTblInvoice()
         {
+            SQLiteDatabase db1 = this.getReadableDatabase();
             String createTblInvoice ="CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
-            db.execSQL(createTblInvoice);
+            db1.execSQL(createTblInvoice);
             Log.e("Table invoice","tbl_Invoice Created");
         }
 
         public void createTblSaleReceipt()
         {
+
+            SQLiteDatabase db1 = this.getReadableDatabase();
             String createTblSaleReceipt ="CREATE TABLE IF NOT EXISTS tbl_saleReceipt(receiptId VARCHAR(1000) PRIMARY KEY, customerId VARCHAR, date DATE, invoiceNumber VARCHAR, receiptNumber VARCHAR, saleType VARCHAR, amount REAL, salesRepId VARCHAR, salesSiteId VARCHAR, chequeNum VARCHAR, bank VARCHAR,status VARCHAR)";
-            db.execSQL(createTblSaleReceipt);
+            db1.execSQL(createTblSaleReceipt);
             Log.e("Table Sale Receipt","tbl_saleReceipt Created");
         }
 
@@ -459,6 +462,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         for(int i = 0; i < invoice.size(); i++) {
             Log.e("test invice", invoice.get(i).getInvoiceNumber());
+            Log.e("price", invoice.get(i).getGrossPrice()+"");
         }
 
 //        String insertInvoice = "INSERT INTO tbl_invoiceProduct(invPrdId, discountAmount, discountPercentage, grossPrice, prodPrice, invoiceId, productId, selectedQty, vatAmount) VALUES ('"+ NULL +
@@ -480,6 +484,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         int qty = res.getInt(res.getColumnIndex(res.getColumnName(0)));
         return qty;
+    }
+
+    //#Varun - retrieve invoice count
+    public int getInvoiceCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_invoice";
+        Cursor res = db.rawQuery(selectTableStatement, null);
+
+        return res.getCount();
     }
 
     public Cursor getCustomer()

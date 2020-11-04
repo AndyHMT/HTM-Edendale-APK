@@ -34,8 +34,11 @@ import com.harelmallac.edendale.model.ProductLinesClass;
 import com.harelmallac.edendale.model.TotalInfoClass;
 //import com.harelmallac.edendale.service.Printing;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 public class CreateInvoiceLinesActivity extends AppCompatActivity {
@@ -131,13 +134,20 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         btnCreateInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //#Varun - invoice number
+                generateInvoiceNumber();
+                Log.e("Generate INV", generateInvoiceNumber());
+
                 if(ProList != null) {
                     for (int i = 0; i < ProList.size(); i++) {
+
                         //#Varun - Update product qty upon create receipt
                         updateQty(ProList.get(i).getName(), ProList.get(i).getQty());
 
+                        Double selectedQty =  Double.parseDouble(ProList.get(i).getQty());
+                        Double discountedPrice = (Double.parseDouble(ProList.get(i).getPrice())) - ((Double.parseDouble(ProList.get(i).getPrice()) * Double.parseDouble(ProList.get(i).getDiscount())/100));
                         //#Varun - Insert into tbl_invoice
-                        invoiceProductList.add(new InvoiceProductModel(0, 0, 0, "INVSR001", new IdentityModel("786"), 2, 1));
+                        invoiceProductList.add(new InvoiceProductModel(discountedPrice, Double.parseDouble(ProList.get(i).getDiscount())/100, 100.00, generateInvoiceNumber(), new IdentityModel(ProList.get(i).getId()), selectedQty, 20));
                         db.createInvoice(invoiceProductList);
 
                         ProList.clear();
@@ -172,6 +182,25 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         int initalQty = db.getProductQty(db.getProductId(productName));
         int newQty = initalQty - Integer.parseInt(qty);
         db.updateSelectedProductQty(db.getProductId(productName), newQty+"");
+    }
+
+    //#Varun - Generate Invoice Number
+    public String generateInvoiceNumber() {
+        db.createTblInvoice();
+        int count = 0;
+        String InvoiceNum;
+        String Uid = "SR00010";
+        DateFormat df = new SimpleDateFormat("ddMMyy");
+        String date = df.format(Calendar.getInstance().getTime());
+        //INV+SR00010+170920+1
+        if(db.getInvoiceCount() == 0) {
+            count = 1;
+            InvoiceNum = "INV"+Uid+date+count;
+        }else{
+            count = db.getInvoiceCount() + 1;
+            InvoiceNum = "INV"+Uid+date+count;
+        }
+        return InvoiceNum;
     }
 
     public void delete(int position){
