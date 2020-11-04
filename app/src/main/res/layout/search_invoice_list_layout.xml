@@ -38,7 +38,18 @@
         android:layout_marginBottom="5dp"
         android:layout_weight="1"
         android:src="@drawable/ic_baseline_print"
-        android:id="@+id/srchInvView"/>
+        android:id="@+id/srchInvView" />
+
+<!--    <Button-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="35dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:background="@drawable/ic_baseline_print"-->
+<!--        android:layout_weight="1"-->
+<!--        android:id="@+id/z"/>-->
+
 
     <ImageView
         android:layout_width="0dp"

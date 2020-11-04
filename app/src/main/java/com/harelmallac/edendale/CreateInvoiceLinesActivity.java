@@ -27,6 +27,8 @@ import android.widget.Toast;
 import com.harelmallac.edendale.adapter.SelectedProductAdapter;
 import com.harelmallac.edendale.adapter.TotalInfoAdapter;
 import com.harelmallac.edendale.database.DataBaseHelper;
+import com.harelmallac.edendale.model.IdentityModel;
+import com.harelmallac.edendale.model.InvoiceProductModel;
 import com.harelmallac.edendale.model.ProductLinesAdapter;
 import com.harelmallac.edendale.model.ProductLinesClass;
 import com.harelmallac.edendale.model.TotalInfoClass;
@@ -41,6 +43,8 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity23";
     private static ArrayList<ProductLinesClass> ProList = new ArrayList<>();
     private static ArrayList<TotalInfoClass> totalList = new ArrayList<>();
+    private static ArrayList<InvoiceProductModel> invoiceProductList = new ArrayList<>();
+
     private static Context context;
     private static ListView LVLines;
     private static ListView LVTotals;
@@ -131,6 +135,11 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                     for (int i = 0; i < ProList.size(); i++) {
                         //#Varun - Update product qty upon create receipt
                         updateQty(ProList.get(i).getName(), ProList.get(i).getQty());
+
+                        //#Varun - Insert into tbl_invoice
+                        invoiceProductList.add(new InvoiceProductModel(0, 0, 0, "INVSR001", new IdentityModel("786"), 2, 1));
+                        db.createInvoice(invoiceProductList);
+
                         ProList.clear();
                         LVLines.invalidateViews();
                     }

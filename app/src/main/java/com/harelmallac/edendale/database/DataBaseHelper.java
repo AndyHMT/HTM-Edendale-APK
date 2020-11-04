@@ -21,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static java.sql.Types.NULL;
+
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
@@ -433,7 +435,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return price;
     }
 
+    //#Varun - Create invoice lines
+    public String createInvoice(ArrayList<InvoiceProductModel> invoice)
+    {
+        db = this.getWritableDatabase();
+        String createInvoiceProduct = "CREATE TABLE IF NOT EXISTS tbl_invoiceProduct(invPrdId VARCHAR(1000) PRIMARY KEY, discountAmount DOUBLE, discountPercentage DOUBLE, grossPrice DOUBLE, prodPrice DOUBLE, invoiceId VARCHAR, productId INT, selectedQty DOUBLE, vatAmount DOUBLE)";
+        db.execSQL(createInvoiceProduct);
+        //IdentityModel idenM = invoice.getProduct();
+        //String id = idenM.getSageIdentifier();
+        //double prodPrice = getProductPrice(id);
 
+        for(int i = 0; i < invoice.size(); i++) {
+            Log.e("test invice", invoice.get(i).getInvoiceNumber());
+        }
+
+//        String insertInvoice = "INSERT INTO tbl_invoiceProduct(invPrdId, discountAmount, discountPercentage, grossPrice, prodPrice, invoiceId, productId, selectedQty, vatAmount) VALUES ('"+ NULL +
+//                "', '"+invoice.getDiscountAmount()+"', '"+invoice.getDiscountPercentage()+"', '"+invoice.getGrossPrice()+
+//                "', '"+prodPrice+"', '"+invoice.getInvoiceNumber()+"', '"+id+"', '"+invoice.getSelectedQty()+
+//                "', '"+invoice.getVatAmount()+"')";
+//        db.execSQL(insertInvoice);
+        return "Complaints added succesfully";
+    }
 
 
     //#Varun - retrieve product qty
