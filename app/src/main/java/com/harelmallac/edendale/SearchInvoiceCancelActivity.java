@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.harelmallac.edendale.adapter.SearchInvoiceCancelAdapter;
@@ -34,6 +36,16 @@ public class SearchInvoiceCancelActivity extends AppCompatActivity {
 
         SearchInvoiceCancelAdapter adapter = new SearchInvoiceCancelAdapter(this, R.layout.search_invoice_cancel_layout, list);
         LVschInCan.setAdapter(adapter);
+
+
+        Button MainPage = findViewById(R.id.button4);
+        MainPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchInvoiceCancelActivity.this, SearchInvoiceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void previewClick(Context context, String txt){
