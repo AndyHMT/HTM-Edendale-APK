@@ -454,22 +454,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public String createInvoice(ArrayList<InvoiceProductModel> invoice)
     {
         db = this.getWritableDatabase();
-        String createInvoiceProduct = "CREATE TABLE IF NOT EXISTS tbl_invoiceProduct(invPrdId VARCHAR(1000) PRIMARY KEY, discountAmount DOUBLE, discountPercentage DOUBLE, grossPrice DOUBLE, prodPrice DOUBLE, invoiceId VARCHAR, productId INT, selectedQty DOUBLE, vatAmount DOUBLE)";
+        String createInvoiceProduct = "CREATE TABLE IF NOT EXISTS tbl_invoiceProduct(invPrdId INTEGER PRIMARY KEY AUTOINCREMENT, discountAmount DOUBLE, discountPercentage DOUBLE, grossPrice DOUBLE, prodPrice DOUBLE, invoiceId VARCHAR, productId INT, selectedQty DOUBLE, vatAmount DOUBLE)";
         db.execSQL(createInvoiceProduct);
-        //IdentityModel idenM = invoice.getProduct();
-        //String id = idenM.getSageIdentifier();
-        //double prodPrice = getProductPrice(id);
 
         for(int i = 0; i < invoice.size(); i++) {
-            Log.e("test invice", invoice.get(i).getInvoiceNumber());
-            Log.e("price", invoice.get(i).getGrossPrice()+"");
+            String insertInvoice = "INSERT INTO tbl_invoiceProduct( discountAmount, discountPercentage, grossPrice, prodPrice, invoiceId, productId, selectedQty, vatAmount) VALUES ('" +invoice.get(i).getDiscountAmount()+"', '"+invoice.get(i).getDiscountPercentage()+"', '"+invoice.get(i).getGrossPrice()+
+                    "', '"+getProductPrice(invoice.get(i).getProduct().getSageIdentifier())+"', '"+invoice.get(i).getInvoiceNumber()+"', '"+invoice.get(i).getProduct().getSageIdentifier()+"', '"+invoice.get(i).getSelectedQty()+
+                    "', '"+invoice.get(i).getVatAmount()+"')";
+            db.execSQL(insertInvoice);
         }
-
-//        String insertInvoice = "INSERT INTO tbl_invoiceProduct(invPrdId, discountAmount, discountPercentage, grossPrice, prodPrice, invoiceId, productId, selectedQty, vatAmount) VALUES ('"+ NULL +
-//                "', '"+invoice.getDiscountAmount()+"', '"+invoice.getDiscountPercentage()+"', '"+invoice.getGrossPrice()+
-//                "', '"+prodPrice+"', '"+invoice.getInvoiceNumber()+"', '"+id+"', '"+invoice.getSelectedQty()+
-//                "', '"+invoice.getVatAmount()+"')";
-//        db.execSQL(insertInvoice);
         return "Complaints added succesfully";
     }
 
