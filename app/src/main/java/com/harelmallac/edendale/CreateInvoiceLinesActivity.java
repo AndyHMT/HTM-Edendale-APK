@@ -213,6 +213,25 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         return InvoiceNum;
     }
 
+    //#Varun - Generate Delivery Number
+    public String generateDeliveryNumber() {
+        db.createTblInvoice();
+        int count = 0;
+        String DeliveryNum;
+        String Uid = "SR00010";
+        DateFormat df = new SimpleDateFormat("ddMMyy");
+        String date = df.format(Calendar.getInstance().getTime());
+        //DEL+SR00010+170920+1
+        if(db.getInvoiceCount() == 0) {
+            count = 1;
+            DeliveryNum = "DEL"+Uid+date+count;
+        }else{
+            count = db.getInvoiceCount() + 1;
+            DeliveryNum = "DEL"+Uid+date+count;
+        }
+        return DeliveryNum;
+    }
+
     public void delete(int position){
         //remove item from itemlist based on index
         double total = 0.00;
