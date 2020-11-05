@@ -245,8 +245,6 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         double newDiscount = discount - ((Double.parseDouble(ProList.get(position).getDiscount())/100) * (Double.parseDouble(ProList.get(position).getPrice())));
         ProList.remove(position);
 
-        //Iterator<ProductLinesClass> itr = ProList.iterator();
-
         //Update Total Exclu VAT on remove
         totalList.get(0).setNum(df2.format(newTotal)+"");
         totalList.get(1).setNum(df2.format(newDiscount)+"");
