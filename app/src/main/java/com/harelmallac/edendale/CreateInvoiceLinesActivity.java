@@ -73,6 +73,8 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         ArrayList<String> selectedDiscount = new ArrayList<>();
         ArrayList<String> selectedQuantity = new ArrayList<>();
 
+        Log.e("Selected product", selectedProduct+"");
+        Log.e("Selected product", selectedProduct+"");
         if( getIntent().getExtras() != null) {
             customerName = getIntent().getStringExtra("cusName");
             AmountOwned = getIntent().getStringExtra("AmountOwned");
@@ -134,9 +136,9 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         btnCreateInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //#Varun - invoice number
                 generateInvoiceNumber();
-                Log.e("Generate INV", generateInvoiceNumber());
 
                 if(ProList != null) {
                     for (int i = 0; i < ProList.size(); i++) {
@@ -146,14 +148,22 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
                         Double selectedQty =  Double.parseDouble(ProList.get(i).getQty());
                         Double discountedPrice = (Double.parseDouble(ProList.get(i).getPrice())) - ((Double.parseDouble(ProList.get(i).getPrice()) * Double.parseDouble(ProList.get(i).getDiscount())/100));
+
                         //#Varun - Insert into tbl_invoice
                         invoiceProductList.add(new InvoiceProductModel(discountedPrice, Double.parseDouble(ProList.get(i).getDiscount())/100, 100.00, generateInvoiceNumber(), new IdentityModel(ProList.get(i).getId()), selectedQty, 20));
-                        db.createInvoice(invoiceProductList);
-
-                        ProList.clear();
-                        LVLines.invalidateViews();
                     }
+                    db.createInvoice(invoiceProductList);
                 }
+
+                //#Varun - Clear listview upon create invoice
+                ProList.clear();
+                totalList.get(0).setNum("0.00");
+                totalList.get(1).setNum("0.00");
+                totalList.get(2).setNum("0.00");
+                totalList.get(3).setNum("0.00");
+                LVLines.invalidateViews();
+                LVTotals.invalidateViews();
+
                 //print.checkBluetooth();
                 //print.feintBluetoothDeviceDiscovery();
                 //print.printData();

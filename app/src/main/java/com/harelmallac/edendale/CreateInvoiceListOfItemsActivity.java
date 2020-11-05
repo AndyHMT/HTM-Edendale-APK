@@ -32,11 +32,7 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
     DataBaseHelper db = new DataBaseHelper(this);
     ListView LVitems;
     ArrayList<ItemClass> list = new ArrayList<>();
-    ArrayList<String> aPid = new ArrayList<>();
-    ArrayList<String> aProductName = new ArrayList<>();
-    ArrayList<String> aProductTotal = new ArrayList<>();
-    ArrayList<String> aProductDiscount = new ArrayList<>();
-    ArrayList<String> aProductQty = new ArrayList<>();
+
 
 
 
@@ -57,6 +53,12 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
         butConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ArrayList<String> aPid = new ArrayList<>();
+                ArrayList<String> aProductName = new ArrayList<>();
+                ArrayList<String> aProductTotal = new ArrayList<>();
+                ArrayList<String> aProductDiscount = new ArrayList<>();
+                ArrayList<String> aProductQty = new ArrayList<>();
 
                 for(int i = 0; i < list.size(); i++){
                     String discount = list.get(i).getDiscount();
