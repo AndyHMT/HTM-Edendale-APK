@@ -28,8 +28,8 @@ import java.util.Calendar;
 
 public class SearchInvoiceActivity extends AppCompatActivity {
 
-    private ListView LVsInv;
-    private ArrayList<SearchInvoiceClass> list = new ArrayList<>();
+    private static ListView LVsInv;
+    private static ArrayList<SearchInvoiceClass> list = new ArrayList<>();
     private TextView tvDate;
     DataBaseHelper db = new DataBaseHelper(this);
     @Override

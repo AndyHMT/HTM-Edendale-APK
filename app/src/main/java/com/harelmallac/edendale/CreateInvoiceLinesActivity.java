@@ -228,19 +228,22 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
                         String currentTime = splitDate[1];
 
+                        Double calDiscount = (Double.parseDouble(ProList.get(i).getDiscount()) / 100.0) * Double.parseDouble(ProList.get(i).getPrice());
+                        calDiscount = Math.round(calDiscount*100) /100.0;
+
                         //#Varun - Insert into tbl_invoice
                         invoiceProductList.add(new InvoiceProductModel(discountedPrice, Double.parseDouble(ProList.get(i).getDiscount())/100, Double.parseDouble(getProductPrice(ProList.get(i).getName())), generateInvoiceNumber(), new IdentityModel(ProList.get(i).getId()), selectedQty, vatAmount));
                         invoiceSaleList.add(new SaleInvoiceModel(ProList.get(i).getId(), date, generateDeliveryNumber(), generateInvoiceNumber(), "Open", finalShippingAddress, finalCustomerName, finalSalesSite, finalSalesType, finalType, "1", "", "", "RESR0001012121", "EDLL", "", date, total+""));
 
-                        header = "\n\n\n       EDENDALE DISTRIBUTORS LTD\n           Anse Courtois, Les Pailles\n            Republic of Mauritius\n            Phone : (230) 286 4920\n      Fax : (230) 286 4654/ (230) 286 9479\n             Vat Reg No : VAT20362266\n             Bus Reg No : C06064211\n                    VAT INVOICE\n\n\nINV No : " + generateInvoiceNumber() + "\nDelivery No : " + generateDeliveryNumber() + "\nPrepared by : " + "Joe" + "\nDate : " + date + "\tTime : " + currentTime + "\nCustomer : " + finalCustomerName + "\n" + finalShippingAddress + "\n\nVat No : " + customerVatNo + "\nBRN : " + brn + "\n\nProducts\tQty\tDISC\tPrice\tTotal\n------------------------------------------------\n\n";
-                        body += ProList.get(i).getId() + "\t" + ProList.get(i).getQty() + "\t" + Double.parseDouble(ProList.get(i).getDiscount()) / 100.0 + "\t" + ProList.get(i).getPrice() + "\t" + ProList.get(i).getTotal() + "\t" + ProList.get(i).getName() + "\n\n";
-                        footer = "------------------------------------------------\nTotal Excl Vat Rs:\t" + total + "\nTotal Discount Rs:\t" + discount + "\nTotal Vat Amt Rs:\t" + vatAmount + "\nTotal Incl. Vat Rs:\t" + totalIncVat + "\n\nPay Method : " + finalSalesType + "\n\n------------------------------------------------\nTotal Qty : " + ProList.size() + "\n\n\nCustomer Signature:___________________________\n\nSalesman Signature:___________________________\n\n------------------------------------------------\nGoods Once Sold Are Not Returnable\n------------------------------------------------\nIn case of recovery through an attorney a\ncommision of 10% and interest of 2% above bank\nlending rate will be charged on the overdue\namount. For return cheque/s, a fee of Rs100 willbe charged.\n------------------------------------------------\n\n           --- Thank You/Merci ---\n\n\n\n";
+                        header = "\n\n\n           tEDENDALE DISTRIBUTORS LTD\n           Anse Courtois, Les Pailles\n            Republic of Mauritius\n            Phone : (230) 286 4920\n      Fax : (230) 286 4654/ (230) 286 9479\n             Vat Reg No : VAT20362266\n             Bus Reg No : C06064211\n                    VAT INVOICE\n\n\nINV No : " + generateInvoiceNumber() + "\nDelivery No : " + generateDeliveryNumber() + "\nPrepared by : " + "Joe" + "\nDate : " + date + "\tTime : " + currentTime + "\nCustomer : " + finalCustomerName + "\n" + finalShippingAddress + "\n\nVat No : " + customerVatNo + "\nBRN : " + brn + "\n\nProducts\tQty\tDISC\tPrice\tTotal\n------------------------------------------------\n\n";
+                        body += ProList.get(i).getId() + "\t" + ProList.get(i).getQty() + "\t" + calDiscount + "\t" + ProList.get(i).getPrice() + "\t" + ProList.get(i).getTotal() + "\t" + ProList.get(i).getName() + "\n\n";
+                        footer = "------------------------------------------------\nTotal Excl Vat Rs:\t" + Math.round(total*100)/100.0 + "\nTotal Discount Rs:\t" + Math.round(discount*100)/100.0 + "\nTotal Vat Amt Rs:\t" + Math.round(vatAmount*100)/100.0 + "\nTotal Incl. Vat Rs:\t" + Math.round(totalIncVat*100)/100.0 + "\n\nPay Method : " + finalSalesType + "\n\n------------------------------------------------\nTotal Qty : " + ProList.size() + "\n\n\nCustomer Signature:___________________________\n\nSalesman Signature:___________________________\n\n------------------------------------------------\nGoods Once Sold Are Not Returnable\n------------------------------------------------\nIn case of recovery through an attorney a\ncommision of 10% and interest of 2% above bank\nlending rate will be charged on the overdue\namount. For return cheque/s, a fee of Rs100 willbe charged.\n------------------------------------------------\n\n           --- Thank You/Merci ---\n\n\n\n";
 
 
                     }
-                    //db.createInvoice(invoiceProductList);
+                    db.createInvoice(invoiceProductList);
                     //#Varun - print receipt
-                    //db.createReceipt(invoiceSaleList);
+                    db.createReceipt(invoiceSaleList);
                 }
 
 

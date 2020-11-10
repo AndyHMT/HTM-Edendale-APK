@@ -42,7 +42,7 @@ import java.util.Map;
 public class PushToApi {
 
     private static final String T = "T";
-    final String URL = "http://192.168.85.122:8088/";
+    final String URL = "http://192.168.85.83:8088/";
     public SQLiteDatabase db;
     ;
 
