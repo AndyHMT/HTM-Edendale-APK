@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,8 +16,10 @@ import androidx.annotation.RequiresApi;
 
 import com.harelmallac.edendale.model.*;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -41,7 +44,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //FOR USER PART
-        String sqlCreateTableInvoice = "CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
+        String sqlCreateTableInvoice = "CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
         db.execSQL(sqlCreateTableInvoice);
         Log.i("Created Table Invoice","Table User Dropped");
         String sqlCreateTableProduct = "CREATE TABLE IF NOT EXISTS tbl_product(sageIdentifier VARCHAR(1000) PRIMARY KEY, productName TEXT, productType TEXT, quantity REAL, vatRate VARCHAR, unit VARCHAR, subCat1 VARCHAR, subCat2 VARCHAR, subCat3 VARCHAR, subCat4 VARCHAR, subCat5 VARCHAR)";
@@ -488,6 +491,90 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res.getCount();
     }
 
+    //#Varun - insert into tbl_receipt after print receipt
+    public String createReceipt(ArrayList<SaleInvoiceModel> saleInvoice) {
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        String date = df.format(Calendar.getInstance().getTime());
+        for(int i = 0; i < saleInvoice.size(); i++) {
+            String insertInvoice = "INSERT INTO tbl_invoice(date, status, invoiceNumber, deliveryNumber, orderNumber, salesSite, type, customerId, customerName, customerBrn, customerVatNo, customerVatCode, salesTypeId, addressId, addressName, userId, receiptNumber, mainSite, originalSalesRep, invoiceTotal, statusPost, cancelledOn) VALUES ('" + date + "', '" + "Open" + "', '" + saleInvoice.get(i).getInvoiceNumber() +
+                    "', '" + saleInvoice.get(i).getDeliveryNumber() + "', '" + "" + "', '" + saleInvoice.get(i).getSalesSite() + "', '" + saleInvoice.get(i).getType() + "', '" + "01000030" + "', '" + saleInvoice.get(i).getCustomer() + "', '" + "I07027976" + "', '" + "" + "', '" + getCustomerVatCode(saleInvoice.get(i).getCustomer()) + "', '" + saleInvoice.get(i).getSalesType() + "', '" + "01000030-1" + "', '" + saleInvoice.get(i).getAddress() + "', '" + saleInvoice.get(i).getUserId() + "', '" + saleInvoice.get(i).getReceiptNo() + "', '" + "EDLL" + "', '" + "" + "', '" + saleInvoice.get(i).getInvoiceTotal() + "', '" + "Not Posted" + "', '" + "" + "')";
+            db.execSQL(insertInvoice);
+        }
+        return "Invoice created successfully.";
+    }
+
+    //#Varun - get today's invoices
+    public Cursor getAllCurrentDayInvoices() {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_invoice as inv INNER JOIN tbl_customer as customer ON customer.sageIdentifier = inv.customerId INNER JOIN tbl_address AS custAdd ON custAdd.sageIdentifier = inv.addressId WHERE inv.status = 'Open' order by inv.date";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    //#Varun - get product vat
+    public Cursor getProductVat(String customer, String prodName) {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_vat WHERE customerVatCode ='"+getCustomerVatCode(customer)+"' AND productVatRate='"+getProductVatRate(prodName)+"'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    //#Varun - get invoice details
+    public Cursor getSearchInvoiceDetails(String invoiceNum) {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_invoiceProduct as invoice INNER JOIN tbl_product as product ON product.sageIdentifier = invoice.productId WHERE invoice.invoiceId ='"+invoiceNum+"'order by product.productName";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    //#Varun - get customer vatCode
+    public String getCustomerVatCode(String customer) {
+        String result = "";
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_customer WHERE customerName ='"+customer+"'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        if(res.getCount() < 0){
+            result = "Customer VAT code Not found.";
+        }
+       else {
+            while (res.moveToNext()){
+                result = res.getString(6);
+            }
+        }
+        return result;
+    }
+
+    //#Varun - get customer details
+    public Cursor getCustomerDetails(String customer) {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_customer WHERE customerName ='"+customer+"'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    //#Varun - get product vatRate
+    public String getProductVatRate(String product) {
+        String result = "";
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_product WHERE productName ='"+product+"'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        if(res.getCount() < 0){
+            result = "Product VAT Rate Not found.";
+        }
+        else {
+            while (res.moveToNext()){
+                result = res.getString(4);
+            }
+        }
+        return result;
+    }
+
     public Cursor getCustomer()
     {
 
@@ -544,12 +631,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (count <1)
         {
-            Log.e("FISBQ","false");
             return false;
         }
         else
         {
-            Log.e("sdfb","true");
             return true;
         }
     }

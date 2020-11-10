@@ -7,14 +7,16 @@ public class ProductLinesClass {
     String price;
     String total;
     String discount;
+    String vatRate;
 
-    public ProductLinesClass(String id, String name, String qty, String price, String total, String discount) {
+    public ProductLinesClass(String id, String name, String qty, String price, String total, String discount, String vatRate) {
         this.id = id;
         this.name = name;
         this.qty = qty;
         this.price = price;
         this.total = total;
         this.discount = discount;
+        this.vatRate = vatRate;
     }
 
     public String getId() {
@@ -63,5 +65,13 @@ public class ProductLinesClass {
 
     public void setDiscount(String discount) {
         this.discount = discount;
+    }
+
+    public String getVatRate() {
+        return vatRate;
+    }
+
+    public void setVatRate(String vatRate) {
+        this.vatRate = vatRate;
     }
 }

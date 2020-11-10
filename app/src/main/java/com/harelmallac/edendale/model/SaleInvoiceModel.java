@@ -5,27 +5,27 @@ import java.util.Date;
 public class SaleInvoiceModel {
 
     private String sageIdentifier;
-    private Date date;
+    private String date;
     private String deliveryNumber;
     private String invoiceNumber;
     private String status;
-    private IdentityModel address;
-    private IdentityModel customer;
-    private IdentityModel salesSite;
-    private IdentityModel salesType;
-    private IdentityModel type;
+    private String address;
+    private String customer;
+    private String salesSite;
+    private String salesType;
+    private String type;
     private String userId;
     private String vanId;
     private String poNum;
     private String receiptNo;
     private String mainSite;
     private String orignalSalesRepId;
-    private Date creationTime;
+    private String creationTime;
     private String invoiceTotal;
 
     public SaleInvoiceModel(){}
 
-    public SaleInvoiceModel(String sageIdentifier, Date date, String deliveryNumber, String invoiceNumber, String status, IdentityModel address, IdentityModel customer, IdentityModel salesSite, IdentityModel salesType, IdentityModel type, String userId, String vanId, String poNum, String receiptNo, String mainSite, String orignalSalesRepId, Date creationTime, String invoiceTotal) {
+    public SaleInvoiceModel(String sageIdentifier, String date, String deliveryNumber, String invoiceNumber, String status, String address, String customer, String salesSite, String salesType, String type, String userId, String vanId, String poNum, String receiptNo, String mainSite, String orignalSalesRepId, String creationTime, String invoiceTotal) {
         this.sageIdentifier = sageIdentifier;
         this.date = date;
         this.deliveryNumber = deliveryNumber;
@@ -54,11 +54,11 @@ public class SaleInvoiceModel {
         this.sageIdentifier = sageIdentifier;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -86,43 +86,43 @@ public class SaleInvoiceModel {
         this.status = status;
     }
 
-    public IdentityModel getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(IdentityModel address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public IdentityModel getCustomer() {
+    public String getCustomer() {
         return customer;
     }
 
-    public void setCustomer(IdentityModel customer) {
+    public void setCustomer(String customer) {
         this.customer = customer;
     }
 
-    public IdentityModel getSalesSite() {
+    public String getSalesSite() {
         return salesSite;
     }
 
-    public void setSalesSite(IdentityModel salesSite) {
+    public void setSalesSite(String salesSite) {
         this.salesSite = salesSite;
     }
 
-    public IdentityModel getSalesType() {
+    public String getSalesType() {
         return salesType;
     }
 
-    public void setSalesType(IdentityModel salesType) {
+    public void setSalesType(String salesType) {
         this.salesType = salesType;
     }
 
-    public IdentityModel getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(IdentityModel type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -174,11 +174,11 @@ public class SaleInvoiceModel {
         this.orignalSalesRepId = orignalSalesRepId;
     }
 
-    public Date getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
 
