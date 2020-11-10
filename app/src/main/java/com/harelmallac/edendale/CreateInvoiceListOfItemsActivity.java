@@ -74,6 +74,11 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
 
                 }
                 Intent intent = new Intent(CreateInvoiceListOfItemsActivity.this, CreateInvoiceLinesActivity.class);
+                intent.putExtra("customerName", getIntent().getExtras().getString("cusName"));
+                intent.putExtra("address", getIntent().getExtras().getString("shippingAddress"));
+                intent.putExtra("salestype", getIntent().getExtras().getString("SalesType"));
+                intent.putExtra("salessite", getIntent().getExtras().getString("SalesSite"));
+                intent.putExtra("type", getIntent().getExtras().getString("Type"));
                 intent.putExtra("productId", aPid);
                 intent.putExtra("productName", aProductName);
                 intent.putExtra("productTotal", aProductTotal);

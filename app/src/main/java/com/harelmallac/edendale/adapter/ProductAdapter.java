@@ -57,12 +57,44 @@ public class ProductAdapter extends BaseAdapter {
                     .findViewById(R.id.DiscountValue);
             holder.discount.setTag(position);
             holder.discount.setText(pList.get(position).getDiscount()+"");
+            //================================================================
+            holder.discount.setOnFocusChangeListener(new View.OnFocusChangeListener()
+            {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus)
+                {
+                    if (hasFocus==true)
+                    {
+                        if (holder.discount.getText().toString().compareTo("0")==0)
+                        {
+                            holder.discount.setText("");
+                        }
+                    }
+                }
+            });
+            //================================================================
 
             //Quantity
             holder.quantity = (EditText) convertView
                     .findViewById(R.id.QuantityValue);
             holder.quantity.setTag(position);
             holder.quantity.setText(pList.get(position).getQuantity()+"");
+            //================================================================
+            holder.quantity.setOnFocusChangeListener(new View.OnFocusChangeListener()
+            {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus)
+                {
+                    if (hasFocus==true)
+                    {
+                        if (holder.quantity.getText().toString().compareTo("0")==0)
+                        {
+                            holder.quantity.setText("");
+                        }
+                    }
+                }
+            });
+            //================================================================
 
             //Lists of products
             holder.product = (TextView) convertView

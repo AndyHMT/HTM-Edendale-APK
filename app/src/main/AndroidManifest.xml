@@ -15,11 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Menu2Activity"></activity>
-        <activity android:name=".AdminStockTakeMainPageActivity" />
+        <activity android:name=".AdminStockTakeMainPageActivity"></activity>
         <activity android:name=".AdminStockTakeActivity" />
         <activity android:name=".SearchInvoiceCancelActivity" />
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".Menu2Activity" />
         <activity android:name=".SearchInvoicePreviewPageActivity" />
         <activity android:name=".StockRequestActivity" />
         <activity android:name=".SearchInvoiceActivity" />
@@ -39,12 +38,12 @@
         <activity android:name=".CreateInvoiceActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ReceiptPrintActivity" />
+        <activity android:name=".ReceiptCustomerListActivity" />
         <activity android:name=".CreateInvoiceListOfItemsActivity" />
         <activity android:name=".StockRequestProductListActivity" />
-        <activity android:name=".AdminSearchRejectedOrderActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
