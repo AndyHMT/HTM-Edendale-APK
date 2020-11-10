@@ -32,5 +32,45 @@ public class Menu2Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        Button btnRejectedOrder = findViewById(R.id.btnRejectedOrder);
+        btnRejectedOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu2Activity.this, AdminSearchRejectedOrderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Button btnSalesReport = findViewById(R.id.btnSalesReport);
+        btnSalesReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu2Activity.this, AdminSalesReportActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Button btnCreateOrder = findViewById(R.id.btnCreateOrder);
+        btnCreateOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu2Activity.this, AdminCreateOrderActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Button btnSearchOrder = findViewById(R.id.btnSearchOrder);
+        btnSearchOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu2Activity.this, AdminCreateOrderActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

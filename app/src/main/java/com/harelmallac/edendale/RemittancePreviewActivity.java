@@ -27,5 +27,8 @@ public class RemittancePreviewActivity extends AppCompatActivity {
 
         RemittancePreviewAdapter adapter = new RemittancePreviewAdapter(this, R.layout.remittance_preview_list_layout, list);
         LVRprevList.setAdapter(adapter);
+
+
+
     }
 }

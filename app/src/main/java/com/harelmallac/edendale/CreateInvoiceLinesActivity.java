@@ -167,6 +167,9 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                 //print.checkBluetooth();
                 //print.feintBluetoothDeviceDiscovery();
                 //print.printData();
+
+                Intent intent = new Intent(CreateInvoiceLinesActivity.this, ReceiptPrintActivity.class);
+                startActivity(intent);
             }
         });
     }

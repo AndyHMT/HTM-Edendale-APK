@@ -1,5 +1,6 @@
 package com.harelmallac.edendale;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 
 public class SearchInvoiceActivity extends AppCompatActivity {
 
-    private ListView LVsInv;
-    private ArrayList<SearchInvoiceClass> list = new ArrayList<>();
+    private static ListView LVsInv;
+    private static ArrayList<SearchInvoiceClass> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,32 @@ public class SearchInvoiceActivity extends AppCompatActivity {
     }
 
 
+    public void cancelClick(final Context context, final int position){
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("Delete Confirmation")
+                .setMessage("Are you sure, you want to delete this record?")
+                .setPositiveButton("Yes", null)
+                .setNegativeButton("Cancel", null)
+                .show();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(list.size() != 0) {
+                    Toast.makeText(context, list.get(position).getsInvName(), Toast.LENGTH_SHORT).show();
+                    list.remove(position);
+                    LVsInv.invalidateViews();
+                }
+                else{
+                    Toast.makeText(context, "list size 0", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+//                list.remove(1);
+//                LVsInv.invalidateViews();
+            }
+        });
+    }
 
 
 }

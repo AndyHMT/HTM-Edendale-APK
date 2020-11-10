@@ -88,6 +88,15 @@ public class SearchInvoiceAdapter extends BaseAdapter {
             });
 
 
+            holder.cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SearchInvoiceActivity x = new SearchInvoiceActivity();
+                    x.cancelClick(context, position);
+                }
+            });
+
+
 
             convertView.setTag(holder);
         }else {

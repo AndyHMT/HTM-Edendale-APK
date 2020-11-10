@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="9">
+
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/CordProductName"
+        android:layout_weight="4"/>
+
+
+
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/CordQty"
+        android:layout_weight="1.3"/>
+
+
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/CordPrice"
+        android:layout_weight="1.3"/>
+
+
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/CordTotal"
+        android:layout_weight="1.4"/>
+
+
+
+    <Button
+        android:layout_marginRight="25dp"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:id="@+id/CordCancel"
+        android:layout_weight="1"
+        android:background="@drawable/plus_button"
+        android:text="X"
+        android:textColor="@color/design_default_color_background"/>
+
+</LinearLayout>

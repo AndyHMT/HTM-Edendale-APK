@@ -1,6 +1,9 @@
 package com.harelmallac.edendale;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +45,16 @@ public class RemittanceActivity extends AppCompatActivity {
 
             RemittanceAdapter adapter = new RemittanceAdapter(this, R.layout.remittance_list_layout, list);
             LVrmtList.setAdapter(adapter);
+
+
+            Button validate = findViewById(R.id.button4);
+            validate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(RemittanceActivity.this, RemittancePreviewActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
 
 
