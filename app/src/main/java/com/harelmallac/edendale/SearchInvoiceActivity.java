@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -33,6 +34,18 @@ public class SearchInvoiceActivity extends AppCompatActivity {
         //list.add(new SearchInvoiceClass("James"));
         SearchInvoiceAdapter adapter = new SearchInvoiceAdapter(this, list);
         LVsInv.setAdapter(adapter);
+
+        Button cancelPage = findViewById(R.id.button5);
+        cancelPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SearchInvoiceActivity.this, SearchInvoiceCancelActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
 
@@ -42,5 +55,8 @@ public class SearchInvoiceActivity extends AppCompatActivity {
         context.startActivity(intent);
 
     }
+
+
+
 
 }

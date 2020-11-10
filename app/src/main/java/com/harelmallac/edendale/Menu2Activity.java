@@ -18,7 +18,17 @@ public class Menu2Activity extends AppCompatActivity {
         btnComplaints2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Menu2Activity.this, ComplaintFormActivity.class);
+                Intent intent = new Intent(Menu2Activity.this, AdminComplaintActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        Button btnStockTake = findViewById(R.id.btnStockTake);
+        btnStockTake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu2Activity.this, AdminStockTakeActivity.class);
                 startActivity(intent);
             }
         });

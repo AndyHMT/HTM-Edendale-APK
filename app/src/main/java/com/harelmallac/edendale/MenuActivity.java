@@ -84,7 +84,7 @@ public class MenuActivity extends AppCompatActivity {
         btnReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, ReceiptPrintActivity.class);
+                Intent intent = new Intent(MenuActivity.this, ReceiptCustomerListActivity.class);
                 startActivity(intent);
             }
         });

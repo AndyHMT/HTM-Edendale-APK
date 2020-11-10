@@ -45,7 +45,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/round_button"
         android:text="Open Invoice"
-        android:textColor="@color/design_default_color_background"
+        android:textColor="@color/darkGray"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -57,7 +57,7 @@
         android:layout_marginEnd="75dp"
         android:background="@drawable/round_button"
         android:text="Cancel Invoice"
-        android:textColor="@color/darkGray"
+        android:textColor="@color/design_default_color_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <ListView
-        android:id="@+id/LVsearchInv"
+        android:id="@+id/LVschInCan"
         android:layout_width="409dp"
         android:layout_height="260dp"
         android:layout_marginStart="2dp"
@@ -126,18 +126,9 @@
         android:layout_marginStart="80dp"
         android:layout_marginBottom="10dp"
         android:text="Customer"
-        app:layout_constraintBottom_toTopOf="@+id/LVsearchInv"
+        app:layout_constraintBottom_toTopOf="@+id/LVschInCan"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        android:text="Cancel"
-        app:layout_constraintBottom_toTopOf="@+id/LVsearchInv"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
@@ -146,8 +137,8 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="10dp"
         android:text="View"
-        app:layout_constraintBottom_toTopOf="@+id/LVsearchInv"
-        app:layout_constraintEnd_toStartOf="@+id/textView12" />
+        app:layout_constraintBottom_toTopOf="@+id/LVschInCan"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView14"
@@ -156,7 +147,7 @@
         android:layout_marginEnd="38dp"
         android:layout_marginBottom="10dp"
         android:text="Print"
-        app:layout_constraintBottom_toTopOf="@+id/LVsearchInv"
+        app:layout_constraintBottom_toTopOf="@+id/LVschInCan"
         app:layout_constraintEnd_toStartOf="@+id/textView13" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
