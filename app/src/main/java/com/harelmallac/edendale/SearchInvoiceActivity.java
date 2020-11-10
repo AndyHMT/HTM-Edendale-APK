@@ -1,5 +1,6 @@
 package com.harelmallac.edendale;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -61,12 +62,15 @@ public class SearchInvoiceActivity extends AppCompatActivity {
     }
 
 
+
     public void previewClick(Context context, String txt){
         Intent intent = new Intent(context, SearchInvoicePreviewPageActivity.class);
         intent.putExtra("name",txt);
         context.startActivity(intent);
 
     }
+
+
 
     //#Varun - Get current date
     public String currentDate() {
@@ -89,6 +93,32 @@ public class SearchInvoiceActivity extends AppCompatActivity {
                 list.add(new SearchInvoiceClass(customerName+System.lineSeparator()+invoiceNum+System.lineSeparator()+statusPost, R.drawable.ic_baseline_print, R.drawable.ic_baseline_preview, R.drawable.ic_baseline_cancel));
             }
         }
+    }
+
+    public void cancelClick(final Context context, final int position) {
+        final AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("Delete Confirmation")
+                .setMessage("Are you sure, you want to delete this record?")
+                .setPositiveButton("Yes", null)
+                .setNegativeButton("Cancel", null)
+                .show();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (list.size() != 0) {
+                    Toast.makeText(context, list.get(position).getsInvName(), Toast.LENGTH_SHORT).show();
+                    list.remove(position);
+                    LVsInv.invalidateViews();
+                } else {
+                    Toast.makeText(context, "list size 0", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+//                list.remove(1);
+//                LVsInv.invalidateViews();
+            }
+        });
     }
 
 
