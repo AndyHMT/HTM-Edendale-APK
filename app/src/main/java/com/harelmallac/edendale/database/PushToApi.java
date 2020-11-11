@@ -52,11 +52,82 @@ public class PushToApi {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         DataBaseHelper db = new DataBaseHelper(context);
         String invoiceHeaderUrl = "invoices/send";
-        String url = URL+invoiceHeaderUrl;
+        String link = URL+invoiceHeaderUrl;
 
         List<SaleInvoiceModel>invoiceHeader = new ArrayList<>();
 
-        Cursor res ;
+        Cursor res = db.getInvoiceHeader();
+
+        if(res.getCount()<0)
+        {
+            Toast.makeText(context, "Not able to retrieve invoices from local database", Toast.LENGTH_SHORT).show();
+        }
+
+        while(res.moveToNext())
+        {
+            SaleInvoiceModel invoiceModel = new SaleInvoiceModel("",res.getString(0),res.getString(3),res.getString(2),res.getString(1),res.getString(14),res.getString(7),res.getString(5),res.getString(13),res.getString(6),res.getString(16),res.getString(6),"",res.getString(17),res.getString(18),res.getString(19),res.getString(1),res.getString(20));
+            invoiceHeader.add(invoiceModel);
+        }
+
+        for (SaleInvoiceModel saleInvoiceModel:invoiceHeader)
+        {
+            JSONObject object = new JSONObject();
+
+            try{
+
+                object.put("date",saleInvoiceModel.getDate());
+                object.put("status",saleInvoiceModel.getStatus());
+                object.put("invoiceNumber",saleInvoiceModel.getInvoiceNumber());
+                object.put("deliveryNumber",saleInvoiceModel.getDeliveryNumber());
+                object.put("saleSiteId",saleInvoiceModel.getSalesSite());
+                object.put("typeId",saleInvoiceModel.getType());
+                object.put("customerId",saleInvoiceModel.getCustomer());
+                object.put("salesTypeId",saleInvoiceModel.getSalesType());
+                object.put("addressId",saleInvoiceModel.getAddress());
+                object.put("sageIdentifier","");
+                object.put("userId",saleInvoiceModel.getUserId());
+                object.put("vanId",saleInvoiceModel.getVanId());
+                object.put("receiptNo",saleInvoiceModel.getReceiptNo());
+                object.put("creationTime",saleInvoiceModel.getCreationTime());
+                object.put("invoiceTotal",saleInvoiceModel.getInvoiceTotal());
+                object.put("mainSite",saleInvoiceModel.getMainSite());
+
+
+
+            }catch (Exception ex){
+
+                ex.printStackTrace();
+            }
+
+            array.put(object);
+            db.updateInvoice(saleInvoiceModel.getInvoiceNumber());
+        }
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, link, array,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.e("response",response.toString());
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error getting response", error.toString());
+            }
+        })
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                String creds = String.format("%s:%s", "edend@leapp", "edend@l3_123");
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        requestQueue.add(jsonArrayRequest);
     }
 
 

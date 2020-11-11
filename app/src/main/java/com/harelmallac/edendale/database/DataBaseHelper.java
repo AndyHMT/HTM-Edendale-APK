@@ -511,6 +511,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor getInvoiceHeader()
+    {
+        db = this.getWritableDatabase();
+        String selectStatement = "SELECT * FROM tbl_invoice where statusPost = 'Not Posted'";
+
+        Cursor res = db.rawQuery(selectStatement,null);
+        return res;
+    }
+
     //#Varun - get product vat
     public Cursor getProductVat(String customer, String prodName) {
         db = this.getWritableDatabase();
@@ -657,6 +666,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }else {
             return true;
         }
+    }
+
+    public String updateInvoice(String invoiceNumber)
+    {
+        db = this.getWritableDatabase();
+        String query = "UPDATE tbl_invoice SET statusPost = 'Posted' WHERE invoiceNumber ='"+invoiceNumber+"'";
+        db.execSQL(query,null);
+
+        return "Invoice "+invoiceNumber+" updated Succesfully";
     }
 
 
