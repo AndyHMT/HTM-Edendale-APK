@@ -492,11 +492,27 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     //#Varun - insert into tbl_receipt after print receipt
     public String createReceipt(ArrayList<SaleInvoiceModel> saleInvoice) {
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String customerId = "";
+        String brn = "";
+        String vatNo = "";
         String date = df.format(Calendar.getInstance().getTime());
+        date = date.replace(" ","T");
         for(int i = 0; i < saleInvoice.size(); i++) {
+            Cursor res = getCustomerDetails(saleInvoice.get(i).getCustomer());
+            if(res.getCount() < 0){
+                Log.e("Error","Customer details Not found.");
+            }
+            else {
+                while (res.moveToNext()){
+                    customerId = res.getString(0);
+                    brn = res.getString(2);
+                    vatNo = res.getString(3);
+                }
+            }
+
             String insertInvoice = "INSERT INTO tbl_invoice(date, status, invoiceNumber, deliveryNumber, orderNumber, salesSite, type, customerId, customerName, customerBrn, customerVatNo, customerVatCode, salesTypeId, addressId, addressName, userId, receiptNumber, mainSite, originalSalesRep, invoiceTotal, statusPost, cancelledOn) VALUES ('" + date + "', '" + "Open" + "', '" + saleInvoice.get(i).getInvoiceNumber() +
-                    "', '" + saleInvoice.get(i).getDeliveryNumber() + "', '" + "" + "', '" + saleInvoice.get(i).getSalesSite() + "', '" + saleInvoice.get(i).getType() + "', '" + "01000030" + "', '" + saleInvoice.get(i).getCustomer() + "', '" + "I07027976" + "', '" + "" + "', '" + getCustomerVatCode(saleInvoice.get(i).getCustomer()) + "', '" + saleInvoice.get(i).getSalesType() + "', '" + "01000030-1" + "', '" + saleInvoice.get(i).getAddress() + "', '" + saleInvoice.get(i).getUserId() + "', '" + saleInvoice.get(i).getReceiptNo() + "', '" + "EDLL" + "', '" + "" + "', '" + saleInvoice.get(i).getInvoiceTotal() + "', '" + "Not Posted" + "', '" + "" + "')";
+                    "', '" + saleInvoice.get(i).getDeliveryNumber() + "', '" + "" + "', '" + saleInvoice.get(i).getSalesSite() + "', '" + saleInvoice.get(i).getType() + "', '" + customerId + "', '" + saleInvoice.get(i).getCustomer() + "', '" + brn + "', '" + vatNo + "', '" + getCustomerVatCode(saleInvoice.get(i).getCustomer()) + "', '" + saleInvoice.get(i).getSalesType() + "', '" + customerId + "', '" + saleInvoice.get(i).getAddress() + "', '" + saleInvoice.get(i).getUserId() + "', '" + saleInvoice.get(i).getReceiptNo() + "', '" + "EDLL" + "', '" + "" + "', '" + saleInvoice.get(i).getInvoiceTotal() + "', '" + "Not Posted" + "', '" + "" + "')";
             db.execSQL(insertInvoice);
         }
         return "Invoice created successfully.";
