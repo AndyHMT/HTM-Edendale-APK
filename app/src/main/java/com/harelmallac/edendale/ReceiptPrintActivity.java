@@ -2,6 +2,7 @@ package com.harelmallac.edendale;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,13 @@ import java.util.Locale;
 public class ReceiptPrintActivity extends AppCompatActivity {
 
     String cusName;
+
+    @Override
+    public void onBackPressed() {
+
+        Intent mainIntent = new Intent( ReceiptPrintActivity.this, MenuActivity.class );
+        startActivity(mainIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

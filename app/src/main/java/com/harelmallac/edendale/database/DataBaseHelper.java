@@ -485,9 +485,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //#Varun - retrieve invoice count
     public int getInvoiceCount() {
         db = this.getWritableDatabase();
-        String selectTableStatement="SELECT * FROM tbl_invoice";
+        String selectTableStatement="SELECT DISTINCT invoiceNumber FROM tbl_invoice";
         Cursor res = db.rawQuery(selectTableStatement, null);
-
         return res.getCount();
     }
 
