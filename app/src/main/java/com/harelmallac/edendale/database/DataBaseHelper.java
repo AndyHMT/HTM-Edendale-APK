@@ -492,11 +492,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     //#Varun - insert into tbl_receipt after print receipt
     public String createReceipt(ArrayList<SaleInvoiceModel> saleInvoice) {
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String customerId = "";
         String brn = "";
         String vatNo = "";
         String date = df.format(Calendar.getInstance().getTime());
+        date = date.replace(" ","T");
         for(int i = 0; i < saleInvoice.size(); i++) {
             Cursor res = getCustomerDetails(saleInvoice.get(i).getCustomer());
             if(res.getCount() < 0){
