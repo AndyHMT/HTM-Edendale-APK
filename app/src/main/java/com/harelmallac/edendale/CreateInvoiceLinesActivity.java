@@ -76,6 +76,16 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
     int readBufferPosition;
     volatile  boolean stopWorker;
 
+    @Override
+    public void onBackPressed() {
+        ProList.clear();
+        totalList.clear();
+        invoiceProductList.clear();
+        invoiceSaleList.clear();
+        Intent mainIntent = new Intent( CreateInvoiceLinesActivity.this, MenuActivity.class );
+        startActivity(mainIntent);
+    }
+
    // Printing print = new Printing(this, CreateInvoiceLinesActivity.this);
 
     @Override
@@ -165,7 +175,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         }
 
 
-        Button btnCreateInvoice = findViewById(R.id.btnCreate);
+        final Button btnCreateInvoice = findViewById(R.id.btnCreate);
         final String finalShippingAddress = ShippingAddress;
         final String finalCustomerName = customerName;
         final String finalSalesSite = SalesSite;
@@ -244,6 +254,9 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                     db.createInvoice(invoiceProductList);
                     //#Varun - print receipt
                     db.createReceipt(invoiceSaleList);
+                    invoiceProductList.clear();
+                    invoiceSaleList.clear();
+
                 }
 
 
@@ -268,10 +281,10 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                 }
 
 
-                //Redirect to main menu
-                Intent mainIntent = new Intent( CreateInvoiceLinesActivity.this,
-                        MenuActivity.class );
-                startActivity(mainIntent);
+//                //Redirect to main menu
+//                Intent mainIntent = new Intent( CreateInvoiceLinesActivity.this,
+//                        MenuActivity.class );
+//                startActivity(mainIntent);
 
 
 
@@ -316,6 +329,8 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
         String Uid = "SR00010";
         DateFormat df = new SimpleDateFormat("ddMMyy");
         String date = df.format(Calendar.getInstance().getTime());
+
+        Log.e("Invoice count ", db.getInvoiceCount()+"");
         //INV+SR00010+170920+1
         if(db.getInvoiceCount() == 0) {
             count = 1;

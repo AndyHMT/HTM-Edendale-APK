@@ -34,6 +34,14 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
     ArrayList<ItemClass> list = new ArrayList<>();
 
 
+    @Override
+    public void onBackPressed() {
+
+        list.clear();
+        Intent mainIntent = new Intent( CreateInvoiceListOfItemsActivity.this, MenuActivity.class );
+        startActivity(mainIntent);
+
+    }
 
 
     @Override
@@ -41,6 +49,8 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_invoice_list_of_items);
         LVitems = findViewById(R.id.LVitems);
+
+
 
         //#Varun - Load all products on lists view
         populateItemLists();
