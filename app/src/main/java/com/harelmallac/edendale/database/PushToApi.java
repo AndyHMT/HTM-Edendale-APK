@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.harelmallac.edendale.model.IdentityModel;
+import com.harelmallac.edendale.model.SaleInvoiceModel;
 import com.harelmallac.edendale.model.SalesmanComplaintsModel;
 
 import org.json.JSONArray;
@@ -41,15 +42,24 @@ import java.util.Map;
 
 public class PushToApi {
 
-    private static final String T = "T";
     final String URL = "http://192.168.85.83:8088/";
     public SQLiteDatabase db;
     ;
 
-    public void postInvoicesHeader()
+    public void postInvoicesHeader(Context context) throws JSONException
     {
+        JSONArray array = new JSONArray();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        DataBaseHelper db = new DataBaseHelper(context);
         String invoiceHeaderUrl = "invoices/send";
+        String url = URL+invoiceHeaderUrl;
+
+        List<SaleInvoiceModel>invoiceHeader = new ArrayList<>();
+
+        Cursor res ;
     }
+
+
 
 
 
