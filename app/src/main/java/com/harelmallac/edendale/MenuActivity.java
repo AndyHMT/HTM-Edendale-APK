@@ -122,6 +122,7 @@ public class MenuActivity extends AppCompatActivity {
 
         try{
             push.postSalesmanComplaints(this);
+            push.postInvoicesHeader(this);
         } catch (Exception e){
             Log.e("Push Complaint Exception",e.toString());
         }
