@@ -8,12 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.harelmallac.edendale.R;
 import com.harelmallac.edendale.model.*;
 
 import java.text.DateFormat;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static java.sql.Types.NULL;
+import static java.sql.Types.REAL;
 
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -55,6 +58,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String sqlCreateTableCustomer = "CREATE TABLE IF NOT EXISTS tbl_customer(sageIdentifier VARCHAR(1000) PRIMARY KEY, customerName TEXT, brn VARCHAR, vatNo VARCHAR, salesRepId VARCHAR, customerType VARCHAR, vatCode VARCHAR, creditLimit VARCHAR, amountOwned VARCHAR)";
         db.execSQL(sqlCreateTableCustomer);
 
+        //Alexandre - Tbl_sale receipt creation
+        String sqlSaleReceipt = "CREATE TABLE IF NOT EXISTS tbl_saleReceipt(receiptId INTEGER PRIMARY KEY AUTOINCREMENT, customerId VARCHAR, date DATE, invoiceNumber VARCHAR, receiptNumber VARCHAR, saleType VARCHAR, amount REAL, salesRepId VARCHAR, salesSiteId VARCHAR, chequeNum VARCHAR, bank VARCHAR,status VARCHAR)";
+        db.execSQL(sqlSaleReceipt);
     }
 
 
@@ -490,7 +496,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res.getCount();
     }
 
-    //#Varun - insert into tbl_receipt after print receipt
+    //#Varun - insert into tbl_receipt after print Invoice
     public String createReceipt(ArrayList<SaleInvoiceModel> saleInvoice) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String customerId = "";
@@ -516,6 +522,90 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             db.execSQL(insertInvoice);
         }
         return "Invoice created successfully.";
+    }
+
+//Alexandre -- Sales Receipt add to database on receipt print
+    //generate Receipt Number
+
+
+
+
+    //================================================================
+//    public Cursor getSaleReceipt()
+//    {
+//        db = this.getWritableDatabase();
+//        String selectStatement = "SELECT * FROM tbl_saleReceipt";
+//
+//        Cursor res = db.rawQuery(selectStatement,null);
+//        return res;
+//    }
+    //================================================================
+
+
+     public String ReceiptNumberGenerator(){
+        String repNum;
+        int reCount = 0;
+
+         db = this.getWritableDatabase();
+         String selectStatement = "SELECT * FROM tbl_saleReceipt";
+
+         Cursor cursor = db.rawQuery(selectStatement,null);
+
+         if(cursor.getCount()==0){
+             reCount = 1;
+         }
+         else{
+             while(cursor.moveToNext()){
+
+                 reCount +=1;
+             }
+
+             reCount +=1;
+         }
+
+         String date = new SimpleDateFormat("ddMMyyyy", Locale.getDefault()).format(new Date());
+
+         repNum = "RE" + "SR00010" + date + reCount;
+
+
+        return repNum;
+    }
+
+
+    public String addSaleReceipt(String cusName, String PayType, String amount, String chequeNum, String bank){
+
+        Log.e("check"," enter function ");
+
+//        String sqlSaleReceipt = "CREATE TABLE IF NOT EXISTS tbl_saleReceipt(receiptId VARCHAR(1000) PRIMARY KEY, customerId VARCHAR, date DATE, invoiceNumber VARCHAR, receiptNumber VARCHAR, saleType VARCHAR, amount REAL, salesRepId VARCHAR, salesSiteId VARCHAR, chequeNum VARCHAR, bank VARCHAR,status VARCHAR)";
+//        db.execSQL(sqlSaleReceipt);
+        String CustomerId="test";
+
+        String repNum = ReceiptNumberGenerator();
+        Log.e("reNum", repNum);
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        Cursor customerCursor = getCustomerDetails(cusName);
+        while(customerCursor.moveToNext()) {
+            CustomerId = customerCursor.getString(0);
+        }
+        String ReceiptID = null;
+        String InvoiceNumber = null;
+        String SalesType = PayType;
+        float Amount = Float.valueOf(amount);
+        String SalesRepId = "SR00010";
+        String SalesSiteId = "MV07";
+        String ChequeNum = chequeNum;
+        String Bank = bank;
+        String status = "Open";
+
+        String sqlDeleteSaleReceipt = "DELETE FROM tbl_saleReceipt WHERE receiptNumber = '" + repNum +"'";
+        db.execSQL(sqlDeleteSaleReceipt);
+
+        String sqlInsertSaleReceipt = "INSERT INTO tbl_saleReceipt (customerId, DATE, invoiceNumber, receiptNumber, saleType, amount, salesRepId, salesSiteId, chequeNum, bank, status)" +
+                " VALUES ('" + CustomerId +"','" + date +"','" + InvoiceNumber +"','" + repNum +"','" + SalesType +"','" + amount +"','" + SalesRepId +"','" + SalesSiteId +"','" + ChequeNum +"','" + Bank +"','" + status +"')";
+        db.execSQL(sqlInsertSaleReceipt);
+
+
+        return "Print Receipt Added";
     }
 
     //#Varun - get today's invoices

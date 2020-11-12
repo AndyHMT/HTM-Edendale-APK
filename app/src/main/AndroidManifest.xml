@@ -28,7 +28,7 @@
         <activity android:screenOrientation="portrait" android:name=".RemittanceActivity" />
         <activity android:screenOrientation="portrait" android:name=".CurrentStockReportActivity" />
         <activity android:screenOrientation="portrait" android:name=".ChequeReportActivity" />
-        <activity android:screenOrientation="portrait" android:name=".MenuActivity" />
+        <activity android:screenOrientation="portrait" android:name=".ReceiptCustomerListActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceLinesActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceInfoPageActivity" />
         <activity android:screenOrientation="portrait" android:name=".ComplaintFormActivity" />
@@ -39,6 +39,7 @@
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceActivity" />
         <activity android:screenOrientation="portrait" android:name=".MainActivity" />
         <activity android:screenOrientation="portrait" android:name=".ReceiptPrintActivity" />
+        <activity android:screenOrientation="portrait" android:name=".MenuActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceListOfItemsActivity" />
         <activity android:screenOrientation="portrait" android:name=".StockRequestProductListActivity" />
         <activity android:screenOrientation="portrait" android:name=".RemittancePreviewActivity" />
