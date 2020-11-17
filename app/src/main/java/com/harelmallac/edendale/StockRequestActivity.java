@@ -26,6 +26,8 @@ public class StockRequestActivity extends AppCompatActivity {
         myDialog.setContentView(R.layout.stock_request_popup);
         myDialog.show();
 
+
+
         LVstkMain = findViewById(R.id.LVstkRequest);
 //
         list.add(new StockRequestMainClass("test1nodifosdifjoiwefwoefijwoifmwoefeiwoifw", "test1 qty"));

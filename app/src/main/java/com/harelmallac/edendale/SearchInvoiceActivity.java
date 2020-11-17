@@ -66,7 +66,7 @@ public class SearchInvoiceActivity extends AppCompatActivity {
 
         LVsInv = findViewById(R.id.LVsearchInv);
 
-        //#Varun - Load all current invoices
+
         getCurrentInvoices();
 
         SearchInvoiceAdapter adapter = new SearchInvoiceAdapter(this, list);
@@ -355,6 +355,7 @@ public class SearchInvoiceActivity extends AppCompatActivity {
             Log.e("Error","Not able to retrieve product data");
         }
         else {
+            list.clear();
             while (res.moveToNext()) {
                 String invoiceNum = res.getString(3);
                 String customerName = res.getString(9);

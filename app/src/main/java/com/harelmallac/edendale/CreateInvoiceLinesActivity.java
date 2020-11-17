@@ -196,6 +196,8 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                 String body = "";
                 String footer = "";
                 if(ProList != null) {
+                    DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    String date = df.format(Calendar.getInstance().getTime());
                     for (int i = 0; i < ProList.size(); i++) {
 
                         //#Varun - Update product qty upon create receipt
@@ -220,8 +222,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                         //Total discount
                         discount = discount + (Double.parseDouble(ProList.get(i).getDiscount())/100) * (Double.parseDouble(getProductPrice(ProList.get(i).getName())));
 
-                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                        String date = df.format(Calendar.getInstance().getTime());
+
 
                         String customerVatNo = db.getCustomerVatCode(finalCustomerName);
                         Cursor res = db.getCustomerDetails(finalCustomerName);
@@ -244,7 +245,6 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
                         //#Varun - Insert into tbl_invoice
                         invoiceProductList.add(new InvoiceProductModel(discountedPrice, Double.parseDouble(ProList.get(i).getDiscount())/100, Double.parseDouble(getProductPrice(ProList.get(i).getName())), generateInvoiceNumber(), new IdentityModel(ProList.get(i).getId()), selectedQty, vatAmount));
-                        invoiceSaleList.add(new SaleInvoiceModel(ProList.get(i).getId(), date, generateDeliveryNumber(), generateInvoiceNumber(), "Open", finalShippingAddress, finalCustomerName, "MV07", finalSalesType, finalType, "1", "MV07", "", generateReceiptNumber(), "EDLL", "", date, total+""));
 
                         header = "\n\n\n           tEDENDALE DISTRIBUTORS LTD\n           Anse Courtois, Les Pailles\n            Republic of Mauritius\n            Phone : (230) 286 4920\n      Fax : (230) 286 4654/ (230) 286 9479\n             Vat Reg No : VAT20362266\n             Bus Reg No : C06064211\n                    VAT INVOICE\n\n\nINV No : " + generateInvoiceNumber() + "\nDelivery No : " + generateDeliveryNumber() + "\nPrepared by : " + "Joe" + "\nDate : " + date + "\tTime : " + currentTime + "\nCustomer : " + finalCustomerName + "\n" + finalShippingAddress + "\n\nVat No : " + customerVatNo + "\nBRN : " + brn + "\n\nProducts\tQty\tDISC\tPrice\tTotal\n------------------------------------------------\n\n";
                         body += ProList.get(i).getId() + "\t" + ProList.get(i).getQty() + "\t" + calDiscount + "\t" + ProList.get(i).getPrice() + "\t" + ProList.get(i).getTotal() + "\t" + ProList.get(i).getName() + "\n\n";
@@ -252,6 +252,8 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
 
                     }
+                    invoiceSaleList.add(new SaleInvoiceModel("", date, generateDeliveryNumber(), generateInvoiceNumber(), "Open", finalShippingAddress, finalCustomerName, "MV07", finalSalesType, finalType, "1", "MV07", "", generateReceiptNumber(), "EDLL", "", date, total+""));
+
                     db.createInvoice(invoiceProductList);
                     //#Varun - print receipt
                     db.createReceipt(invoiceSaleList);

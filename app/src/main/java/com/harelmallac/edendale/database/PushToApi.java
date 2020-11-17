@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.harelmallac.edendale.model.IdentityModel;
+import com.harelmallac.edendale.model.InvoiceProductModel;
 import com.harelmallac.edendale.model.SaleInvoiceModel;
 import com.harelmallac.edendale.model.SalesmanComplaintsModel;
 
@@ -42,11 +43,8 @@ import java.util.Map;
 
 public class PushToApi {
 
-    final String URL = "http://192.168.85.29:8088/";
+    final String URL = "http://192.168.0.116:8088/";
     public SQLiteDatabase db;
-
-
-
 
     public void postInvoicesHeader(Context context) throws JSONException
     {
@@ -72,29 +70,31 @@ public class PushToApi {
             String customerId =saleInvoiceModel.getCustomer();
             Cursor res2 = db.getCustomerById(customerId);
             JSONObject customer = new JSONObject();
-            while(res.moveToNext())
+            while(res2.moveToNext())
             {
-                customer.put("sageIdentifier",res.getString(0));
-                customer.put("customerName",res.getString(1));
-                customer.put("brn",res.getString(2));
-                customer.put("vatNo",res.getString(3));
-                customer.put("salesRepId",res.getString(4));
-                customer.put("customerType",res.getString(5));
-                customer.put("vatCode",res.getString(6));
+                customer.put("sageIdentifier",res2.getString(0));
+                customer.put("customerName",res2.getString(1));
+                customer.put("brn",res2.getString(2));
+                customer.put("vatNo",res2.getString(3));
+                customer.put("salesRepId",res2.getString(4));
+                customer.put("customerType",res2.getString(5));
+                customer.put("vatCode",res2.getString(6));
                 customer.put("salesRepId2","");
             }
+
+
             String addressId = saleInvoiceModel.getAddress();
             Cursor res3 = db.getAddressInvoice(addressId);
             JSONObject address = new JSONObject();
-            while(res.moveToNext())
+            while(res3.moveToNext())
             {
-                address.put("sageIdentifier",res.getString(0));
-                address.put("addressId",res.getString(1));
+                address.put("sageIdentifier",res3.getString(0));
+                address.put("addressId",res3.getString(1));
                 address.put("country","MU");
-                address.put("name",res.getString(2));
-                address.put("addressLine1",res.getString(3));
-                address.put("addressLine2",res.getString(4));
-                address.put("city",res.getString(5));
+                address.put("name",res3.getString(2));
+                address.put("addressLine1",res3.getString(3));
+                address.put("addressLine2",res3.getString(4));
+                address.put("city",res3.getString(5));
                 address.put("customer",customer);
                 address.put("default",false);
             }
@@ -372,6 +372,70 @@ public class PushToApi {
         };
         requestQueue.add(jsonArrayRequest);
     }
+
+    public void postInvoiceProducts(Context context) throws JSONException {
+        JSONArray array = new JSONArray();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String invoiceHeaderUrl = "invoice/products/send";
+        String link = URL+invoiceHeaderUrl;
+        DataBaseHelper db = new DataBaseHelper(context);
+        Cursor res = db.getInvoiceProduct();
+        if(res.getCount() < 0){
+            Toast.makeText(context, "Not able to retrieve invoices from local database", Toast.LENGTH_SHORT).show();
+        }
+        while(res.moveToNext()) {
+
+            try{
+                JSONObject object = new JSONObject();
+                JSONObject product = new JSONObject();
+                product.put("sageIdentifier",res.getString(6));
+                object.put("discountAmount",res.getString(1));
+                object.put("discountPercentage",res.getString(2));
+                object.put("grossPrice",res.getString(3));
+                object.put("invoiceNumber",res.getString(12));
+                object.put("product",product);
+                object.put("selectedQty",res.getString(7));
+                object.put("vatAmount",res.getString(8));
+                array.put(object);
+                Log.e("Array", array+"");
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+
+            }
+
+            //InvoiceProductModel invoiceProductModel = new InvoiceProductModel(Double.parseDouble(res.getString(1)), Double.parseDouble(res.getString(2)), Double.parseDouble(res.getString(3)), Double.parseDouble(res.getString(5)), n);
+        }
+
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST, link, array,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.e("response",response.toString());
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error getting response", error.toString());
+            }
+        })
+
+        {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<String, String>();
+                String creds = String.format("%s:%s", "edend@leapp", "edend@l3_123");
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        requestQueue.add(jsonArrayRequest);
+    }
+
 
 
 
