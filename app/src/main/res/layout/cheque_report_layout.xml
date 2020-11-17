@@ -6,7 +6,31 @@
 
     <TextView
         android:id="@+id/CNAME"
-        android:layout_width="0dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:paddingTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/INV"
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:paddingTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/REP"
+        android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
@@ -18,7 +42,7 @@
 
     <TextView
         android:id="@+id/AMT"
-        android:layout_width="0dp"
+        android:layout_width="61dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginLeft="5dp"
@@ -27,8 +51,6 @@
         android:textAlignment="center"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="20sp" />
-
-
 
 
 </LinearLayout>

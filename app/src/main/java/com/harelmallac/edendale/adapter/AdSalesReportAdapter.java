@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.harelmallac.edendale.R;
 import com.harelmallac.edendale.model.AdSalesReportClass;
-import com.harelmallac.edendale.model.ChequeReportClass;
 
 import java.util.ArrayList;
 
@@ -38,8 +37,8 @@ public class AdSalesReportAdapter extends ArrayAdapter<AdSalesReportClass> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_sales_list_layout, null, true);
 
 
-        TextView QuantityValue = view.findViewById(R.id.DSQty);
-        TextView NameView = view.findViewById(R.id.DSProduct);
+        TextView QuantityValue = view.findViewById(R.id.CNAME);
+        TextView NameView = view.findViewById(R.id.AMT);
 
         QuantityValue.setText(SRepList.get(position).getSRepQty());
         NameView.setText(SRepList.get(position).getSRepProduct());

@@ -38,8 +38,8 @@ public class DailySalesListAdapter extends ArrayAdapter<DailySalesListClass> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_sales_list_layout,null, true);
 
 
-        TextView QuantityValue = view.findViewById(R.id.DSQty);
-        TextView NameView = view.findViewById(R.id.DSProduct);
+        TextView QuantityValue = view.findViewById(R.id.CNAME);
+        TextView NameView = view.findViewById(R.id.AMT);
 
         QuantityValue.setText(DSList.get(position).getDSQty());
         NameView.setText(DSList.get(position).getDSProduct());

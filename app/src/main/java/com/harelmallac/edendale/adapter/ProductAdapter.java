@@ -105,6 +105,14 @@ public class ProductAdapter extends BaseAdapter {
                     .findViewById(R.id.QuantityValue);
             holder.quantity.setTag(position);
             holder.quantity.setText(pList.get(position).getQuantity()+"");
+            if(pList.get(position).getQuantity().equals("0")|| pList.get(position).getQuantity().equals("")){
+
+            }
+            else{
+                holder.quantity.setFocusable(true);
+                holder.quantity.setFocusableInTouchMode(true);
+                holder.quantity.setEnabled(true);
+            }
             //================================================================
             holder.quantity.setOnFocusChangeListener(new View.OnFocusChangeListener()
             {

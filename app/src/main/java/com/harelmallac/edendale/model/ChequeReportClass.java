@@ -2,27 +2,47 @@ package com.harelmallac.edendale.model;
 
 public class ChequeReportClass {
 
-    private String CRQty;
-    private String CRProduct;
+    private String name;
+    private String invoice;
+    private String receipt;
+    private String amount;
 
-    public ChequeReportClass(String CRQty, String CRProduct) {
-        this.CRQty = CRQty;
-        this.CRProduct = CRProduct;
+    public ChequeReportClass(String name, String invoice, String receipt, String amount) {
+        this.name = name;
+        this.invoice = invoice;
+        this.receipt = receipt;
+        this.amount = amount;
     }
 
-    public String getCRQty() {
-        return CRQty;
+    public String getName() {
+        return name;
     }
 
-    public void setCRQty(String CRQty) {
-        this.CRQty = CRQty;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCRProduct() {
-        return CRProduct;
+    public String getInvoice() {
+        return invoice;
     }
 
-    public void setCRProduct(String CRProduct) {
-        this.CRProduct = CRProduct;
+    public void setInvoice(String invoice) {
+        this.invoice = invoice;
+    }
+
+    public String getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

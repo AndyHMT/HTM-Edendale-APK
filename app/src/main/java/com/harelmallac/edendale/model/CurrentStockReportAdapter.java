@@ -37,8 +37,8 @@ public class CurrentStockReportAdapter extends ArrayAdapter<CurrentStockReportCl
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_sales_list_layout,null, true);
 
 
-        TextView QuantityValue = view.findViewById(R.id.DSQty);
-        TextView NameView = view.findViewById(R.id.DSProduct);
+        TextView QuantityValue = view.findViewById(R.id.CNAME);
+        TextView NameView = view.findViewById(R.id.AMT);
 
         QuantityValue.setText(CSRList.get(position).getCSRQty());
         NameView.setText(CSRList.get(position).getCSRProduct());

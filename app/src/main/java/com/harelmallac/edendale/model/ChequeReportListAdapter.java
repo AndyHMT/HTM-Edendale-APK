@@ -34,14 +34,18 @@ public class ChequeReportListAdapter extends ArrayAdapter<ChequeReportClass> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daily_sales_list_layout,null, true);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cheque_report_layout,null, true);
 
 
-        TextView QuantityValue = view.findViewById(R.id.DSQty);
-        TextView NameView = view.findViewById(R.id.DSProduct);
+        TextView customer = view.findViewById(R.id.CNAME);
+        TextView amt = view.findViewById(R.id.AMT);
+        TextView invoice = view.findViewById(R.id.INV);
+        TextView receipt = view.findViewById(R.id.REP);
 
-        QuantityValue.setText(CRList.get(position).getCRQty());
-        NameView.setText(CRList.get(position).getCRProduct());
+        customer.setText(CRList.get(position).getName());
+        amt.setText(CRList.get(position).getAmount());
+        invoice.setText(CRList.get(position).getInvoice());
+        receipt.setText(CRList.get(position).getReceipt());
 
         return view;
     }

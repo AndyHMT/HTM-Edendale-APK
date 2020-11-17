@@ -2,9 +2,9 @@ package com.harelmallac.edendale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -59,6 +59,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
     private static ArrayList<TotalInfoClass> totalList = new ArrayList<>();
     private static ArrayList<InvoiceProductModel> invoiceProductList = new ArrayList<>();
     private static ArrayList<SaleInvoiceModel> invoiceSaleList = new ArrayList<>();
+    Context c = CreateInvoiceLinesActivity.this;
 
     private static Context context;
     private static ListView LVLines;
@@ -243,7 +244,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
                         //#Varun - Insert into tbl_invoice
                         invoiceProductList.add(new InvoiceProductModel(discountedPrice, Double.parseDouble(ProList.get(i).getDiscount())/100, Double.parseDouble(getProductPrice(ProList.get(i).getName())), generateInvoiceNumber(), new IdentityModel(ProList.get(i).getId()), selectedQty, vatAmount));
-                        invoiceSaleList.add(new SaleInvoiceModel(ProList.get(i).getId(), date, generateDeliveryNumber(), generateInvoiceNumber(), "Open", finalShippingAddress, finalCustomerName, "MV07", finalSalesType, finalType, "1", "MV07", "", "", "EDLL", "", date, total+""));
+                        invoiceSaleList.add(new SaleInvoiceModel(ProList.get(i).getId(), date, generateDeliveryNumber(), generateInvoiceNumber(), "Open", finalShippingAddress, finalCustomerName, "MV07", finalSalesType, finalType, "1", "MV07", "", generateReceiptNumber(), "EDLL", "", date, total+""));
 
                         header = "\n\n\n           tEDENDALE DISTRIBUTORS LTD\n           Anse Courtois, Les Pailles\n            Republic of Mauritius\n            Phone : (230) 286 4920\n      Fax : (230) 286 4654/ (230) 286 9479\n             Vat Reg No : VAT20362266\n             Bus Reg No : C06064211\n                    VAT INVOICE\n\n\nINV No : " + generateInvoiceNumber() + "\nDelivery No : " + generateDeliveryNumber() + "\nPrepared by : " + "Joe" + "\nDate : " + date + "\tTime : " + currentTime + "\nCustomer : " + finalCustomerName + "\n" + finalShippingAddress + "\n\nVat No : " + customerVatNo + "\nBRN : " + brn + "\n\nProducts\tQty\tDISC\tPrice\tTotal\n------------------------------------------------\n\n";
                         body += ProList.get(i).getId() + "\t" + ProList.get(i).getQty() + "\t" + calDiscount + "\t" + ProList.get(i).getPrice() + "\t" + ProList.get(i).getTotal() + "\t" + ProList.get(i).getName() + "\n\n";
@@ -276,7 +277,11 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                     printData(header+body+footer);
                     Thread.sleep(5000);
                     disconnectBt();
-                } catch (IOException | InterruptedException e) {
+                    cancelClick(c, header+body+footer);
+//                    Thread.sleep(5000);
+//                    disconnectBt();
+//                } catch (IOException | InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -292,8 +297,8 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
                 //print.feintBluetoothDeviceDiscovery();
                 //print.printData();
 
-                Intent intent = new Intent(CreateInvoiceLinesActivity.this, ReceiptPrintActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(CreateInvoiceLinesActivity.this, ReceiptPrintActivity.class);
+//                startActivity(intent);
             }
         });
     }
@@ -323,7 +328,6 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
     //#Varun - Generate Invoice Number
     public String generateInvoiceNumber() {
-        db.createTblInvoice();
         int count = 0;
         String InvoiceNum;
         String Uid = "SR00010";
@@ -336,7 +340,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
             count = 1;
             InvoiceNum = "INV"+Uid+date+count;
         }else{
-            count = db.getInvoiceCount() + 72;
+            count = db.getInvoiceCount() + 1;
             InvoiceNum = "INV"+Uid+date+count;
         }
         return InvoiceNum;
@@ -344,7 +348,6 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
 
     //#Varun - Generate Delivery Number
     public String generateDeliveryNumber() {
-        db.createTblInvoice();
         int count = 0;
         String DeliveryNum;
         String Uid = "SR00010";
@@ -359,6 +362,62 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
             DeliveryNum = "DEL"+Uid+date+count;
         }
         return DeliveryNum;
+    }
+    public void cancelClick(final Context context, final String note) {
+        final androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(context)
+                .setTitle("Invoice")
+                .setMessage("Do you want to print a copy?")
+                .setPositiveButton("Yes", null)
+                .setNegativeButton("Cancel", null)
+                .show();
+
+        Button positiveButton = dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    FindBluetoothDevice();
+                    openBluetoothPrinter();
+                    printData(note);
+                    Thread.sleep(5000);
+                    disconnectBt();
+
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+                dialog.dismiss();
+                Intent intent = new Intent(CreateInvoiceLinesActivity.this, ReceiptPrintActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateInvoiceLinesActivity.this, MenuActivity.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+    }
+
+    //#Varun - Generate Receipt Number
+    public String generateReceiptNumber() {
+        int count = 0;
+        String ReceiptNum;
+        String Uid = "SR00010";
+        DateFormat df = new SimpleDateFormat("ddMMyy");
+        String date = df.format(Calendar.getInstance().getTime());
+        //RE+SR00010+170920+1
+        if(db.getReceiptCount() == 0) {
+            count = 1;
+            ReceiptNum = "RE"+Uid+date+count;
+        }else{
+            count = db.getInvoiceCount() + 1;
+            ReceiptNum = "RE"+Uid+date+count;
+        }
+        return ReceiptNum;
     }
 
     //#Varun - Get Product VAT rate

@@ -2,6 +2,7 @@ package com.harelmallac.edendale;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -43,15 +44,28 @@ public class RemittanceActivity extends AppCompatActivity {
             list.add(new RemittanceClass("x Rs 0.20", ""));
             list.add(new RemittanceClass("x Rs 0.05", ""));
 
-            RemittanceAdapter adapter = new RemittanceAdapter(this, R.layout.remittance_list_layout, list);
+            final RemittanceAdapter adapter = new RemittanceAdapter(this, list);
             LVrmtList.setAdapter(adapter);
-
 
             Button validate = findViewById(R.id.button4);
             validate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    ArrayList<String> aPrice = new ArrayList<>();
+                    ArrayList<String> aQty = new ArrayList<>();
+
+                    for(int i = 0; i < list.size(); i++){
+                        String price = list.get(i).getRmtNum();
+                        String qty = list.get(i).getRmtQty();
+                        if (qty != "") {
+                            Log.e("selected values ", "Id : "+qty+"Product: "+price+"");
+                            aPrice.add(price);
+                            aQty.add(qty);
+                        }
+                    }
                     Intent intent = new Intent(RemittanceActivity.this, RemittancePreviewActivity.class);
+                    intent.putExtra("price", aPrice);
+                    intent.putExtra("amount", aQty);
                     startActivity(intent);
                 }
             });
