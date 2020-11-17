@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.harelmallac.edendale.MenuActivity;
 import com.harelmallac.edendale.R;
 import com.harelmallac.edendale.SearchInvoiceActivity;
+import com.harelmallac.edendale.database.DataBaseHelper;
 import com.harelmallac.edendale.model.ItemClass;
 import com.harelmallac.edendale.model.SearchInvoiceClass;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class SearchInvoiceAdapter extends BaseAdapter {
     private Context context;
     private static ArrayList<SearchInvoiceClass> sList;
+    DataBaseHelper db = new DataBaseHelper(context);
 
     LayoutInflater mInflater;
     public SearchInvoiceAdapter(Context context, ArrayList<SearchInvoiceClass> sList){
@@ -93,6 +95,14 @@ public class SearchInvoiceAdapter extends BaseAdapter {
                 public void onClick(View view) {
                     SearchInvoiceActivity x = new SearchInvoiceActivity();
                     x.cancelClick(context, position);
+                }
+            });
+
+            holder.print.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    SearchInvoiceActivity x = new SearchInvoiceActivity();
+                    x.printSelected(context, sList.get(position).getsInvName());
                 }
             });
 

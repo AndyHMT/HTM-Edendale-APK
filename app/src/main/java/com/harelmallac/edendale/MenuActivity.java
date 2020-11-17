@@ -119,7 +119,6 @@ public class MenuActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void Push() throws JSONException {
         PushToApi push = new PushToApi();
-
         try{
             //push.postSalesmanComplaints(this);
             push.postInvoicesHeader(this);
@@ -127,7 +126,20 @@ public class MenuActivity extends AppCompatActivity {
             Log.e("Push Complaint Exception",e.toString());
         }
 
-
     }
+
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//    public void Push() throws JSONException {
+//        PushToApi push = new PushToApi();
+//
+//        try{
+//            //push.postSalesmanComplaints(this);
+//            push.postInvoicesHeader(this);
+//        } catch (Exception e){
+//            Log.e("Push Complaint Exception",e.toString());
+//        }
+//
+//
+//    }
 
 }

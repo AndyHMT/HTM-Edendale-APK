@@ -56,6 +56,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(sqlCreateTableCustomer);
         String createStatementComplaint = "CREATE TABLE IF NOT EXISTS tbl_complaint(complaintId VARCHAR(1000) PRIMARY KEY, customerName VARCHAR, address VARCHAR, phoneNum VARCHAR, email VARCHAR, dairy NUMERIC, dry NUMERIC, frozen NUMERIC, liquid NUMERIC, productName VARCHAR, productId VARCHAR, productDescription VARCHAR, dateOfPurchase DATE, placeOfPurchase VARCHAR, prodQuality NUMERIC, taste NUMERIC, deposit NUMERIC, packaging NUMERIC, solubility NUMERIC, expiry NUMERIC, others VARCHAR, problemDescription VARCHAR, correctiveAction VARCHAR)";
         db.execSQL(createStatementComplaint);
+        String sqlCreateTableSales = "CREATE TABLE IF NOT EXISTS tbl_saleReceipt(invoiceId INTEGER PRIMARY KEY AUTOINCREMENT, customerId VARCHAR, date DATE, invoiceNumber VARCHAR, receiptNumber VARCHAR, saleType VARCHAR, amount DOUBLE, salesRepId VARCHAR, salesSiteId VARCHAR, chequeNum VARCHAR, bank VARCHAR,status VARCHAR)";
+        db.execSQL(sqlCreateTableSales);
     }
 
 
@@ -264,22 +266,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
 
-        public void createTblInvoice()
-        {
-            SQLiteDatabase db1 = this.getReadableDatabase();
-            String createTblInvoice ="CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
-            db1.execSQL(createTblInvoice);
-            Log.e("Table invoice","tbl_Invoice Created");
-        }
-
-        public void createTblSaleReceipt()
-        {
-
-            SQLiteDatabase db1 = this.getReadableDatabase();
-            String createTblSaleReceipt ="CREATE TABLE IF NOT EXISTS tbl_saleReceipt(receiptId VARCHAR(1000) PRIMARY KEY, customerId VARCHAR, date DATE, invoiceNumber VARCHAR, receiptNumber VARCHAR, saleType VARCHAR, amount REAL, salesRepId VARCHAR, salesSiteId VARCHAR, chequeNum VARCHAR, bank VARCHAR,status VARCHAR)";
-            db1.execSQL(createTblSaleReceipt);
-            Log.e("Table Sale Receipt","tbl_saleReceipt Created");
-        }
+//        public void createTblInvoice()
+//        {
+//            SQLiteDatabase db1 = this.getReadableDatabase();
+//            String createTblInvoice ="CREATE TABLE IF NOT EXISTS tbl_invoice(invoiceId INTEGER PRIMARY KEY, date DATE, status TEXT, invoiceNumber VARCHAR, deliveryNumber VARCHAR, orderNumber VARCHAR, salesSite VARCHAR, type VARCHAR, customerId VARCHAR, customerName VARCHAR, customerBrn VARCHAR, customerVatNo VARCHAR, customerVatCode VARCHAR, salesTypeId VARCHAR, addressId VARCHAR, addressName VARCHAR, userId VARCHAR, receiptNumber VARCHAR, mainSite VARCHAR, originalSalesRep VARCHAR, invoiceTotal VARCHAR, statusPost VARCHAR, cancelledOn Date)";
+//            db1.execSQL(createTblInvoice);
+//            Log.e("Table invoice","tbl_Invoice Created");
+//        }
+//
+//        public void createTblSaleReceipt()
+//        {
+//
+//            SQLiteDatabase db1 = this.getReadableDatabase();
+//            String createTblSaleReceipt ="CREATE TABLE IF NOT EXISTS tbl_saleReceipt(receiptId VARCHAR(1000) PRIMARY KEY, customerId VARCHAR, date DATE, invoiceNumber VARCHAR, receiptNumber VARCHAR, saleType VARCHAR, amount REAL, salesRepId VARCHAR, salesSiteId VARCHAR, chequeNum VARCHAR, bank VARCHAR,status VARCHAR)";
+//            db1.execSQL(createTblSaleReceipt);
+//            Log.e("Table Sale Receipt","tbl_saleReceipt Created");
+//        }
 
 
 
@@ -491,6 +493,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res.getCount();
     }
 
+    //#Varun - retrieve sales receipt count
+    public int getReceiptCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT DISTINCT invoiceNumber FROM tbl_saleReceipt";
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res.getCount();
+    }
+
+    public String getAddressId(String customerId) {
+        String result = "";
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_address WHERE customerId ='" + customerId + "'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+
+        if(res.getCount() < 0){
+            result = "address id Not found.";
+        }
+        else {
+            while (res.moveToNext()){
+                result = res.getString(0);
+            }
+        }
+        return result;
+    }
+
     //#Varun - insert into tbl_receipt after print receipt
     public String createReceipt(ArrayList<SaleInvoiceModel> saleInvoice) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -513,8 +541,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }
 
             String insertInvoice = "INSERT INTO tbl_invoice(date, status, invoiceNumber, deliveryNumber, orderNumber, salesSite, type, customerId, customerName, customerBrn, customerVatNo, customerVatCode, salesTypeId, addressId, addressName, userId, receiptNumber, mainSite, originalSalesRep, invoiceTotal, statusPost, cancelledOn) VALUES ('" + date + "', '" + "Open" + "', '" + saleInvoice.get(i).getInvoiceNumber() +
-                    "', '" + saleInvoice.get(i).getDeliveryNumber() + "', '" + "" + "', '" + saleInvoice.get(i).getSalesSite() + "', '" + saleInvoice.get(i).getType() + "', '" + customerId + "', '" + saleInvoice.get(i).getCustomer() + "', '" + brn + "', '" + vatNo + "', '" + getCustomerVatCode(saleInvoice.get(i).getCustomer()) + "', '" + saleInvoice.get(i).getSalesType() + "', '" + customerId + "', '" + saleInvoice.get(i).getAddress() + "', '" + saleInvoice.get(i).getUserId() + "', '" + saleInvoice.get(i).getReceiptNo() + "', '" + "EDLL" + "', '" + "" + "', '" + saleInvoice.get(i).getInvoiceTotal() + "', '" + "Not Posted" + "', '" + "" + "')";
+                    "', '" + saleInvoice.get(i).getDeliveryNumber() + "', '" + "" + "', '" + saleInvoice.get(i).getSalesSite() + "', '" + saleInvoice.get(i).getType() + "', '" + customerId + "', '" + saleInvoice.get(i).getCustomer() + "', '" + brn + "', '" + vatNo + "', '" + getCustomerVatCode(saleInvoice.get(i).getCustomer()) + "', '" + saleInvoice.get(i).getSalesType() + "', '" + getAddressId(customerId) + "', '" + saleInvoice.get(i).getAddress() + "', '" + saleInvoice.get(i).getUserId() + "', '" + saleInvoice.get(i).getReceiptNo() + "', '" + "EDLL" + "', '" + "" + "', '" + saleInvoice.get(i).getInvoiceTotal() + "', '" + "Not Posted" + "', '" + "" + "')";
             db.execSQL(insertInvoice);
+
+            String insertSalesReceipt = "INSERT INTO tbl_saleReceipt(customerId, date, invoiceNumber, receiptNumber, saleType, amount, salesRepId, salesSiteId, chequeNum, bank, status) VALUES ('" + customerId + "', '" + date + "', '" + saleInvoice.get(i).getInvoiceNumber() +
+                    "', '" + saleInvoice.get(i).getReceiptNo() + "', '" + saleInvoice.get(i).getType() + "', '" + saleInvoice.get(i).getInvoiceTotal() + "', '" + saleInvoice.get(i).getUserId() + "', '" + saleInvoice.get(i).getSalesSite() + "', '" + "" + "', '" + "" + "', '" + "Open" + "')";
+            db.execSQL(insertSalesReceipt);
         }
         return "Invoice created successfully.";
     }
@@ -532,6 +564,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     {
         db = this.getWritableDatabase();
         String selectStatement = "SELECT * FROM tbl_invoice where statusPost = 'Not Posted'";
+
+        Cursor res = db.rawQuery(selectStatement,null);
+        return res;
+    }
+
+    public Cursor getInvoiceDetails(String invoiceNum)
+    {
+        db = this.getWritableDatabase();
+        String selectStatement = "SELECT * FROM tbl_invoice where invoiceNumber ='" + invoiceNum + "'";
 
         Cursor res = db.rawQuery(selectStatement,null);
         return res;
@@ -643,6 +684,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getCustomerById(String customerId)
+    {
+        db = this.getWritableDatabase();
+        String query = "SELECT * FROM tbl_customer WHERE sageIdentifier = '"+customerId+"'";
+        Cursor res = db.rawQuery(query,null);
+        return res;
+    }
+
+    public Cursor getAddressInvoice(String addressId)
+    {
+        db = this.getWritableDatabase();
+        String query = " SELECT * FROM tbl_address WHERE sageIdentifier = '"+addressId+"'";
+        Cursor res = db.rawQuery(query,null);
+        return res ;
+    }
+
     public boolean checkCredentils(String username,String password)
     {
         db=this.getReadableDatabase();
@@ -664,8 +721,144 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //#Varun - Get selected invoice
+    public Cursor getSelectedInvoice(String invoiceNumber) {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT * FROM tbl_invoiceProduct as invOrder INNER JOIN tbl_product as product ON product.sageIdentifier = invOrder.productId WHERE invOrder.invoiceId ='" + invoiceNumber + "'";
 
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
 
+    //#Varun - Reports section queries
+    public Cursor getAllInvoicesCashCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT 'cash' AS type, sum(ip.prodPrice) AS amount, sum(ip.vatAmount) AS vat, sum(ip.discountAmount) AS disc FROM tbl_invoice i INNER JOIN tbl_invoiceProduct ip ON i.invoiceNumber = ip.invoiceId WHERE i.salesTypeId = 'Cash' AND i.status = 'Open'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getAllInvoicesCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT 'cash' AS type, count(*) AS total FROM tbl_invoice i WHERE salesTypeId = 'Cash' AND status = 'Open' UNION SELECT  'credit' AS type, count(*) AS total FROM tbl_invoice i WHERE salesTypeId = 'Credit' AND status = 'Open' UNION SELECT  'crn' AS type, count(*) AS total FROM tbl_invoice i WHERE status = 'Credit Note'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getAllInvoicesCreditCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT 'credit' AS type,  sum(ip.prodPrice) AS amount, sum(ip.vatAmount) AS vat, sum(ip.discountAmount) AS disc FROM tbl_invoice i INNER JOIN tbl_invoiceProduct ip ON i.invoiceNumber = ip.invoiceId WHERE i.salesTypeId = 'Credit' AND i.status = 'Open'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getAllInvoicesCrnCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(ip.prodPrice) AS amount, sum(ip.vatAmount) AS vat, sum(ip.discountAmount) AS disc FROM tbl_invoice i INNER JOIN tbl_invoiceProduct ip ON i.invoiceNumber = ip.invoiceId WHERE i.status = 'Credit Note'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getAllSalesReceiptCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(amount) AS totalAmount, count(*) AS totalCount FROM tbl_saleReceipt WHERE status = 'Open'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor cashInHand() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(amount) AS cashReceipt FROM tbl_saleReceipt WHERE saleType = 'Cash' AND status = 'Open'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getCheque() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(amount) AS chequeReceipt FROM tbl_saleReceipt WHERE saleType = 'Cheque' AND status ='Open'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getRemittance() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(amount) AS sumReceipt FROM tbl_saleReceipt WHERE status ='Open'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getProductiveCalls() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT count(*) AS totalCount FROM tbl_invoice WHERE status = 'Open'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getCancelledCash() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(ip.grossPrice*ip.selectedQty) AS amount, sum(ip.selectedQty) AS qty, sum(ip.vatAmount) AS vat, sum(ip.discountAmount) AS disc FROM tbl_invoice i INNER JOIN tbl_invoiceProduct ip ON i.invoiceNumber = ip.invoiceId WHERE i.status = 'Credit Note' AND i.salesTypeId = 'Cash'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getCancelledCredit() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(ip.grossPrice*ip.selectedQty) AS amount, sum(ip.selectedQty) AS qty, sum(ip.vatAmount) AS vat, sum(ip.discountAmount) AS disc FROM tbl_invoice i  INNER JOIN tbl_invoiceProduct ip ON  i.invoiceNumber = ip.invoiceId  WHERE i.salesTypeId = 'Credit' AND i.status = 'Credit Note'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+
+    }
+
+    public Cursor getCancelledCreditCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT count(*) AS totalCount FROM tbl_invoice WHERE status = 'Credit Note' AND salesTypeId = 'Credit'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getCancelledCashCount() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT count(*) AS totalCount FROM tbl_invoice WHERE status = 'Credit Note' AND salesTypeId = 'Cash'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getChequeReport() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT * FROM tbl_saleReceipt AS sR INNER JOIN tbl_customer AS c ON c.sageIdentifier = sR.customerId WHERE saleType = 'Cheque'";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getSalesReportProduct() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT sum(invProd.selectedQty) AS qty, prod.productName FROM tbl_invoice AS inv INNER JOIN tbl_invoiceProduct AS invProd ON inv.invoiceNumber = invProd.invoiceId INNER JOIN tbl_product AS prod ON prod.sageIdentifier = invProd.productId WHERE inv.status = 'Open' GROUP BY prod.productName";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+    public Cursor getCurrentStockProduct() {
+        db = this.getWritableDatabase();
+        String selectTableStatement= "SELECT * FROM tbl_invoiceSelectedProd AS selectedProd INNER JOIN tbl_product AS product ON selectedProd.productId = product.sageIdentifier ORDER BY product.productName";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
 
     ///
 

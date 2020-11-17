@@ -24,18 +24,18 @@
         <activity android:screenOrientation="portrait" android:name=".StockRequestActivity" />
         <activity android:screenOrientation="portrait" android:name=".SearchInvoiceActivity" />
         <activity android:screenOrientation="portrait" android:name=".DailySalesReportActivity" />
-        <activity android:screenOrientation="portrait" android:name=".DayEndSummaryActivity" />
+        <activity android:screenOrientation="portrait" android:name=".SplashActivity" />
         <activity android:screenOrientation="portrait" android:name=".ReceiptCustomerListActivity" />
         <activity android:screenOrientation="portrait" android:name=".RemittanceActivity" />
         <activity android:screenOrientation="portrait" android:name=".CurrentStockReportActivity" />
-        <activity android:screenOrientation="portrait" android:name=".ChequeReportActivity" />
-        <activity android:screenOrientation="portrait" android:name=".MenuActivity" />
+        <activity android:screenOrientation="portrait" android:name=".DayEndSummaryActivity" />
+        <activity android:screenOrientation="portrait" android:name=".ReportActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceLinesActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceInfoPageActivity" />
         <activity android:screenOrientation="portrait" android:name=".ComplaintFormActivity" />
         <activity android:screenOrientation="portrait" android:name=".ComplaintDescriptionActivity" />
         <activity android:screenOrientation="portrait" android:name=".ComplaintProductActivity" />
-        <activity android:screenOrientation="portrait" android:name=".ReportActivity" />
+        <activity android:screenOrientation="portrait" android:name=".ChequeReportActivity" />
         <activity android:screenOrientation="portrait" android:name=".AdminComplaintActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceActivity" />
         <activity android:screenOrientation="portrait" android:name=".MainActivity" />
@@ -43,7 +43,7 @@
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceListOfItemsActivity" />
         <activity android:screenOrientation="portrait" android:name=".StockRequestProductListActivity" />
         <activity android:screenOrientation="portrait" android:name=".RemittancePreviewActivity" />
-        <activity android:screenOrientation="portrait" android:name=".SplashActivity">
+        <activity android:screenOrientation="portrait" android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
