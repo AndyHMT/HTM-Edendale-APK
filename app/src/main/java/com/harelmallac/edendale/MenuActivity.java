@@ -1,11 +1,14 @@
 package com.harelmallac.edendale;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +33,40 @@ public class MenuActivity extends AppCompatActivity {
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Synchronize();
+//                Synchronize();
+                final AlertDialog dialog = new AlertDialog.Builder(MenuActivity.this)
+                        .setTitle("Sync Data")
+                        .setMessage("All invoices and receipts will be DELETED locally. Do you want to continue?")
+                        .setPositiveButton("Yes", null)
+                        .setNegativeButton("Cancel", null)
+                        .show();
+
+                Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                positiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        dialog.dismiss();
+                        Synchronize();
+                        final ProgressDialog pdialog = ProgressDialog.show(MenuActivity.this, "",
+                                "Loading. Please wait while the application is synchronizing", true);
+                        new CountDownTimer(120000, 1000) {
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                // TODO Auto-generated method stub
+
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                // TODO Auto-generated method stub
+
+                                pdialog.dismiss();
+                            }
+                        }.start();
+                    }
+                });
             }
         });
 
@@ -121,7 +157,7 @@ public class MenuActivity extends AppCompatActivity {
         PushToApi push = new PushToApi();
 
         try{
-            push.postSalesmanComplaints(this);
+            //push.postSalesmanComplaints(this);
             push.postInvoicesHeader(this);
         } catch (Exception e){
             Log.e("Push Complaint Exception",e.toString());

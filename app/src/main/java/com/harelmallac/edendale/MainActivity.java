@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.harelmallac.edendale.database.DataBaseHelper;
@@ -112,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("Session value",value);
 
                     Toast.makeText(MainActivity.this, "Login Succesful", Toast.LENGTH_SHORT).show();
+                    TextView wrongPassTxt = findViewById(R.id.wrongPassTxt);
+                    wrongPassTxt.setVisibility(View.INVISIBLE);
                     startActivity(loginIntent);
                     finish();
 
@@ -120,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     Log.e("asd","false");
-                    Toast.makeText(MainActivity.this, "Wrong credentials", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Wrong credentials", Toast.LENGTH_SHORT).show();
+                    TextView wrongPassTxt = findViewById(R.id.wrongPassTxt);
+                    wrongPassTxt.setVisibility(View.VISIBLE);
                 }
 
 

@@ -46,6 +46,8 @@
         android:layout_gravity="center"
         android:layout_weight="80"
         android:inputType="number"
+        android:focusable="false"
+        android:enabled="false"
         android:background="@drawable/edit_text_border"
         android:textAlignment="center" />
 

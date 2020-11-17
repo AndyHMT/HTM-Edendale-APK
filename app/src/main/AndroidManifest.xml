@@ -25,10 +25,10 @@
         <activity android:screenOrientation="portrait" android:name=".SearchInvoiceActivity" />
         <activity android:screenOrientation="portrait" android:name=".DailySalesReportActivity" />
         <activity android:screenOrientation="portrait" android:name=".DayEndSummaryActivity" />
+        <activity android:screenOrientation="portrait" android:name=".ReceiptCustomerListActivity" />
         <activity android:screenOrientation="portrait" android:name=".RemittanceActivity" />
         <activity android:screenOrientation="portrait" android:name=".CurrentStockReportActivity" />
         <activity android:screenOrientation="portrait" android:name=".ChequeReportActivity" />
-        <activity android:screenOrientation="portrait" android:name=".ReceiptCustomerListActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceLinesActivity" />
         <activity android:screenOrientation="portrait" android:name=".CreateInvoiceInfoPageActivity" />
         <activity android:screenOrientation="portrait" android:name=".ComplaintFormActivity" />

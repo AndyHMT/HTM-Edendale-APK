@@ -72,6 +72,32 @@ public class ProductAdapter extends BaseAdapter {
                     }
                 }
             });
+
+            holder.discount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                    if (s.toString().equals("0") || s.toString().equals("")){
+                        holder.quantity.setText("0");
+                        holder.quantity.setFocusable(false);
+                        holder.quantity.setEnabled(false);
+                    }
+                    else{
+                        holder.quantity.setFocusable(true);
+                        holder.quantity.setFocusableInTouchMode(true);
+                        holder.quantity.setEnabled(true);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
             //================================================================
 
             //Quantity

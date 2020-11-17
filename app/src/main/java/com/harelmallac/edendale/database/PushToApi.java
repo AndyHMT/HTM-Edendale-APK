@@ -60,12 +60,14 @@ public class PushToApi {
 
         if(res.getCount()<0)
         {
+            Log.e("VARUN", res.getCount()+"");
+
             Toast.makeText(context, "Not able to retrieve invoices from local database", Toast.LENGTH_SHORT).show();
         }
 
         while(res.moveToNext())
         {
-            SaleInvoiceModel invoiceModel = new SaleInvoiceModel("",res.getString(0),res.getString(3),res.getString(2),res.getString(1),res.getString(14),res.getString(7),res.getString(5),res.getString(13),res.getString(6),res.getString(16),res.getString(6),"",res.getString(17),res.getString(18),res.getString(19),res.getString(1),res.getString(20));
+            SaleInvoiceModel invoiceModel = new SaleInvoiceModel("",res.getString(1),res.getString(4),res.getString(3),res.getString(2),res.getString(14),res.getString(8),res.getString(6),res.getString(13),res.getString(7),res.getString(16), res.getString(6),"","",res.getString(18),res.getString(19),res.getString(1),res.getString(20));
             invoiceHeader.add(invoiceModel);
         }
 
@@ -93,13 +95,13 @@ public class PushToApi {
                 object.put("mainSite",saleInvoiceModel.getMainSite());
 
 
-
             }catch (Exception ex){
 
                 ex.printStackTrace();
             }
 
             array.put(object);
+            Log.e("ARRAY FSDV", array+"");
             db.updateInvoice(saleInvoiceModel.getInvoiceNumber());
         }
 

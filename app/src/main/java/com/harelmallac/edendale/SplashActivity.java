@@ -14,12 +14,12 @@ import com.harelmallac.edendale.database.DataBaseHelper;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT= 7000;
+    private static int SPLASH_TIME_OUT= 10000;
     private DataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(SplashActivity.this, "Application starting... ", Toast.LENGTH_LONG).show();
+//        Toast.makeText(SplashActivity.this, "Application starting... ", Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ApiRequest apiRequest = new ApiRequest();
