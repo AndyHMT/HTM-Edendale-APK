@@ -119,12 +119,11 @@ public class MenuActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void Push() throws JSONException {
         PushToApi push = new PushToApi();
-        try{
+
+            push.postInvoiceProducts(this);
             //push.postSalesmanComplaints(this);
-            push.postInvoicesHeader(this);
-        } catch (Exception e){
-            Log.e("Push Complaint Exception",e.toString());
-        }
+            //push.postInvoicesHeader(this);
+
 
     }
 

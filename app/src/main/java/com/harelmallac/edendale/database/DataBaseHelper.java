@@ -485,6 +485,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return qty;
     }
 
+    //#Varun - retrieve invoice product
+    public Cursor getInvoiceProduct() {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT * FROM tbl_invoiceProduct as prod INNER JOIN tbl_invoice as inv ON prod.invoiceId = inv.invoiceNumber";
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
+
     //#Varun - retrieve invoice count
     public int getInvoiceCount() {
         db = this.getWritableDatabase();
@@ -647,7 +656,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         String selectTableStatement="SELECT * FROM  " + CUSTOMER_TABLE;
 
-        Cursor res = db.rawQuery(selectTableStatement, null);
+        Cursor res = db.rawQuery(selectTableStatement,null);
         return res;
 
     }
@@ -882,7 +891,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     {
         db = this.getWritableDatabase();
         String query = "UPDATE tbl_invoice SET statusPost = 'Posted' WHERE invoiceNumber ='"+invoiceNumber+"'";
-        db.execSQL(query,null);
+        db.execSQL(query);
 
         return "Invoice "+invoiceNumber+" updated Succesfully";
     }
