@@ -133,7 +133,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     Push();
-                } catch (JSONException e) {
+                } catch (JSONException | InterruptedException e) {
                     e.printStackTrace();
                     Log.e("Push Error",e.toString());
                 }
@@ -154,13 +154,14 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void Push() throws JSONException {
+    public void Push() throws JSONException, InterruptedException {
         PushToApi push = new PushToApi();
 
+            push.postInvoicesHeader(this);
+            Thread.sleep(2000);
             push.postInvoiceProducts(this);
+            Thread.sleep(10000);
             //push.postSalesmanComplaints(this);
-            //push.postInvoicesHeader(this);
-
 
     }
 
