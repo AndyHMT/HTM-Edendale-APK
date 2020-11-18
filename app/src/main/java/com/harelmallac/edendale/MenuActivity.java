@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,9 +20,12 @@ import com.harelmallac.edendale.database.PushToApi;
 
 import org.json.JSONException;
 
+import java.text.ParseException;
+
 public class MenuActivity extends AppCompatActivity {
 
     private DataBaseHelper dataBaseHelper;
+    PushToApi push = new PushToApi();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +137,7 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     Push();
-                } catch (JSONException | InterruptedException e) {
+                } catch (JSONException | InterruptedException | ParseException e) {
                     e.printStackTrace();
                     Log.e("Push Error",e.toString());
                 }
@@ -154,13 +158,24 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void Push() throws JSONException, InterruptedException {
-        PushToApi push = new PushToApi();
+    public void Push() throws JSONException, InterruptedException, ParseException {
+
 
             push.postInvoicesHeader(this);
-            Thread.sleep(2000);
-            push.postInvoiceProducts(this);
-            Thread.sleep(10000);
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                push.postInvoiceProducts(getApplicationContext());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+            7000);
+
+
             //push.postSalesmanComplaints(this);
 
     }
