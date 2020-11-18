@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -95,6 +96,7 @@ public class SearchInvoiceActivity extends AppCompatActivity {
     }
 
     public void printSelected(Context context, String invoice){
+        //Toast.makeText(context, invoice, Toast.LENGTH_SHORT).show();
         String[] splitText = invoice.split("\\r?\\n");
         String invoiceNumber = splitText[1];
         String customerName = "";
@@ -104,7 +106,8 @@ public class SearchInvoiceActivity extends AppCompatActivity {
         String address = "";
         String customerBrn = "";
 
-        Cursor res1 = db.getInvoiceDetails(invoiceNumber);
+        DataBaseHelper db1 = new DataBaseHelper(context);
+        Cursor res1 = db1.getInvoiceDetails(invoiceNumber);
         if(res1.getCount() < 0){
             Log.e("Error","Invoice Header details Not found.");
         }
@@ -119,7 +122,7 @@ public class SearchInvoiceActivity extends AppCompatActivity {
             }
         }
 
-        Cursor res = db.getSelectedInvoice(invoiceNumber);
+        Cursor res = db1.getSelectedInvoice(invoiceNumber);
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         String time = new SimpleDateFormat("HH : mm", Locale.getDefault()).format(new Date());
 
@@ -152,7 +155,7 @@ public class SearchInvoiceActivity extends AppCompatActivity {
                 discountAmt = discountAmt + (Double.parseDouble(res.getString(2)) * (Double.parseDouble(res.getString(4))));
                 discountAmt = Math.round(discountAmt * 100) / 100.0;
 
-                String vatRate = generateProductVatRate(customerName, res.getString(10));
+                String vatRate = generateProductVatRate(context, customerName, res.getString(10));
                 if(vatRate.contains("0.0")) {
                     vatAmt = 0.00;
                     totalIncluVat = Double.parseDouble(df2.format(totalExclu));
@@ -168,47 +171,89 @@ public class SearchInvoiceActivity extends AppCompatActivity {
 
         }
         String note = header + body + footer;
+        //Toast.makeText(context, note, Toast.LENGTH_SHORT).show();
+
         try {
-            FindBluetoothDevice();
+//            Toast.makeText(context, "Printing method", Toast.LENGTH_SHORT).show();
+            FindBluetoothDevice(context);
             openBluetoothPrinter();
             printData(note);
             Thread.sleep(5000);
             disconnectBt();
 
-        } catch (IOException | InterruptedException e) {
+//        } catch (IOException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     //Start - Printing
-    void FindBluetoothDevice(){
+    public void FindBluetoothDevice(Context context){
+
         try{
+//            Toast.makeText(context, "1", Toast.LENGTH_SHORT).show();
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if(bluetoothAdapter == null)
             {
+//                Toast.makeText(context, "2", Toast.LENGTH_SHORT).show();
                 Log.e("Bluetooth Printer","No bluetooth device found");
             }
             if(bluetoothAdapter.isEnabled())
             {
+//                Toast.makeText(context, "3", Toast.LENGTH_SHORT).show();
                 Intent enableBt = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-                startActivityForResult(enableBt,0);
+//                Toast.makeText(context, "3.1", Toast.LENGTH_SHORT).show();
+                //startActivityForResult(enableBt,0);
+
+                if (context instanceof Activity) {
+                    ((Activity) context).startActivityForResult(enableBt, 0);
+                }
+//                Toast.makeText(context, "3.2", Toast.LENGTH_SHORT).show();
             }
             Set<BluetoothDevice> pairedDevice = bluetoothAdapter.getBondedDevices();
             if(pairedDevice.size()>0)
             {
+//                Toast.makeText(context, "4", Toast.LENGTH_SHORT).show();
                 for(BluetoothDevice pairedDev:pairedDevice)
                 {
                     //My Bluetooth printer name is Eden
                     if(pairedDev.getName().equals("Mobile Printer"))
                     {
                         bluetoothDevice = pairedDev;
-                        Toast.makeText(this, "Connected to"+pairedDev.getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Connected to"+pairedDev.getName(), Toast.LENGTH_SHORT).show();
                         Log.e("Connection State","Connected to"+pairedDev.getName());
                         break;
                     }
                 }
             }
+//            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//            if(bluetoothAdapter == null)
+//            {
+//                Log.e("Bluetooth Printer","No bluetooth device found");
+//            }
+//            if(bluetoothAdapter.isEnabled())
+//            {
+//                Intent enableBt = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+//                startActivityForResult(enableBt,0);
+//            }
+//            Set<BluetoothDevice> pairedDevice = bluetoothAdapter.getBondedDevices();
+//            if(pairedDevice.size()>0)
+//            {
+//                for(BluetoothDevice pairedDev:pairedDevice)
+//                {
+//                    //My Bluetooth printer name is Eden
+//                    if(pairedDev.getName().equals("Mobile Printer"))
+//                    {
+//                        bluetoothDevice = pairedDev;
+////                        Toast.makeText(this, "Connected to"+pairedDev.getName(), Toast.LENGTH_SHORT).show();
+//                        Log.e("Connection State","Connected to"+pairedDev.getName());
+//                        break;
+//                    }
+//                }
+//            }
         } catch (Exception ex){
+//            Toast.makeText(context, "catch method", Toast.LENGTH_SHORT).show();
+            Log.e("catch find",ex.getMessage());
             ex.printStackTrace();
         }
     }
@@ -297,7 +342,7 @@ public class SearchInvoiceActivity extends AppCompatActivity {
     {
         try {
             outputStream.write(msg.getBytes(Charset.forName("UTF-8")));
-            Toast.makeText(this, "Printing Text...", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Printing Text...", Toast.LENGTH_SHORT).show();
         }
         catch (Exception ex)
         {
@@ -316,7 +361,7 @@ public class SearchInvoiceActivity extends AppCompatActivity {
                 bluetoothAdapter.cancelDiscovery();
             }
             // bluetoothSocket.close();
-            Toast.makeText(this, "Printer Disconnected", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Printer Disconnected", Toast.LENGTH_SHORT).show();
         }
         catch (Exception ex)
         {
@@ -334,9 +379,10 @@ public class SearchInvoiceActivity extends AppCompatActivity {
     }
 
     //#Varun - Get Product VAT rate
-    public String generateProductVatRate(String customer, String product) {
+    public String generateProductVatRate(Context context, String customer, String product) {
         String vatRate = "";
-        Cursor res = db.getProductVat(customer, product);
+        DataBaseHelper db1 = new DataBaseHelper(context);
+        Cursor res = db1.getProductVat(customer, product);
         if(res.getCount() < 0){
             Log.e("Error","No product vat found");
         }

@@ -101,6 +101,7 @@ public class SearchInvoiceAdapter extends BaseAdapter {
             holder.print.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Toast.makeText(context, "print click", Toast.LENGTH_SHORT).show();
                     SearchInvoiceActivity x = new SearchInvoiceActivity();
                     x.printSelected(context, sList.get(position).getsInvName());
                 }
