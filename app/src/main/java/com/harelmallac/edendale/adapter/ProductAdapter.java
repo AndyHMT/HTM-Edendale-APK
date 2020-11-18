@@ -73,31 +73,31 @@ public class ProductAdapter extends BaseAdapter {
                 }
             });
 
-            holder.discount.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                    if (s.toString().equals("0") || s.toString().equals("")){
-                        holder.quantity.setText("0");
-                        holder.quantity.setFocusable(false);
-                        holder.quantity.setEnabled(false);
-                    }
-                    else{
-                        holder.quantity.setFocusable(true);
-                        holder.quantity.setFocusableInTouchMode(true);
-                        holder.quantity.setEnabled(true);
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
+//            holder.discount.addTextChangedListener(new TextWatcher() {
+//                @Override
+//                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                }
+//
+//                @Override
+//                public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+//                    if (s.toString().equals("0") || s.toString().equals("")){
+//                        holder.quantity.setText("0");
+//                        holder.quantity.setFocusable(false);
+//                        holder.quantity.setEnabled(false);
+//                    }
+//                    else{
+//                        holder.quantity.setFocusable(true);
+//                        holder.quantity.setFocusableInTouchMode(true);
+//                        holder.quantity.setEnabled(true);
+//                    }
+//                }
+//
+//                @Override
+//                public void afterTextChanged(Editable editable) {
+//
+//                }
+//            });
             //================================================================
 
             //Quantity
@@ -105,14 +105,14 @@ public class ProductAdapter extends BaseAdapter {
                     .findViewById(R.id.QuantityValue);
             holder.quantity.setTag(position);
             holder.quantity.setText(pList.get(position).getQuantity()+"");
-            if(pList.get(position).getQuantity().equals("0")|| pList.get(position).getQuantity().equals("")){
-
-            }
-            else{
-                holder.quantity.setFocusable(true);
-                holder.quantity.setFocusableInTouchMode(true);
-                holder.quantity.setEnabled(true);
-            }
+//            if(pList.get(position).getQuantity().equals("0")|| pList.get(position).getQuantity().equals("")){
+//
+//            }
+//            else{
+//                holder.quantity.setFocusable(true);
+//                holder.quantity.setFocusableInTouchMode(true);
+//                holder.quantity.setEnabled(true);
+//            }
             //================================================================
             holder.quantity.setOnFocusChangeListener(new View.OnFocusChangeListener()
             {

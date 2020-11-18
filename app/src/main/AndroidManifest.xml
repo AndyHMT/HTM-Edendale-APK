@@ -38,7 +38,7 @@
             android:name=".StockRequestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchInvoiceActivity"
+            android:name=".RemittancePreviewActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".DailySalesReportActivity"
@@ -50,7 +50,7 @@
             android:name=".ReceiptCustomerListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RemittanceActivity"
+            android:name=".CreateInvoiceListOfItemsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CurrentStockReportActivity"
@@ -59,7 +59,7 @@
             android:name=".ChequeReportActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateInvoiceLinesActivity"
+            android:name=".SearchInvoiceActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CreateInvoiceInfoPageActivity"
@@ -92,13 +92,13 @@
             android:name=".MenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CreateInvoiceListOfItemsActivity"
+            android:name=".CreateInvoiceLinesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".StockRequestProductListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RemittancePreviewActivity"
+            android:name=".RemittanceActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"

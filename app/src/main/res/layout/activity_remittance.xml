@@ -43,14 +43,16 @@
     <ListView
         android:id="@+id/LVrmtList"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="370dp"
+        android:layout_marginBottom="30dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="3dp"
+        android:focusableInTouchMode="false"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/complaintTitle"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="3dp"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button4"
@@ -63,5 +65,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/round_button"/>
+
+    <TextView
+        android:id="@+id/textView114"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:text="Amount"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/LVrmtList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/complaintTitle" />
+
+    <TextView
+        android:id="@+id/amountPreview"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roud_border"
+        android:paddingLeft="5dp"
+        android:paddingTop="2dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="2dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/LVrmtList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView114"
+        app:layout_constraintTop_toBottomOf="@+id/complaintTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

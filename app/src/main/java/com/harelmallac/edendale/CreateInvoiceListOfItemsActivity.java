@@ -73,7 +73,7 @@ public class CreateInvoiceListOfItemsActivity extends AppCompatActivity {
                 for(int i = 0; i < list.size(); i++){
                     String discount = list.get(i).getDiscount();
                     String qty = list.get(i).getQuantity();
-                    if ((discount != "0") && (qty != "0")) {
+                    if ((qty != "0")) {
                         Log.e("selected values ", "Id : "+list.get(i).getId()+"Product: "+list.get(i).getName()+"Discount: "+discount+"Quantity: "+qty);
                         aPid.add(list.get(i).getId());
                         aProductName.add(list.get(i).getName());
