@@ -29,9 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@+id/QuantityValue"
         android:textAlignment="center"
+        android:inputType="numberDecimal"
         android:id="@+id/DiscountValue"
-        android:inputType="number"
         android:layout_weight="80"
         android:background="@drawable/edit_text_border"/>
 
@@ -40,12 +42,13 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:inputType="numberDecimal"
+
         android:id="@+id/QuantityValue"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_weight="80"
-        android:inputType="number"
         android:background="@drawable/edit_text_border"
         android:textAlignment="center" />
 
