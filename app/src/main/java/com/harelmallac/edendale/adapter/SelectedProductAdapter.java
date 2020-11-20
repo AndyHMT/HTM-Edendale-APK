@@ -1,21 +1,16 @@
 package com.harelmallac.edendale.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.harelmallac.edendale.CreateInvoiceLinesActivity;
 import com.harelmallac.edendale.R;
-import com.harelmallac.edendale.model.ItemClass;
 import com.harelmallac.edendale.model.ProductLinesClass;
 
 import java.util.ArrayList;
@@ -59,7 +54,7 @@ public class SelectedProductAdapter extends BaseAdapter {
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.list_view_lines_layout, null);
 
-            Button btnRemove = (Button) convertView.findViewById(R.id.ProductCancel);
+            Button btnRemove = (Button) convertView.findViewById(R.id.Productdel);
             btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -72,13 +67,13 @@ public class SelectedProductAdapter extends BaseAdapter {
 
             //Lists of products
             holder.product = (TextView) convertView
-                    .findViewById(R.id.ProductName);
+                    .findViewById(R.id.pName);
             holder.product.setTag(position);
             holder.product.setText(pList.get(position).getName()+"");
 
             //Selected Qty
             holder.qty = (TextView) convertView
-                    .findViewById(R.id.ProductQty);
+                    .findViewById(R.id.pQty);
             holder.qty.setTag(position);
             holder.qty.setText(pList.get(position).getQty()+"");
 

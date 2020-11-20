@@ -27,29 +27,6 @@
         android:layout_weight="1"/>
 
 
-
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:id="@+id/ProductPrice"
-        android:layout_weight="1"/>
-
-
-
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:id="@+id/ProductTotal"
-        android:layout_weight="1"/>
-
-
-
     <Button
         android:layout_marginRight="25dp"
         android:layout_width="0dp"

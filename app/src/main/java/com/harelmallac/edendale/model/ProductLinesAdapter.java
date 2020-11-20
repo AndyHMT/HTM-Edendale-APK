@@ -1,17 +1,13 @@
 package com.harelmallac.edendale.model;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -19,7 +15,6 @@ import com.harelmallac.edendale.CreateInvoiceLinesActivity;
 import com.harelmallac.edendale.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductLinesAdapter extends ArrayAdapter<ProductLinesClass> {
     private static final String TAG = "ProductLineListAdapter";
@@ -43,11 +38,11 @@ public class ProductLinesAdapter extends ArrayAdapter<ProductLinesClass> {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_lines_layout,null, true);
 
 
-        TextView ProNameView = view.findViewById(R.id.ProductName);
-        TextView ProQtyView = view.findViewById(R.id.ProductQty);
+        TextView ProNameView = view.findViewById(R.id.pName);
+        TextView ProQtyView = view.findViewById(R.id.pQty);
         TextView ProPriceView = view.findViewById(R.id.ProductPrice);
         TextView ProTotalView = view.findViewById(R.id.ProductTotal);
-        Button zx = view.findViewById(R.id.ProductCancel);
+        Button zx = view.findViewById(R.id.Productdel);
 
         ProNameView.setText(ProductLineList.get(position).getName());
         ProQtyView.setText(ProductLineList.get(position).getQty());

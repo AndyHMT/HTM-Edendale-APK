@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_weight="4">
+    android:layout_weight="100">
 
     <TextView
         android:id="@+id/stkMainProdName"
-        android:layout_width="0dp"
+        android:layout_width="278dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_weight="3"
-        android:paddingLeft="10dp"
-        android:paddingRight="15dp"
-        android:textAlignment="viewStart"
-        android:textSize="15sp"
-        tools:ignore="RtlCompat" />
+        android:layout_marginLeft="5dp"
+        android:layout_weight="40"
+        android:textAlignment="center" />
 
-    <TextView
+
+    <EditText
         android:id="@+id/stkMainProdQty"
-        android:layout_width="0dp"
+        android:layout_width="63dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textSize="15sp" />
+
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="80"
+        android:background="@drawable/edit_text_border"
+        android:inputType="numberDecimal"
+        android:textAlignment="center" />
 
 </LinearLayout>

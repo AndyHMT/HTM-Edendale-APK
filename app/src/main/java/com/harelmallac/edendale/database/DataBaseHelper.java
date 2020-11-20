@@ -770,6 +770,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor getAllProducts() {
+        db = this.getWritableDatabase();
+        String selectTableStatement="SELECT productName FROM tbl_product order by 1";
+
+        Cursor res = db.rawQuery(selectTableStatement, null);
+        return res;
+    }
+
     public Cursor getCustomerCreateInvoiceInfo(String customerName)
     {
         db = this.getWritableDatabase();

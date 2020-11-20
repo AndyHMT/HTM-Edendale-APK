@@ -41,9 +41,9 @@ public class StockRequestProductListActivity extends AppCompatActivity {
         }
 //        ======================================================================
 
-
-        StockRequestProductAdapter adapter = new StockRequestProductAdapter(this, R.layout.stock_product_list_layout, list);
-        LVprods.setAdapter(adapter);
+//Commented by Varun
+        //StockRequestProductAdapter adapter = new StockRequestProductAdapter(this, R.layout.stock_product_list_layout, list);
+        //LVprods.setAdapter(adapter);
 
     }
 }

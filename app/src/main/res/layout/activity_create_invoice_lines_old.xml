@@ -110,7 +110,7 @@
         android:background="@drawable/round_button"/>
 
     <ListView
-        android:id="@+id/LVLines"
+        android:id="@+id/lvStock"
         android:layout_width="409dp"
         android:layout_height="300dp"
         android:layout_marginStart="1dp"
@@ -129,6 +129,6 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LVLines" />
+        app:layout_constraintTop_toBottomOf="@+id/lvStock" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

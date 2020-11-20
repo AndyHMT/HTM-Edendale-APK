@@ -1,29 +1,20 @@
 package com.harelmallac.edendale;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,8 +23,6 @@ import com.harelmallac.edendale.adapter.TotalInfoAdapter;
 import com.harelmallac.edendale.database.DataBaseHelper;
 import com.harelmallac.edendale.model.IdentityModel;
 import com.harelmallac.edendale.model.InvoiceProductModel;
-import com.harelmallac.edendale.model.ItemClass;
-import com.harelmallac.edendale.model.ProductLinesAdapter;
 import com.harelmallac.edendale.model.ProductLinesClass;
 import com.harelmallac.edendale.model.SaleInvoiceModel;
 import com.harelmallac.edendale.model.TotalInfoClass;
@@ -48,7 +37,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.UUID;
 
@@ -123,7 +111,7 @@ public class CreateInvoiceLinesActivity extends AppCompatActivity {
             selectedQuantity = getIntent().getStringArrayListExtra("productQuantity");
         }
 
-        LVLines = findViewById(R.id.LVLines);
+        LVLines = findViewById(R.id.lvStock);
         LVTotals = findViewById(R.id.LVTotals);
 
         while (totalList.size() != 0){

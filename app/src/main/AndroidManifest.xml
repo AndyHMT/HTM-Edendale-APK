@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PaymentReceiptActivity"></activity>
+
+        <activity
+            android:name=".StockRequestListActivity"
+            android:label="@string/title_activity_stock_request_list"  android:screenOrientation="portrait"></activity>
+        <activity android:name=".PaymentReceiptActivity"  android:screenOrientation="portrait" />
         <activity
             android:name=".Menu2Activity"
             android:screenOrientation="portrait" />
@@ -35,7 +39,7 @@
             android:name=".SearchInvoicePreviewPageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StockRequestActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RemittancePreviewActivity"
@@ -101,7 +105,7 @@
             android:name=".RemittanceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".StockRequestActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
