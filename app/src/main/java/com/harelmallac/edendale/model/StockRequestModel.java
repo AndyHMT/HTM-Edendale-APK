@@ -10,11 +10,11 @@ public class StockRequestModel {
     private IdentityModel product;
     private String location;
     private String company;
-    private Date date;
+    private String date;
 
     private StockRequestModel(){}
 
-    public StockRequestModel(float requestedQty, String requestId, String userId, IdentityModel product, String location, String company, Date date) {
+    public StockRequestModel(float requestedQty, String requestId, String userId, IdentityModel product, String location, String company, String date) {
         this.requestedQty = requestedQty;
         this.requestId = requestId;
         this.userId = userId;
@@ -72,11 +72,11 @@ public class StockRequestModel {
         this.company = company;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

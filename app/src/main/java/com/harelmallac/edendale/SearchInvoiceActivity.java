@@ -87,7 +87,6 @@ public class SearchInvoiceActivity extends AppCompatActivity {
     }
 
 
-
     public void previewClick(Context context, String txt){
         Intent intent = new Intent(context, SearchInvoicePreviewPageActivity.class);
         intent.putExtra("name",txt);
