@@ -7,12 +7,12 @@ public class ComplaintsModel {
     private String customerName;
     private String title;
     private String description;
-    private Date date;
+    private String date;
     private String userId;
 
     public ComplaintsModel(){}
 
-    public ComplaintsModel(String customerName, String title, String description, Date date, String userId) {
+    public ComplaintsModel(String customerName, String title, String description, String date, String userId) {
         this.customerName = customerName;
         this.title = title;
         this.description = description;
@@ -44,11 +44,11 @@ public class ComplaintsModel {
         this.description = description;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

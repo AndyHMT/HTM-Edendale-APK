@@ -976,6 +976,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    //#Varun - Second Main Menu Queries
+    public String saveComplaint(ComplaintsModel complaints)
+    {
+        db = this.getWritableDatabase();
+        String createStatement = "CREATE TABLE IF NOT EXISTS tbl_complaintOrder(complaintId INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, customerName VARCHAR, title VARCHAR, description VARCHAR, userId VARCHAR)";
+        db.execSQL(createStatement);
+
+        String insertStatement = "INSERT INTO tbl_complaintOrder(date, customerName, title, description, userId) VALUES ('"+complaints.getDate()+
+                "', '"+complaints.getCustomerName()+"', '"+complaints.getTitle()+"', '"+complaints.getDescription()+
+                "', '"+complaints.getUserId()+"')";
+
+        db.execSQL(insertStatement);
+        Log.e("List of complaint added",complaints.getCustomerName()+"");
+        return "Complaints added succesfully";
+    }
+
     ///
 
     //ALL UPDATE METHOD
